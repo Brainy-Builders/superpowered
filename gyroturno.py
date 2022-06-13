@@ -66,7 +66,7 @@ def gyroturno2(angle, rate_control=1, speed=0):
     return angle
 
 
-    
+
 def gyroturno(angle, rate_control=1, speed=0):
     previous_speed = 10
     gyroangle = gyro.angle()
@@ -75,7 +75,7 @@ def gyroturno(angle, rate_control=1, speed=0):
         while gyroangle > 180:
             gyroangle -= 360
 
-    if gyroangle < -180
+    elif gyroangle < -180
         while gyroangle < -180:
             gyroangle += 360
 
@@ -94,4 +94,4 @@ def gyroturno(angle, rate_control=1, speed=0):
             difference=min(abs(3*(angle - gyro.angle())* rate_control), previous_speed)
             previous_speed += 1
             robot.drive(speed, (-1 * max(difference, 9)))  
-    return angle
+    return gyro.angle()
