@@ -55,7 +55,7 @@ except:
     left_colorsensor = "None"
     panic_alarm()
 try:
-    right_colorsensor = ColorSensor(Port.S2)
+    right_colorsensor = ColorSensor(Port.S4)
 except:
     right_colorsensor = "None"
     panic_alarm()

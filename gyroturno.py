@@ -75,7 +75,7 @@ def gyroturno(angle, rate_control=1, speed=0):
         while gyroangle > 180:
             gyroangle -= 360
 
-    elif gyroangle < -180
+    elif gyroangle < -180:
         while gyroangle < -180:
             gyroangle += 360
 
