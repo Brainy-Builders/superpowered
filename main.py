@@ -7,7 +7,7 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 from gyroturno import *
-
+from pidlinefollow import *
 def gyrotest():
     gyro.reset_angle(0)
     gyroturno(90)
@@ -29,5 +29,5 @@ def turntest():
         x += 1
         if x == 4:
             break
-
+pidline('right', 1000, 80)
 
