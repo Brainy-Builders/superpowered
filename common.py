@@ -35,7 +35,7 @@ main_motor = Motor(Port.C)
 #axle_track = 108 # Cor-3 robot from 2019 season
 axle_track = 96  # Chloe's robot for 2020 season
 
-gyro = GyroSensor(Port.S3, direction=Direction.CLOCKWISE)
+gyro = GyroSensor(Port.S2, direction=Direction.CLOCKWISE)
 gyro.reset_angle(0)
 cwd = 90
 cat = 134 

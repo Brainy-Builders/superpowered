@@ -9,11 +9,25 @@ from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 from gyroturno import *
 
 def gyrotest():
-    gyro.reset_angle(360)
+    gyro.reset_angle(0)
     gyroturno(90)
-    gyro.reset_angle(-720)
-    gyroturno(-90)
-    gyro.reset_angle(405)
-    gyroturno(90)
+    gyroturno(180)
+    gyroturno(270)
+    gyroturno(0)
     robot.stop()
-gyrotest()
+    gyroturno(-90)
+    gyroturno(-180)
+    gyroturno(-270)
+    gyroturno(-0)
+    robot.stop()
+#gyrotest()
+def turntest():
+    robot.settings(turn_rate = 100)
+    x = 0
+    while True:
+        robot.turn(-90)
+        x += 1
+        if x == 4:
+            break
+
+
