@@ -39,5 +39,4 @@ while True:
     time.sleep(5)
 
 #IF YOU FOUND THIS YOU ARE COOL
-#IF YOU FOUND THIS YOU ARE COOL
 #😎
