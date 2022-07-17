@@ -32,4 +32,10 @@ def turntest():
             break
 pidline('right', 1000, 80)
 
+print(robot.settings(600,300,100,100))
+while True:
+    robot.straight(500)
+    gyroturno.gyro_stop()
+    time.sleep(5)
+
 #IF YOU FOUND THIS YOU ARE COOL
