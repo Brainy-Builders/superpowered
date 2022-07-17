@@ -9,34 +9,12 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 from gyroturno import *
 from pidlinefollow import *
-def gyrotest():
-    gyro.reset_angle(0)
-    gyroturno(90)
-    gyroturno(180)
-    gyroturno(270)
-    gyroturno(0)
-    robot.stop()
-    gyroturno(-90)
-    gyroturno(-180)
-    gyroturno(-270)
-    gyroturno(-0)
-    robot.stop()
-#gyrotest()
-def turntest():
-    robot.settings(turn_rate = 100)
-    x = 0
-    while True:
-        robot.turn(-90)
-        x += 1
-        if x == 4:
-            break
-pidline('right', 1000, 80)
+import menu
 
-print(robot.settings(600,300,100,100))
-while True:
-    robot.straight(500)
-    gyroturno.gyro_stop()
-    time.sleep(5)
+#gyrotest()
+
+
+
 
 #IF YOU FOUND THIS YOU ARE COOL
 #IF YOU FOUND THIS YOU ARE COOL
