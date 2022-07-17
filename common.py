@@ -1,4 +1,4 @@
-#
+# Where everything is defined
 # Objects defined here can be used in any of the files
 # These should include the ev3 and robot
 # This way the ev3 and robot don't need to be always passed to functions are arguments
