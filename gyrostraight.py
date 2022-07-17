@@ -30,3 +30,4 @@ def test1():
     gyro_straight(distance=400, speed=-300, reset_angle=0, GCV=2.5)
     ev3.speaker.beep()
     time.sleep(2)
+    
