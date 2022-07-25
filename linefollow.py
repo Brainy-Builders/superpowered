@@ -41,7 +41,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     DRIVE_SPEED = speed
     # For example, if the light value deviates from the threshold by 10, the robot
     # steers at 10*1.2 = 12 degrees per second.
-    if side.lower() == "left":
+    if side.lower() == "right":
         PROPORTIONAL_GAIN = 0.67 * gain_mod
     else:
         PROPORTIONAL_GAIN = -0.67 * gain_mod
@@ -59,9 +59,9 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
         robot.drive(DRIVE_SPEED, turn_rate)
 
     while robot.distance() < go_distance:
-        apply_corrections()
+      apply_corrections()
     
-    if find_cross == True:
+      if find_cross == True:
         while detection_sensor.reflection() < (WHITE - 10):
             apply_corrections()
             #ev3.screen.print(detection_sensor.reflection())
@@ -69,9 +69,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
         while detection_sensor.reflection() > (BLACK + 10):
             apply_corrections()
             #ev3.screen.print(detection_sensor.reflection())
-        ev3.screen.print("found black")
-            
-        
+        ev3.screen.print("found black")        
             
 def test1():
     time.sleep(5)

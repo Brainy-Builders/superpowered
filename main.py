@@ -16,5 +16,5 @@ import menu
 
 
 
-#IF YOU FOUND THIS YOU ARE COOL
+#IF YOU FOUND THIS YOU ARE dumb
 #😎
