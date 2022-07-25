@@ -20,6 +20,8 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 import time
 import math
+from gyroturno import *
+
 # Define some useful things
 min_font = Font(size=6)
 tiny_font = Font(size=6)

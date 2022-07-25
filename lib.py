@@ -18,7 +18,7 @@ def callum():
         #time.sleep(5)
     #line_follow(0, 100, "left", "right", find_cross=True)
     #gyro_stop()
-    line_a_line()
+    line_a_line(speed=50, speed_approach = 200)
 def turntest():
     robot.settings(turn_rate = 100)
     x = 0

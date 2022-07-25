@@ -123,8 +123,8 @@ while True:
             selected += 1
     elif Button.CENTER in ev3.buttons.pressed():
         ev3.speaker.beep()
-        if selected != 3:
-            robot.drive(-100, 0)
+        # Back up against the wall, reset gyro angle
+        robot.drive(-100, 0)
         time.sleep(0.25)
         gyro.reset_angle(0)
         robot.stop()

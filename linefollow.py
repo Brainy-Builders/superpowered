@@ -41,7 +41,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     DRIVE_SPEED = speed
     # For example, if the light value deviates from the threshold by 10, the robot
     # steers at 10*1.2 = 12 degrees per second.
-    if side.lower() == "right":
+    if side.lower() == "left":
         PROPORTIONAL_GAIN = 0.67 * gain_mod
     else:
         PROPORTIONAL_GAIN = -0.67 * gain_mod
