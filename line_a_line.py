@@ -56,21 +56,25 @@ def test_a_line():
         ev3.screen.print("right wheel angle (record)", right_wheel.angle())
         time.sleep(30)
 
-def line_a_line(speed=70, speed_approach = 200):
+def line_a_line(speed=70, speed_approach = 200,white=True):
     fraction = -45/75
  
-    #while (right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10)) and (right_colorsensor.rgb()[0] < AVG and left_colorsensor.rgb()[0] < AVG):
-    while ((right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10))):
-        robot.drive(speed_approach, 0)
- 
-    # Don't overshoot the white
-    robot.stop()
-    left_wheel.hold()
-    right_wheel.hold()
-    time.sleep(0.25)
+    if(white):
+        #while (right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10)) and (right_colorsensor.rgb()[0] < AVG and left_colorsensor.rgb()[0] < AVG):
+        while ((right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10))):
+            robot.drive(speed_approach, 0)
+    
+        # Don't overshoot the white
+        robot.stop()
+        left_wheel.hold()
+        right_wheel.hold()
+        time.sleep(0.25)
 
-    # Now go find black
-    robot.drive(speed, 0)
+        # Now go find black
+        robot.drive(speed, 0)
+    else:
+        robot.drive(speed_approach,0)
+
     while True:
         if (right_colorsensor.reflection() <= (BLACK + 10)) or (
             left_colorsensor.reflection() <= (BLACK + 10)):
