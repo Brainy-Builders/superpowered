@@ -9,6 +9,16 @@ from gyroturno import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
+def cs_data():
+    i = 0
+    cs_data = open(r"cs_data_trey", "w")
+    while not Button.CENTER in ev3.buttons.pressed():
+        ev3.screen.print(i)
+        i += 1
+        my_data = (left_colorsensor.rgb(), left_colorsensor.reflection(), left_colorsensor.ambient(), left_colorsensor.color(), "\n")
+        my_line = ",".join(map(str,my_data))
+        cs_data.write(my_line)
+    cs_data.close()
 def callum():
     print(robot.settings(600,300,100,100))
     #while True:
