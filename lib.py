@@ -9,6 +9,15 @@ from gyroturno import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
+def get_color(reflectivity,green):
+    if reflectivity <= 14.00:
+            color = Color.BLACK
+    if reflectivity >  14.00:
+        if green <= 78.50:
+                color = "Other"
+        if green >  78.50:
+                color = Color.WHITE
+    return color
 def cs_data(truth):
     i = 0
     cs_data = open(r"cs_data_trey", "w")
@@ -66,6 +75,6 @@ def view_color():
     while Button.CENTER not in ev3.buttons.pressed():
         time.sleep(.1)
         ev3.screen.clear()
-        r_color = str(right_colorsensor.color())
-        l_color = str(left_colorsensor.color())
+        r_color = get_color(right_colorsensor.reflection(),right_colorsensor.rgb()[2])
+        l_color = get_color(left_colorsensor.reflection(),left_colorsensor.rgb()[2])
         ev3.screen.print("left color: {}\nright color: {}".format(l_color, r_color))
