@@ -135,5 +135,5 @@ while True:
         robot.stop()
         
         functions(selected)
-        selected += 1
+
         data['values'] = load_data()
