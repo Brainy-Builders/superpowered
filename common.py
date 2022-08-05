@@ -65,8 +65,8 @@ except:
 # if color sensors are not attached panic
 inf = 5000
 BLACK = 6
-WHITE = 76
-
+#WHITE = 76
+WHITE = 90
 main_motor = Motor(Port.C)
 def move_motor(speed, angle, mustWait=True):
       main_motor = Motor(Port.C)

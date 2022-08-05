@@ -61,13 +61,13 @@ def line_a_line(speed=70, speed_approach = 200,white=True):
     
     if(white):
         #while (right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10)) and (right_colorsensor.rgb()[0] < AVG and left_colorsensor.rgb()[0] < AVG):
-        while ((right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10))):
+        while ((right_colorsensor.reflection() <= (WHITE - 5)) and (left_colorsensor.reflection() <= (WHITE - 5))):
             robot.drive(speed_approach, 0)
     
         # Don't overshoot the white
         robot.stop()
-        left_wheel.hold()
-        right_wheel.hold()
+        #left_wheel.hold()
+        #right_wheel.hold()
         time.sleep(0.25)
 
         # Now go find black

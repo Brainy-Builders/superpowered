@@ -32,18 +32,17 @@ from common import (
 # An example of this code is
 # line_follow(followlength=200, followspeed=100, "left")
 # followlength=0 goes until an intersection
-def pidline(sensor, distance, speed, porportional = 0.6):
+def pidline(sensor, distance, speed, porportional = 0.35, integral = 0, derivitive = 0):
    Td = distance # target distance
    Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
    
    Kp = porportional #  the Constant 'K' for the 'p' proportional controller
    
-   integral = 0 # initialize
-   Ki = 0.025 #  the Constant 'K' for the 'i' integral term
+    # initialize
+   Ki = 0 #  the Constant 'K' for the 'i' integral term
    
-   derivative = 0 # initialize
    lastError = 0 # initialize
-   Kd = 3 #  the Constant 'K' for the 'd' derivative term
+   Kd = 0 #  the Constant 'K' for the 'd' derivative term
    if sensor == 'right':
       follow_sensor = right_colorsensor
    else:

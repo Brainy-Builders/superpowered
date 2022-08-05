@@ -48,7 +48,7 @@ def turntest():
         if x == 4:
             break
 def pidtest():
-    pidline('right', 1000000000000000, 80)
+    pidline('left', 1000000000000000, 30, 0.45, 0.9, 1.1)
 def gyrotest():
     gyro.reset_angle(0)
     gyroturno(90)
