@@ -73,7 +73,7 @@ def gyrotest():
 def view_color():
     ev3.screen.set_font(med_font)
     while Button.CENTER not in ev3.buttons.pressed():
-        time.sleep(.1)
+        time.sleep(.5)
         ev3.screen.clear()
         r_color = get_color(right_colorsensor.reflection(),right_colorsensor.rgb()[2])
         l_color = get_color(left_colorsensor.reflection(),left_colorsensor.rgb()[2])
