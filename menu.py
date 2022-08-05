@@ -26,6 +26,7 @@ lis = [
     "turn test",
     "pid test",
     "gyro test",
+    "color collect",
     "color viewer"
     ]
 def thread():
@@ -102,8 +103,9 @@ def functions(x):
         lib.gyrotest()
     elif selected == 4:
         lib.view_color()
+    elif selected == 4:
+        lib.cs_data(truth="NOTWHITE")
         
-
 while True: 
     time.sleep(.2)
     ev3.screen.clear()
@@ -126,8 +128,8 @@ while True:
             selected += 1
     elif Button.CENTER in ev3.buttons.pressed():
         ev3.speaker.beep()
-        if selected != 3:
-            robot.drive(-100, 0)
+        # Back up against the wall, reset gyro angle
+        robot.drive(-100, 0)
         time.sleep(0.25)
         gyro.reset_angle(0)
         robot.stop()

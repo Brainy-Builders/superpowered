@@ -27,8 +27,11 @@ def gyrotest(loop, gyro1):
         gyroturno(-45 * i)
         ev3.speaker.beep()
         time.sleep(1)
+
 def gyro_stop():
     robot.stop()
+    left_wheel.brake()
+    right_wheel.brake()
     left_wheel.brake()
     right_wheel.brake()
 

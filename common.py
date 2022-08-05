@@ -20,6 +20,8 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 import time
 import math
+from gyroturno import *
+
 # Define some useful things
 min_font = Font(size=6)
 tiny_font = Font(size=6)
@@ -32,8 +34,9 @@ left_wheel = Motor(Port.A)
 right_wheel = Motor(Port.D)
 wheel_diameter = 56
 main_motor = Motor(Port.C)
+#back_motor = Motor(Port.B)
 #axle_track = 108 # Cor-3 robot from 2019 season
-axle_track = 96  # Chloe's robot for 2020 season
+axle_track = 96  # Chloe's robot for 2020, '21, '22 seasons
 
 gyro = GyroSensor(Port.S2, direction=Direction.CLOCKWISE)
 gyro.reset_angle(0)
@@ -62,8 +65,8 @@ except:
 # if color sensors are not attached panic
 inf = 5000
 BLACK = 6
-WHITE = 76
-
+#WHITE = 76
+WHITE = 90
 main_motor = Motor(Port.C)
 def move_motor(speed, angle, mustWait=True):
       main_motor = Motor(Port.C)
