@@ -101,9 +101,8 @@ def functions(x):
     elif selected == 3:
         lib.gyrotest()
     elif selected == 4:
-        lib.cs_data()
+        lib.cs_data(truth="NOTWHITE")
         
-
 while True: 
     time.sleep(.2)
     ev3.screen.clear()

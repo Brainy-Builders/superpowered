@@ -14,7 +14,5 @@ import menu
 #gyrotest()
 
 
-
-
 #IF YOU FOUND THIS YOU ARE dumb
 #😎

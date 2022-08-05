@@ -58,7 +58,7 @@ def test_a_line():
 
 def line_a_line(speed=70, speed_approach = 200,white=True):
     fraction = -45/75
- 
+    
     if(white):
         #while (right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10)) and (right_colorsensor.rgb()[0] < AVG and left_colorsensor.rgb()[0] < AVG):
         while ((right_colorsensor.reflection() <= (WHITE - 10)) and (left_colorsensor.reflection() <= (WHITE - 10))):
