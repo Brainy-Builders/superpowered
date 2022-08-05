@@ -35,3 +35,10 @@ def gyrotest():
     gyroturno(-270)
     gyroturno(-0)
     robot.stop()
+def view_color():
+    ev3.screen.set_font(med_font)
+    while Button.CENTER not in ev3.buttons.pressed():
+        ev3.screen.clear()
+        r_color = str(right_colorsensor.color())
+        l_color = str(left_colorsensor.color())
+        ev3.screen.print("left color: {}\nright color: {}".format(l_color, r_color))

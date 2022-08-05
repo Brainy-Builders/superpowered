@@ -25,7 +25,8 @@ lis = [
     "callums test",
     "turn test",
     "pid test",
-    "gyro test"
+    "gyro test",
+    "color viewer"
     ]
 def thread():
     while data["time"] >= 0:
@@ -99,6 +100,8 @@ def functions(x):
         lib.pidtest()
     elif selected == 3:
         lib.gyrotest()
+    elif selected == 4:
+        lib.view_color()
         
 
 while True: 
