@@ -103,7 +103,7 @@ def functions(x):
         lib.gyrotest()
     elif selected == 4:
         lib.view_color()
-    elif selected == 4:
+    elif selected == 5:
         lib.cs_data(truth="NOTWHITE")
         
 while True: 
