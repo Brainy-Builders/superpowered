@@ -101,9 +101,9 @@ def functions(x):
         lib.pidtest()
     elif selected == 3:
         lib.gyrotest()
-    elif selected == 4:
-        lib.view_color()
     elif selected == 5:
+        lib.view_color()
+    elif selected == 4:
         lib.cs_data(truth="NOTWHITE")
         
 while True: 
