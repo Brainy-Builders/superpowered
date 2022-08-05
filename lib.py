@@ -28,12 +28,12 @@ def cs_data(truth):
         ev3.screen.print(i)
         i += 1
         xyzabc = left_colorsensor.rgb()
-        my_data = ["LEFT", xyzabc[0], xyzabc[1], xyzabc[2], left_colorsensor.reflection(), left_colorsensor.ambient(), str(left_colorsensor.color()).split('.')[2], truth, "\n"]
+        my_data = ["LEFT", xyzabc[0], xyzabc[1], xyzabc[2], left_colorsensor.reflection(), left_colorsensor.ambient(), str(left_colorsensor.color()).split('.')[-1], truth, "\n"]
         my_line=[str(i) for i in my_data]
         my_line = ",".join(my_line)
         cs_data.write(my_line)
         cbazyx = right_colorsensor.rgb()
-        my_data = ["RIGHT", cbazyx[0], cbazyx[1], cbazyx[2], right_colorsensor.reflection(), right_colorsensor.ambient(), str(right_colorsensor.color()).split('.')[2], truth, "\n"]
+        my_data = ["RIGHT", cbazyx[0], cbazyx[1], cbazyx[2], right_colorsensor.reflection(), right_colorsensor.ambient(), str(right_colorsensor.color()).split('.')[-1], truth, "\n"]
         my_line=[str(i) for i in my_data]
         my_line = ",".join(my_line)
         cs_data.write(my_line)
