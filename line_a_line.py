@@ -17,7 +17,7 @@ import math
 from linefollow import line_follow
 from common import *
 from gyroturno import gyro_stop
-
+import lib
 AVG = load_avg()
 def test_a_line():
     gyro = GyroSensor(Port.S3, direction=Direction.CLOCKWISE)
