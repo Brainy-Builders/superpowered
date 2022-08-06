@@ -7,7 +7,7 @@ from gyroturno import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
-
+import gyrostraight
 def flip_tv():
     ev3.speaker.beep()
     forward_dist(300, 0, 370)
@@ -16,3 +16,6 @@ def flip_tv():
     time.sleep(2)
     robot.stop()
 
+def windthing():
+    gyro.reset_angle(0)
+    
