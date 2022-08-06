@@ -57,8 +57,11 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     integral = Ki
     lastError = 0 # initialize
     Kd = 3 #  the Constant 'K' for the 'd' derivative term
-    error = follow_sensor.reflection()-50 # proportional
     def apply_corrections():
+        global integral
+        global last_error
+        error = follow_sensor.reflection()-50 # proportional
+
         Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
         
         Kp =  PROPORTIONAL_GAIN#  the Constant 'K' for the 'p' proportional controller
