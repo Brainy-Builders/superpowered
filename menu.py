@@ -19,6 +19,7 @@ import linefollow
 from common import *
 import os
 import threading
+import tv
 import lib
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
@@ -27,7 +28,8 @@ lis = [
     "pid test",
     "gyro test",
     "color collect",
-    "color viewer"
+    "color viewer", 
+    "tv flip"
     ]
 def thread():
     while data["time"] >= 0:
@@ -56,7 +58,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 0
+selected = 6
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -105,7 +107,10 @@ def functions(x):
         lib.view_color()
     elif selected == 4:
         lib.cs_data(truth="NOTWHITE")
-        
+    elif selected == 6:
+        tv.flip_tv()
+
+
 while True: 
     time.sleep(.2)
     ev3.screen.clear()

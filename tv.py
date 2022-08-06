@@ -10,7 +10,9 @@ from line_a_line import *
 
 def flip_tv():
     ev3.speaker.beep()
-    robot.drive(100, 0)
-    time.sleep(4)
+    forward_dist(300, 0, 370)
+    #robot.settings(straight_acc = )
+    robot.drive(200, 0)
+    time.sleep(2)
     robot.stop()
 
