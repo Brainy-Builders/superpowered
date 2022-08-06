@@ -54,9 +54,37 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
         detection_sensor = right_colorsensor
 
     def apply_corrections():
-        deviation = follow_sensor.reflection() - threshold
-        turn_rate = PROPORTIONAL_GAIN * deviation
-        robot.drive(DRIVE_SPEED, turn_rate)
+        Td = length # target distance
+        Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
+        
+        Kp = .35 #  the Constant 'K' for the 'p' proportional controller
+        
+            # initialize
+        Ki = 0 #  the Constant 'K' for the 'i' integral term
+        
+        lastError = 0 # initialize
+        Kd = 0 #  the Constant 'K' for the 'd' derivative term
+        if sensor == 'right':
+            follow_sensor = right_colorsensor
+        else:
+            follow_sensor = left_colorsensor
+        while (robot.distance() < Td):
+            error = follow_sensor.reflection()-50 # proportional
+            if (error == 0):
+                integral = 0
+            else:
+                integral = integral + error 
+                derivative = error - lastError  
+            
+                correction = (Kp*(error) + Ki*(integral) + + Kd*derivative) * -1
+            
+                power_left = Tp + correction
+                power_right = Tp - correction   
+                
+                left_wheel.dc(power_left) 
+                right_wheel.dc(power_right) 
+                
+                lastError = error  
 
     while robot.distance() < go_distance:
       apply_corrections()
@@ -88,3 +116,38 @@ def test2():
     robot.stop()
     ev3.screen.print("Done!!!!")
     time.sleep(5)
+    
+def pidline(sensor, distance, speed, porportional = 0.35, integral = 0, derivitive = 0):
+   Td = distance # target distance
+   Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
+   
+   Kp = porportional #  the Constant 'K' for the 'p' proportional controller
+   
+    # initialize
+   Ki = 0 #  the Constant 'K' for the 'i' integral term
+   
+   lastError = 0 # initialize
+   Kd = 0 #  the Constant 'K' for the 'd' derivative term
+   if sensor == 'right':
+      follow_sensor = right_colorsensor
+   else:
+      follow_sensor = left_colorsensor
+   while (robot.distance() < Td):
+     error = follow_sensor.reflection()-50 # proportional
+     if (error == 0):
+      integral = 0
+     else:
+       integral = integral + error 
+     derivative = error - lastError  
+   
+     correction = (Kp*(error) + Ki*(integral) + + Kd*derivative) * -1
+   
+     power_left = Tp + correction
+     power_right = Tp - correction   
+     
+     left_wheel.dc(power_left) 
+     right_wheel.dc(power_right) 
+      
+     lastError = error  
+   
+     print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   

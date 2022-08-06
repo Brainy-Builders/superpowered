@@ -77,4 +77,7 @@ def view_color():
         ev3.screen.clear()
         r_color = get_color(right_colorsensor.reflection(),right_colorsensor.rgb()[2])
         l_color = get_color(left_colorsensor.reflection(),left_colorsensor.rgb()[2])
-        ev3.screen.print("left color: {}\nright color: {}".format(l_color, r_color))
+        ev3.screen.print("ml\n")
+        ev3.screen.print("left color: {} right color: {}".format(l_color, r_color))
+        ev3.screen.print("pybricks\n")
+        ev3.screen.print("left color: {} right color: {}".format(left_colorsensor.color(),right_colorsensor.color()))
