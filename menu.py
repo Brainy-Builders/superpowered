@@ -20,6 +20,7 @@ from common import *
 import os
 import threading
 import lib
+import oil_supporter
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "callums test",
@@ -27,7 +28,8 @@ lis = [
     "pid test",
     "gyro test",
     "color collect",
-    "color viewer"
+    "color viewer",
+    "oil supporter"
     ]
 def thread():
     while data["time"] >= 0:
@@ -105,6 +107,8 @@ def functions(x):
         lib.view_color()
     elif selected == 4:
         lib.cs_data(truth="NOTWHITE")
+    elif selected == 6:
+        oil_supporter.followline()
         
 while True: 
     time.sleep(.2)

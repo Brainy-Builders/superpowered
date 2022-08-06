@@ -42,9 +42,9 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     # For example, if the light value deviates from the threshold by 10, the robot
     # steers at 10*1.2 = 12 degrees per second.
     if side.lower() == "left":
-        PROPORTIONAL_GAIN = 0.67 * gain_mod
+        PROPORTIONAL_GAIN = 0.35 * gain_mod
     else:
-        PROPORTIONAL_GAIN = -0.67 * gain_mod
+        PROPORTIONAL_GAIN = -0.35 * gain_mod
 
     if sensor == "right":
         follow_sensor = right_colorsensor
@@ -57,13 +57,14 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
         Td = length # target distance
         Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
         
-        Kp = .35 #  the Constant 'K' for the 'p' proportional controller
+        Kp =  PROPORTIONAL_GAIN#  the Constant 'K' for the 'p' proportional controller
         
             # initialize
-        Ki = 0 #  the Constant 'K' for the 'i' integral term
-        
+        Ki = 0.025 #  the Constanbricks.ev3devices import (
+           #Motot 'K' for the 'i' integral term
+        integral = Ki
         lastError = 0 # initialize
-        Kd = 0 #  the Constant 'K' for the 'd' derivative term
+        Kd = 3 #  the Constant 'K' for the 'd' derivative term
         if sensor == 'right':
             follow_sensor = right_colorsensor
         else:
