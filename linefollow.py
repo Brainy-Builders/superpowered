@@ -52,40 +52,34 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     else:
         follow_sensor = left_colorsensor 
         detection_sensor = right_colorsensor
-
+    Ki = 0.025 #  the Constanbricks.ev3devices import (
+    #Motot 'K' for the 'i' integral term
+    integral = Ki
+    lastError = 0 # initialize
+    Kd = 3 #  the Constant 'K' for the 'd' derivative term
+    error = follow_sensor.reflection()-50 # proportional
     def apply_corrections():
-        Td = length # target distance
         Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
         
         Kp =  PROPORTIONAL_GAIN#  the Constant 'K' for the 'p' proportional controller
         
             # initialize
-        Ki = 0.025 #  the Constanbricks.ev3devices import (
-           #Motot 'K' for the 'i' integral term
-        integral = Ki
-        lastError = 0 # initialize
-        Kd = 3 #  the Constant 'K' for the 'd' derivative term
-        if sensor == 'right':
-            follow_sensor = right_colorsensor
+       
+        if (error == 0):
+            integral = 0
         else:
-            follow_sensor = left_colorsensor
-        while (robot.distance() < Td):
-            error = follow_sensor.reflection()-50 # proportional
-            if (error == 0):
-                integral = 0
-            else:
-                integral = integral + error 
-                derivative = error - lastError  
+            integral = integral + error 
+            derivative = error - lastError  
+        
+            correction = (Kp*(error) + Ki*(integral) + + Kd*derivative) * -1
+        
+            power_left = Tp + correction
+            power_right = Tp - correction   
             
-                correction = (Kp*(error) + Ki*(integral) + + Kd*derivative) * -1
+            left_wheel.dc(power_left) 
+            right_wheel.dc(power_right) 
             
-                power_left = Tp + correction
-                power_right = Tp - correction   
-                
-                left_wheel.dc(power_left) 
-                right_wheel.dc(power_right) 
-                
-                lastError = error  
+            lastError = error  
 
     while robot.distance() < go_distance:
       apply_corrections()

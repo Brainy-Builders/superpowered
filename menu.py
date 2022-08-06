@@ -30,7 +30,8 @@ lis = [
     "gyro test",
     "color collect",
     "color viewer", 
-    "tv flip"
+    "tv flip",
+    "oil supporter"
     ]
 def thread():
     while data["time"] >= 0:
@@ -110,6 +111,8 @@ def functions(x):
         lib.cs_data(truth="NOTWHITE")
     elif selected == 6:
         tv.flip_tv()
+    elif selected == 7:
+        oil_supporter.followline()
 
 
 while True: 
