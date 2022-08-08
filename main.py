@@ -17,14 +17,3 @@ import menu
 
 #IF YOU FOUND THIS YOU ARE dumb
 #😎
-
-
-
-
-
-
-
-
-
-
-

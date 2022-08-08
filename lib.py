@@ -9,15 +9,7 @@ from gyroturno import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
-def get_color(reflectivity,green):
-    if reflectivity <= 14.00:
-            color = Color.BLACK
-    if reflectivity >  14.00:
-        if green <= 78.50:
-                color = "Other"
-        if green >  78.50:
-                color = Color.WHITE
-    return color
+
 def cs_data(truth):
     i = 0
     cs_data = open(r"cs_data_trey", "w")
@@ -81,3 +73,9 @@ def view_color():
         ev3.screen.print("left color: {} right color: {}".format(l_color, r_color))
         ev3.screen.print("pybricks\n")
         ev3.screen.print("left color: {} right color: {}".format(left_colorsensor.color(),right_colorsensor.color()))
+def test_follow():
+    [ev3.speaker.beep() for i in range(3)]
+    line_follow(100,100,"left" , "right", True)
+    robot.stop()
+    left_wheel.brake()
+    right_wheel.brake() 

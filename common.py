@@ -219,3 +219,14 @@ def detection():
         ev3.screen.print("right: {0}, left: {1}".format(right_colorsensor.rgb(), left_colorsensor.rgb()))
         ev3.screen.print("i think the colors are: \nLEFT: {0}, RIGHT: {1}".format(str(left_colorsensor.color()).strip("Color."), str(right_colorsensor.color()).strip("Color.")))
         time.sleep(.3)
+def get_color(sensor):
+    reflectivity=sensor.reflection()
+    green=sensor.rgb()[1]
+    if reflectivity <= 14.00:
+            color = Color.BLACK
+    if reflectivity >  14.00:
+        if green <= 78.50:
+                color = "Other"
+        if green >  78.50:
+                color = Color.WHITE
+    return color

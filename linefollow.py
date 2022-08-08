@@ -17,17 +17,7 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 import time
 import math
-from common import (
-    tiny_font,
-    big_font,
-    ev3,
-    left_wheel,
-    right_wheel,
-    robot,
-    left_colorsensor,
-    right_colorsensor,
-    WHITE, BLACK
-)
+from common import *
 
 # An example of this code is
 # line_follow(followlength=200, followspeed=100, "left")
@@ -42,59 +32,56 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     # For example, if the light value deviates from the threshold by 10, the robot
     # steers at 10*1.2 = 12 degrees per second.
     if side.lower() == "left":
-        PROPORTIONAL_GAIN = 0.35 * gain_mod
+        PROPORTIONAL_GAIN = 0.67 * gain_mod
     else:
-        PROPORTIONAL_GAIN = -0.35 * gain_mod
-
-    if sensor == "right":
+        PROPORTIONAL_GAIN = -0.67 * gain_mod
+    print(sensor, "r" in sensor.lower())
+    if "r" in sensor.lower():
         follow_sensor = right_colorsensor
         detection_sensor = left_colorsensor
     else:
         follow_sensor = left_colorsensor 
         detection_sensor = right_colorsensor
-    Ki = 0.025 #  the Constanbricks.ev3devices import (
+    Ki = 0. #  the Constanbricks.ev3devices import (
     #Motot 'K' for the 'i' integral term
-    integral = Ki
-    lastError = 0 # initialize
-    Kd = 3 #  the Constant 'K' for the 'd' derivative term
+    integral = [Ki]
+    lastError = [0] # initialize
+    Kd = 0 #  the Constant 'K' for the 'd' derivative term
     def apply_corrections():
-        global integral
-        global last_error
         error = follow_sensor.reflection()-50 # proportional
-
-        Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
         
         Kp =  PROPORTIONAL_GAIN#  the Constant 'K' for the 'p' proportional controller
         
             # initialize
-       
+        Tp = speed
         if (error == 0):
-            integral = 0
+            integral[0] = 0
         else:
-            integral = integral + error 
-            derivative = error - lastError  
-        
-            correction = (Kp*(error) + Ki*(integral) + + Kd*derivative) * -1
-        
+            integral[0] = integral[0] + error 
+            derivative = error - lastError[0]
+            
+            correction = (Kp*(error) + Ki*(integral[0]) + Kd*derivative) * -1
+            robot.drive(Tp, correction/-1)
             power_left = Tp + correction
             power_right = Tp - correction   
             
-            left_wheel.dc(power_left) 
-            right_wheel.dc(power_right) 
+            #left_wheel.dc(power_left) 
+            #right_wheel.dc(power_right) 
             
-            lastError = error  
+            lastError[0] = error  
+            print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
 
     while robot.distance() < go_distance:
       apply_corrections()
     
-      if find_cross == True:
-        while detection_sensor.reflection() < (WHITE - 10):
+    if find_cross == True:
+        while get_color(detection_sensor) != Color.WHITE:
             apply_corrections()
             #ev3.screen.print(detection_sensor.reflection())
         ev3.screen.print("found white")
-        while detection_sensor.reflection() > (BLACK + 10):
+        while get_color(detection_sensor) != Color.BLACK:
             apply_corrections()
-            #ev3.screen.print(detection_sensor.reflection())
+        #ev3.screen.print(detection_sensor.reflection())
         ev3.screen.print("found black")        
             
 def test1():

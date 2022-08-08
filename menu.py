@@ -31,7 +31,8 @@ lis = [
     "color collect",
     "color viewer", 
     "tv flip",
-    "oil supporter"
+    "oil supporter",
+    "test follow"
     ]
 def thread():
     while data["time"] >= 0:
@@ -60,7 +61,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 6
+selected = 0
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -94,6 +95,7 @@ def printscrn():
         screen.print("Gyro: {}".format("Unplugged")+" "*totals+tme)
 def functions(x):
     global selected
+    print("SELECTED: ",selected)
     if not data["started"]:
         data["stated"] = True
         qw.start()
@@ -113,6 +115,8 @@ def functions(x):
         tv.flip_tv()
     elif selected == 7:
         oil_supporter.followline()
+    elif selected == 8:
+        lib.test_follow()
 
 
 while True: 
