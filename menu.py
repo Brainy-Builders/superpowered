@@ -31,7 +31,8 @@ lis = [
     "color collect",
     "color viewer", 
     "tv flip",
-    "oil supporter"
+    "oil supporter",
+    "wind"
     ]
 def thread():
     while data["time"] >= 0:
@@ -113,6 +114,8 @@ def functions(x):
         tv.flip_tv()
     elif selected == 7:
         oil_supporter.followline()
+    elif selected == 8:
+        tv.windthing()
 
 
 while True: 

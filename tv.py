@@ -7,7 +7,8 @@ from gyroturno import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
-import gyrostraight
+from gyrostraight import *
+from lib import *
 def flip_tv():
     ev3.speaker.beep()
     forward_dist(300, 0, 370)
@@ -15,7 +16,42 @@ def flip_tv():
     robot.drive(200, 0)
     time.sleep(2)
     robot.stop()
+    
+    
 
 def windthing():
     gyro.reset_angle(0)
-    
+
+    #go to wind#
+
+    forward_dist(-100, 0, -100)
+    gyroturno(-40)
+    forward_dist(200, 0, 280)
+    while get_color(right_colorsensor) != Color.WHITE:
+        robot.drive(70, 0)
+    robot.stop()
+    while get_color(right_colorsensor) != Color.BLACK:
+        robot.drive(50, 0)
+    robot.stop()
+    while get_color(right_colorsensor) != Color.WHITE:
+        robot.drive(50, 0)
+    robot.stop()
+    forward_dist(50, 0, 20)
+    gyroturno(43)
+    forward_dist(100, 0, 85)
+
+    #collecting the energy units#
+
+
+    xyz = 0
+    while xyz  < 3:
+        xyz += 1
+        robot.drive(200, 0)
+        time.sleep(0.8)
+        robot.drive(-100, 0)
+        time.sleep(0.5)
+        robot.stop()
+        time.sleep(0.3)
+
+    robot.stop()
+

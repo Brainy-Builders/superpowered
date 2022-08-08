@@ -9,7 +9,9 @@ from gyroturno import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
-def get_color(reflectivity,green):
+def get_color(sensor):
+    reflectivity=sensor.reflection()
+    green=sensor.rgb()[1]
     if reflectivity <= 14.00:
             color = Color.BLACK
     if reflectivity >  14.00:
