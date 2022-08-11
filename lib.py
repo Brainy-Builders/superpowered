@@ -48,12 +48,15 @@ def turntest():
         x += 1
         if x == 4:
             break
+
 def pidtest():
     # pidline(sensor='left', distance=1000, speed=30, Kp=0.45, Ki=0.9, Kd=1.1)
     ev3.speaker.beep()
-    ev3.speaker.say("pid line follow, bitch!")
+    ev3.speaker.set_speech_options(voice='f1')
+    ev3.speaker.say("get ready for P I D line follow")
     pidline(sensor='left', distance=5000, speed=30, Kp=0.25, Ki=0.008, Kd=0.2)
     robot.stop()
+
 def gyrotest():
     gyro.reset_angle(0)
     gyroturno(90)

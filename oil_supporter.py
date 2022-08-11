@@ -18,4 +18,4 @@ from linefollow import line_follow
 from common import *
 
 def followline():
-    line_follow(length = 100, speed = 30, sensor = 'left', side = 'right', find_cross = True, gain_mod = 1)
+    line_follow(length = 100, speed = 30, sensor = 'left', side = 'right', find_cross = True)

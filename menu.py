@@ -35,6 +35,7 @@ lis = [
     "test follow",
     "wind"
     ]
+
 def thread():
     while data["time"] >= 0:
         data["time"] -= 1
@@ -42,15 +43,11 @@ def thread():
             ev3.light.on(Color.RED)
         elif data["time"] > 50:
             ev3.light.on(Color.GREEN)
-        
-        #     ev3.speaker.beep()
-        #     ev3.speaker.beep()
         if data["time"] >= 45 and data["time"] <= 50:
             time.sleep(.5)
             ev3.light.on(Color.GREEN)
             time.sleep(.5)
             ev3.light.off()
-            
         else:
             time.sleep(1)
 qw = threading.Thread(target=thread)
@@ -66,6 +63,7 @@ selected = 2
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
+
 def printscrn():
     for _ in range(0, len(lis), 2):
         object1 = str(str(_) + ":" + str(lis[_]))
@@ -94,6 +92,7 @@ def printscrn():
         screen.print("Gyro: {}".format(gyro.angle())+" "*totals/2+data['values']+" "*totals/2+tme)
     except:
         screen.print("Gyro: {}".format("Unplugged")+" "*totals+tme)
+
 def functions(x):
     global selected
     print("SELECTED: ",selected)
@@ -120,7 +119,6 @@ def functions(x):
         tv.windthing()
     elif selected == 8:
         lib.test_follow()
-
 
 while True: 
     time.sleep(.2)

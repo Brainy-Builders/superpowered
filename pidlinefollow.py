@@ -30,6 +30,7 @@ from common import (
 )
 
 # An example of this code is
+# pidline(sensor='left', distance=5000, speed=30, Kp=0.25, Ki=0.008, Kd=0.2)
 def pidline(sensor, distance, speed, Kp, Ki, Kd):
    Td = distance # target distance
    Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
