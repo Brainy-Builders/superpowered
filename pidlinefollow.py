@@ -30,33 +30,25 @@ from common import (
 )
 
 # An example of this code is
-# line_follow(followlength=200, followspeed=100, "left")
-# followlength=0 goes until an intersection
-def pidline(sensor, distance, speed, porportional = 0.35, integral = 0, derivitive = 0):
+def pidline(sensor, distance, speed, Kp, Ki, Kd):
    Td = distance # target distance
    Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
-   
-   Kp = porportional #  the Constant 'K' for the 'p' proportional controller
-   
-    # initialize
-   Ki = 0 #  the Constant 'K' for the 'i' integral term
-   
    lastError = 0 # initialize
-   Kd = 0 #  the Constant 'K' for the 'd' derivative term
+   integral = 0  # initialize
    if sensor == 'right':
       follow_sensor = right_colorsensor
    else:
       follow_sensor = left_colorsensor
-   while (robot.distance() < Td):
+   target_distance = robot.distance() + Td
+   while (robot.distance() < target_distance):
      error = follow_sensor.reflection()-50 # proportional
      if (error == 0):
-      integral = 0
+       integral = 0
      else:
        integral = integral + error 
      derivative = error - lastError  
-   
-     correction = (Kp*(error) + Ki*(integral) + + Kd*derivative) * -1
-   
+     
+     correction = -(Kp*(error) + Ki*(integral) + Kd*derivative)
      power_left = Tp + correction
      power_right = Tp - correction   
      
@@ -65,7 +57,7 @@ def pidline(sensor, distance, speed, porportional = 0.35, integral = 0, deriviti
       
      lastError = error  
    
-     print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
+     print(str(Kp) + ", " + str(Kd) + ", " + str(Ki) + ", error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
      wait(10)
    
 robot.stop()

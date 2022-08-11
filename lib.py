@@ -49,7 +49,11 @@ def turntest():
         if x == 4:
             break
 def pidtest():
-    pidline('left', 1000000000000000, 30, 0.45, 0.9, 1.1)
+    # pidline(sensor='left', distance=1000, speed=30, Kp=0.45, Ki=0.9, Kd=1.1)
+    ev3.speaker.beep()
+    ev3.speaker.say("pid line follow, bitch!")
+    pidline(sensor='left', distance=5000, speed=30, Kp=0.25, Ki=0.008, Kd=0.2)
+    robot.stop()
 def gyrotest():
     gyro.reset_angle(0)
     gyroturno(90)
@@ -75,7 +79,7 @@ def view_color():
         ev3.screen.print("left color: {} right color: {}".format(left_colorsensor.color(),right_colorsensor.color()))
 def test_follow():
     [ev3.speaker.beep() for i in range(3)]
-    line_follow(100,100,"left" , "right", True)
+    line_follow(1000,200,"left" , "right", True)
     robot.stop()
     left_wheel.brake()
     right_wheel.brake() 

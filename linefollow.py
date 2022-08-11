@@ -28,13 +28,13 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     threshold = (BLACK + WHITE) / 2
     ev3.screen.print("WHITE", WHITE)
     ev3.screen.print("BLACK", BLACK)
-    DRIVE_SPEED = speed
+    DRIVE_SPEED = speed*30/200
     # For example, if the light value deviates from the threshold by 10, the robot
     # steers at 10*1.2 = 12 degrees per second.
     if side.lower() == "left":
-        PROPORTIONAL_GAIN = 0.67 * gain_mod
+        PROPORTIONAL_GAIN = 0.45 * gain_mod
     else:
-        PROPORTIONAL_GAIN = -0.67 * gain_mod
+        PROPORTIONAL_GAIN = -0.45 * gain_mod
     print(sensor, "r" in sensor.lower())
     if "r" in sensor.lower():
         follow_sensor = right_colorsensor
@@ -42,18 +42,19 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     else:
         follow_sensor = left_colorsensor 
         detection_sensor = right_colorsensor
-    Ki = 0. #  the Constanbricks.ev3devices import (
+    Ki = 0.9 #  the Constanbricks.ev3devices import (
     #Motot 'K' for the 'i' integral term
-    integral = [Ki]
+    integral = [0]
     lastError = [0] # initialize
-    Kd = 0 #  the Constant 'K' for the 'd' derivative term
+    Kd = 1.1 #  the Constant 'K' for the 'd' derivative term
+    
     def apply_corrections():
         error = follow_sensor.reflection()-50 # proportional
         
-        Kp =  PROPORTIONAL_GAIN#  the Constant 'K' for the 'p' proportional controller
+        Kp =  PROPORTIONAL_GAIN  #  the Constant 'K' for the 'p' proportional controller
         
             # initialize
-        Tp = speed
+        Tp = DRIVE_SPEED
         if (error == 0):
             integral[0] = 0
         else:
@@ -61,15 +62,14 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
             derivative = error - lastError[0]
             
             correction = (Kp*(error) + Ki*(integral[0]) + Kd*derivative) * -1
-            robot.drive(Tp, correction/-1)
+            #robot.drive(Tp, -correction)
             power_left = Tp + correction
             power_right = Tp - correction   
-            
-            #left_wheel.dc(power_left) 
-            #right_wheel.dc(power_right) 
+            left_wheel.dc(power_left) 
+            right_wheel.dc(power_right) 
             
             lastError[0] = error  
-            print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
+            print(str(Kp) + "," + str(Kd) + "," + str(Ki) + "," + "error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative))   
 
     while robot.distance() < go_distance:
       apply_corrections()
@@ -102,37 +102,3 @@ def test2():
     ev3.screen.print("Done!!!!")
     time.sleep(5)
     
-def pidline(sensor, distance, speed, porportional = 0.35, integral = 0, derivitive = 0):
-   Td = distance # target distance
-   Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
-   
-   Kp = porportional #  the Constant 'K' for the 'p' proportional controller
-   
-    # initialize
-   Ki = 0 #  the Constant 'K' for the 'i' integral term
-   
-   lastError = 0 # initialize
-   Kd = 0 #  the Constant 'K' for the 'd' derivative term
-   if sensor == 'right':
-      follow_sensor = right_colorsensor
-   else:
-      follow_sensor = left_colorsensor
-   while (robot.distance() < Td):
-     error = follow_sensor.reflection()-50 # proportional
-     if (error == 0):
-      integral = 0
-     else:
-       integral = integral + error 
-     derivative = error - lastError  
-   
-     correction = (Kp*(error) + Ki*(integral) + + Kd*derivative) * -1
-   
-     power_left = Tp + correction
-     power_right = Tp - correction   
-     
-     left_wheel.dc(power_left) 
-     right_wheel.dc(power_right) 
-      
-     lastError = error  
-   
-     print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
