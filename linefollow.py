@@ -36,9 +36,10 @@ def line_follow(length, speed, sensor, side, find_cross = False):
 
     DRIVE_SPEED = speed*30/200
     
-    # Configure side_gain based on side of line to follow
+    # Configure side_polarity based on side of line to follow
+    side_polarity = 1
     if side.lower() == "right":
-        Kp = -Kp
+        side_polarity = -1
     
     print(sensor, "r" in sensor.lower())
     
@@ -62,7 +63,7 @@ def line_follow(length, speed, sensor, side, find_cross = False):
             integral[0] = integral[0] + error 
         derivative = error - lastError[0]
         
-        correction = (Kp*(error) + Ki*(integral[0]) + Kd*derivative) 
+        correction = (Kp*(error) + Ki*(integral[0]) + Kd*derivative) * side_polarity
         power_left = Tp + correction
         power_right = Tp - correction   
         left_wheel.dc(power_left) 
