@@ -116,7 +116,9 @@ def functions(x):
     elif selected == 7:
         oil_supporter.followline()
     elif selected == 9:
+        
         tv.halftesla()
+        # tv.windthing()
     elif selected == 8:
         lib.test_follow()
 
