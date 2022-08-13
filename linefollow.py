@@ -32,9 +32,9 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     # For example, if the light value deviates from the threshold by 10, the robot
     # steers at 10*1.2 = 12 degrees per second.
     if side.lower() == "left":
-        PROPORTIONAL_GAIN = 0.67 * gain_mod
+        side_mod = -1
     else:
-        PROPORTIONAL_GAIN = -0.67 * gain_mod
+        side_mod = 1
     print(sensor, "r" in sensor.lower())
     if "r" in sensor.lower():
         follow_sensor = right_colorsensor
@@ -50,7 +50,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     def apply_corrections():
         error = follow_sensor.reflection()-50 # proportional
         
-        Kp =  PROPORTIONAL_GAIN#  the Constant 'K' for the 'p' proportional controller
+        Kp =  0.67 #  the Constant 'K' for the 'p' proportional controller
         
             # initialize
         Tp = speed
@@ -58,18 +58,18 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
             integral[0] = 0
         else:
             integral[0] = integral[0] + error 
-            derivative = error - lastError[0]
-            
-            correction = (Kp*(error) + Ki*(integral[0]) + Kd*derivative) * -1
-            robot.drive(Tp, correction/-1)
-            power_left = Tp + correction
-            power_right = Tp - correction   
-            
-            #left_wheel.dc(power_left) 
-            #right_wheel.dc(power_right) 
-            
-            lastError[0] = error  
-            print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
+        derivative = error - lastError[0]
+        
+        correction = (Kp*(error) + Ki*(integral[0]) + Kd*derivative) * side_mod
+        robot.drive(Tp, correction/-1)
+        power_left = Tp + correction
+        power_right = Tp - correction   
+        
+        #left_wheel.dc(power_left) 
+        #right_wheel.dc(power_right) 
+        
+        lastError[0] = error  
+        print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
 
     while robot.distance() < go_distance:
       apply_corrections()

@@ -12,9 +12,7 @@ import common
 
 import menu
 
-
 #gyrotest()
-
 
 #IF YOU FOUND THIS YOU ARE smart
 #😎

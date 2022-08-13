@@ -52,9 +52,9 @@ def turntest():
 def pidtest():
     # pidline(sensor='left', distance=1000, speed=30, Kp=0.45, Ki=0.9, Kd=1.1)
     ev3.speaker.beep()
-    ev3.speaker.set_speech_options(voice='f1')
-    ev3.speaker.say("get ready for P I D line follow")
-    pidline(sensor='left', distance=5000, speed=30, Kp=0.25, Ki=0.008, Kd=0.2)
+    #ev3.speaker.set_speech_options(voice='f1')
+    #ev3.speaker.say("get ready for P I D line follow")
+    pidline(sensor='left', distance=200, speed=20, Kp=0.25, Ki=0.008, Kd=0.4, find_cross = True)
     robot.stop()
 
 def gyrotest():
@@ -74,12 +74,15 @@ def view_color():
     while Button.CENTER not in ev3.buttons.pressed():
         time.sleep(.5)
         ev3.screen.clear()
-        r_color = get_color(right_colorsensor.reflection(),right_colorsensor.rgb()[2])
-        l_color = get_color(left_colorsensor.reflection(),left_colorsensor.rgb()[2])
-        ev3.screen.print("ml\n")
-        ev3.screen.print("left color: {} right color: {}".format(l_color, r_color))
-        ev3.screen.print("pybricks\n")
-        ev3.screen.print("left color: {} right color: {}".format(left_colorsensor.color(),right_colorsensor.color()))
+        r_color = get_color(right_colorsensor)
+        l_color = get_color(left_colorsensor)
+        ev3.screen.print("ml:\n")
+        ev3.screen.print("L clr: {}".format(l_color))
+        ev3.screen.print("R clr: {}".format(r_color))
+        ev3.screen.print("\npybricks:\n")
+        ev3.screen.print("L clr: {}".format(left_colorsensor.color()))
+        ev3.screen.print("R clr: {}".format(right_colorsensor.color()))
+
 def test_follow():
     [ev3.speaker.beep() for i in range(3)]
     line_follow(1000,200,"left" , "right", True)
