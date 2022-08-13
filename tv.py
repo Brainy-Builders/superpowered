@@ -10,6 +10,7 @@ from line_a_line import *
 from gyrostraight import *
 from lib import *
 def flip_tv():
+    gyro.reset_angle(0)
     ev3.speaker.beep()
     forward_dist(300, 0, 370)
     #robot.settings(straight_acc = )
@@ -17,10 +18,11 @@ def flip_tv():
     time.sleep(2)
     robot.stop()
     
+    windthing()
     
 
 def windthing():
-    gyro.reset_angle(0)
+    #gyro.reset_angle(0)
 
     #go to wind#
 
@@ -55,3 +57,13 @@ def windthing():
 
     robot.stop()
 
+def halftesla():
+    # gyro.reset_angle(45)
+    # forward_dist(-300, 0, -200)
+    # gyroturno(135)
+    # robot.stop()
+    # robot.drive(-200, 0)
+    # time.sleep(4)
+    # robot.stop()
+    #forward_dist(-200, 0, -300)
+    back_motor.run_until_stalled(100, stop_type=Stop.HOLD)

@@ -59,7 +59,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 2
+selected = 9
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -116,7 +116,7 @@ def functions(x):
     elif selected == 7:
         oil_supporter.followline()
     elif selected == 9:
-        tv.windthing()
+        tv.halftesla()
     elif selected == 8:
         lib.test_follow()
 
