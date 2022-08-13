@@ -34,7 +34,7 @@ left_wheel = Motor(Port.A)
 right_wheel = Motor(Port.D)
 wheel_diameter = 56
 main_motor = Motor(Port.C)
-back_motor = Motor(Port.B)
+#back_motor = Motor(Port.B)
 #axle_track = 108 # Cor-3 robot from 2019 season
 axle_track = 96  # Chloe's robot for 2020, '21, '22 seasons
 

@@ -54,7 +54,7 @@ def pidtest():
     ev3.speaker.beep()
     #ev3.speaker.set_speech_options(voice='f1')
     #ev3.speaker.say("get ready for P I D line follow")
-    pidline(sensor='left', distance=200, speed=20, Kp=0.25, Ki=0.008, Kd=0.4, find_cross = True)
+    pidline(sensor='left', distance=400, speed=20, Kp=0.25, Ki=0.008, Kd=0.4, find_cross = True)
     robot.stop()
 
 def gyrotest():
