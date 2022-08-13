@@ -29,9 +29,9 @@ def windthing():
     forward_dist(-100, 0, -100)
     gyroturno(-40)
     forward_dist(200, 0, 280)
-    while get_color(right_colorsensor) != Color.WHITE:
-        robot.drive(70, 0)
-    robot.stop()
+    while get_color(right_colorsensor) != Color.WHITE:  #
+        robot.drive(70, 0)                              # Maybe these 3 lines should be a function with color as the argument
+    robot.stop()                                        #
     while get_color(right_colorsensor) != Color.BLACK:
         robot.drive(50, 0)
     robot.stop()
@@ -45,9 +45,9 @@ def windthing():
     #collecting the energy units#
 
 
-    xyz = 0
-    while xyz  < 3:
-        xyz += 1
+    xyz = 0                  #
+    while xyz  < 3:          # Replace these three lines with "while _ in range(3):"
+        xyz += 1             #
         robot.drive(200, 0)
         time.sleep(0.8)
         robot.drive(-100, 0)
@@ -66,4 +66,5 @@ def halftesla():
     # time.sleep(4)
     # robot.stop()
     #forward_dist(-200, 0, -300)
+    # Try this: back_motor.run_until_stalled(speed=100, then=Stop.HOLD, duty_limit=None)
     back_motor.run_until_stalled(100, stop_type=Stop.HOLD)

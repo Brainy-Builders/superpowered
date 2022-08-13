@@ -71,11 +71,12 @@ def gyrotest():
     robot.stop()
 def view_color():
     ev3.screen.set_font(med_font)
-    while Button.CENTER not in ev3.buttons.pressed():
+    while Button.LEFT not in ev3.buttons.pressed():
         time.sleep(.5)
         ev3.screen.clear()
         r_color = get_color(right_colorsensor)
         l_color = get_color(left_colorsensor)
+        ev3.screen.print("press LEFT to end")
         ev3.screen.print("ml:\n")
         ev3.screen.print("L clr: {}".format(l_color))
         ev3.screen.print("R clr: {}".format(r_color))
