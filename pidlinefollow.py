@@ -23,7 +23,8 @@ from gyroturno import *
 # pidline(sensor='left', distance=5000, speed=30, Kp=0.25, Ki=0.008, Kd=0.2)
 def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
   Td = distance # target distance
-  Tp = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
+  Tp_pct = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
+  Tp = Tp_pct * 35/250 # Scale to approximate mm/s units
   lastError = 0 # initialize
   integral = 0  # initialize
   if sensor == 'right':
@@ -39,7 +40,7 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
     if (error == 0):
       integral = 0
     else:
-      integral = integral + error 
+      integral = integral + error # maybe limit the integral?
     derivative = error - lastError  
 
     correction = -(Kp*(error) + Ki*(integral) + Kd*derivative)
@@ -65,8 +66,4 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
             sensed_color = detection_sensor.color()
           stop = True
           print("stop because found cross")
-
-            
-
-    print(str(Kp) + ", " + str(Kd) + ", " + str(Ki) + ", error " + str(error) + "; correction " + str(correction)  +"("+ str(-Kp*error)+","+str(-Ki*integral)+","+str(-Kd*derivative)+ ") ; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
-  gyro_stop()
+    # print(str(Kp) + ", " + str(Kd) + ", " + str(Ki) + ", error " + str(error) + "; correction " + str(correction)  +"("+ str(-Kp*error)+","+str(-Ki*integral)+","+str(-Kd*derivative)+ ") ; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   

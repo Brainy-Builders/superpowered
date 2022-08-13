@@ -52,10 +52,14 @@ def turntest():
 def pidtest():
     # pidline(sensor='left', distance=1000, speed=30, Kp=0.45, Ki=0.9, Kd=1.1)
     ev3.speaker.beep()
-    #ev3.speaker.set_speech_options(voice='f1')
-    #ev3.speaker.say("get ready for P I D line follow")
-    pidline(sensor='left', distance=400, speed=20, Kp=0.25, Ki=0.008, Kd=0.4, find_cross = True)
-    robot.stop()
+    ev3.speaker.set_speech_options(voice='f2')
+    # pidline(sensor='left', distance=400, speed=20, Kp=0.25, Ki=0.008, Kd=0.4, find_cross = True)
+    for _ in [100,150,200,250,300,350]:
+        ev3.speaker.say(str(_))
+        # pidline(sensor='left', distance=600, speed=_, Kp=0.3, Ki=0.001, Kd=1.0, find_cross = True)
+        pidline(sensor='left', distance=400, speed=_, Kp=0.3, Ki=0, Kd=1.0, find_cross = True)
+        gyro_stop()
+    
 
 def gyrotest():
     gyro.reset_angle(0)
