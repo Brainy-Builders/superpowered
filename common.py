@@ -3,6 +3,7 @@
 # These should include the ev3 and robot
 # This way the ev3 and robot don't need to be always passed to functions are arguments
 #
+import os
 import json
 from functools import wraps
 from pybricks.hubs import EV3Brick
@@ -34,7 +35,10 @@ left_wheel = Motor(Port.A)
 right_wheel = Motor(Port.D)
 wheel_diameter = 56
 main_motor = Motor(Port.C)
-#back_motor = Motor(Port.B)
+if os.uname[1] == 'back-less':
+    back_motor= Motor(Port.C)
+else:
+    back_motor = Motor(Port.B)
 #axle_track = 108 # Cor-3 robot from 2019 season
 axle_track = 96  # Chloe's robot for 2020, '21, '22 seasons
 
