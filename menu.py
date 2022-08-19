@@ -110,7 +110,7 @@ def functions(x):
     elif selected == 5:
         lib.view_color()
     elif selected == 4:
-        lib.cs_data(truth="NOTWHITE")
+        lib.cs_data(truth="BLACK")
     elif selected == 6:
         tv.flip_tv()
     elif selected == 7:
