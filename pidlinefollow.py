@@ -41,6 +41,7 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
       integral = 0
     else:
       integral = integral + error # maybe limit the integral?
+
     derivative = error - lastError  
 
     correction = -(Kp*(error) + Ki*(integral) + Kd*derivative)

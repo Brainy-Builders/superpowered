@@ -16,6 +16,7 @@ import time
 import math
 from linefollow import line_follow
 from common import *
+from pidlinefollow import *
 
 def followline():
-    line_follow(length = 100, speed = 30, sensor = 'left', side = 'right', find_cross = True)
+    pidline(sensor='left', distance=400, speed = 100, Kp=0.3, Ki=0, Kd=1.0, find_cross = True)
