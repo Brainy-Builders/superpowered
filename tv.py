@@ -19,6 +19,7 @@ def flip_tv():
     robot.stop()
     
     windthing()
+    halftesla()
     
 
 def windthing():
@@ -76,7 +77,7 @@ def halftesla():
     back_motor.run_time(speed = -200, time=700)
     forward_dist(300, 0, 100)
     robot.stop()
-    back_motor.run_time(speed = 100, time = 500)
+    back_motor.run_time(speed = 200, time = 700)
     robot.drive(300, 0)
     time.sleep(4)
     robot.stop()
