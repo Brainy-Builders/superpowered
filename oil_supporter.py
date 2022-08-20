@@ -22,8 +22,7 @@ def followline():
     print("in")
     robot.stop()
     robot.settings(straight_acceleration=200, straight_speed=200, turn_acceleration=180, turn_rate=180)#don't know what to do for tunr rate.
-    
-    pidline(sensor='left', distance=400, speed = 200, Kp=0.3, Ki=0, Kd=1.0, find_cross = True)
+    pidline(sensor='left', distance=350, speed=200, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = False)
     
     robot.stop()
     ev3.speaker.beep()
