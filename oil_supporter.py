@@ -19,16 +19,38 @@ from common import *
 from pidlinefollow import *
 
 def followline():
-    print("in")
+    gyro.reset_angle(0)
+    move_motor(1000, 500, mustWait=False)
+    forward_dist(100,0,180)
+    ev3.speaker.beep(duration=25)
+    while(get_color(left_colorsensor) != Color.BLACK):
+        robot.drive(100,0)
+    robot.turn(30)
     robot.stop()
-    robot.settings(straight_acceleration=200, straight_speed=200, turn_acceleration=180, turn_rate=180)#don't know what to do for tunr rate.
+    ev3.speaker.beep(duration=25)
     pidline(sensor='left', distance=350, speed=200, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = False)
-    
+    ev3.speaker.beep(duration=25) # duration units [ms]
+    while(get_color(right_colorsensor) != Color.WHITE):
+        robot.drive(50,0)
+    ev3.speaker.beep()
+    while(get_color(right_colorsensor) != Color.BLACK):
+        robot.drive(50,0)
+    ev3.speaker.beep()
+    gyro_stop()
+    robot.straight(70)
+    ev3.speaker.beep()
+    # gyroturno(-90)
+    move_motor(100, -500, mustWait=False)
+    gyroturno(-90)
     robot.stop()
     ev3.speaker.beep()
-    time.sleep(2)
-    robot.turn(90)
-    ev3.speaker.beep()
-    robot.straight(50)
-    ev3.speaker.beep()
-    move_motor(300, 720)
+    time.sleep(1)
+    robot.drive(100, 0)
+    time.sleep(0.6)
+    robot.stop()
+    move_motor(1000, 600)
+    move_motor(1000, -600)
+    move_motor(1000, 600)
+    move_motor(1000, -600)
+    move_motor(1000, 600)
+    move_motor(1000, -600)
