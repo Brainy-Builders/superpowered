@@ -89,9 +89,10 @@ def printscrn():
         totals -= 1
     totals = 36 - totals
     try:
-        screen.print("Gyro: {}".format(gyro.angle())+" "*totals/2+data['values']+" "*totals/2+tme)
-    except:
-        screen.print("Gyro: {}".format("Unplugged")+" "*totals+tme)
+        screen.print("Gyro: {}".format(gyro.angle()))
+    except Exception as e:
+        print(e)
+        screen.print("Gyro: {}".format("Unplugged"))
 
 def functions(x):
     global selected
@@ -114,6 +115,7 @@ def functions(x):
     elif selected == 6:
         tv.flip_tv()
     elif selected == 7:
+        print("something there")
         oil_supporter.followline()
     elif selected == 9:
         
@@ -143,6 +145,7 @@ while True:
         else:
             selected += 1
     elif Button.CENTER in ev3.buttons.pressed():
+        print("center")
         ev3.speaker.beep()
         # Back up against the wall, reset gyro angle
         robot.drive(-100, 0)

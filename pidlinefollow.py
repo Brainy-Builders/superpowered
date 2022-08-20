@@ -60,11 +60,11 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
         print("stop without finding cross")
       else:
         # sensed_color = get_color(detection_sensor)
-        sensed_color = detection_sensor.color()
+        sensed_color = get_color(detection_sensor)
         print("sensed ", sensed_color)
         if (sensed_color == Color.WHITE): 
           while sensed_color != Color.BLACK:          
-            sensed_color = detection_sensor.color()
+            sensed_color = get_color(detection_sensor)
           stop = True
           print("stop because found cross")
     # print(str(Kp) + ", " + str(Kd) + ", " + str(Ki) + ", error " + str(error) + "; correction " + str(correction)  +"("+ str(-Kp*error)+","+str(-Ki*integral)+","+str(-Kd*derivative)+ ") ; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
