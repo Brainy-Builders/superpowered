@@ -106,3 +106,5 @@ def test_follow():
     robot.stop()
     left_wheel.brake()
     right_wheel.brake() 
+def motor_test():
+    pass
