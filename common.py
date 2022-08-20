@@ -186,6 +186,7 @@ def load_avg():
         return (colors['blue']['avg']+colors['white']['avg'])/2
     except:
         return 45
+
 def sus():
     ev3.screen.clear()
     iteration = 0
@@ -225,6 +226,7 @@ def detection():
         ev3.screen.print("right: {0}, left: {1}".format(right_colorsensor.rgb(), left_colorsensor.rgb()))
         ev3.screen.print("i think the colors are: \nLEFT: {0}, RIGHT: {1}".format(str(left_colorsensor.color()).strip("Color."), str(right_colorsensor.color()).strip("Color.")))
         time.sleep(.3)
+
 def get_color(sensor):
     r=sensor.rgb()
     green,blue=r[1],r[2]

@@ -37,14 +37,14 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
   target_distance = robot.distance() + Td
   while (stop == False):
     error = follow_sensor.reflection()-50 # proportional
-    if (error == 0):
-      integral = 0
-    else:
-      integral = integral + error # maybe limit the integral?
-
+    # if (error == 0):
+    #   integral = 0
+    # else:
+    integral = integral + error # maybe limit the integral?
     derivative = error - lastError  
 
     correction = -(Kp*(error) + Ki*(integral) + Kd*derivative)
+
     power_left = Tp + correction
     power_right = Tp - correction   
 
@@ -52,7 +52,8 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
     right_wheel.dc(power_right) 
       
     lastError = error  
-    if (robot.distance() <= target_distance): 
+    rd = robot.distance()
+    if (rd <= target_distance): 
       stop = False
     else:
       if(not find_cross):
@@ -61,10 +62,8 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
       else:
         # sensed_color = get_color(detection_sensor)
         sensed_color = get_color(detection_sensor)
-        print("sensed ", sensed_color)
         if (sensed_color == Color.WHITE): 
           while sensed_color != Color.BLACK:          
             sensed_color = get_color(detection_sensor)
           stop = True
-          print("stop because found cross")
     # print(str(Kp) + ", " + str(Kd) + ", " + str(Ki) + ", error " + str(error) + "; correction " + str(correction)  +"("+ str(-Kp*error)+","+str(-Ki*integral)+","+str(-Kd*derivative)+ ") ; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   

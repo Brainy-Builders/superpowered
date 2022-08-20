@@ -54,10 +54,22 @@ def pidtest():
     ev3.speaker.beep()
     ev3.speaker.set_speech_options(voice='f2')
     # pidline(sensor='left', distance=400, speed=20, Kp=0.25, Ki=0.008, Kd=0.4, find_cross = True)
-    for _ in [100,150,200,250,300,350]:
+    for _ in range(5):
         ev3.speaker.say(str(_))
         # pidline(sensor='left', distance=600, speed=_, Kp=0.3, Ki=0.001, Kd=1.0, find_cross = True)
-        pidline(sensor='left', distance=400, speed=_, Kp=0.3, Ki=0, Kd=1.0, find_cross = True)
+        forward_dist(100,0,180)
+        ev3.speaker.beep(duration=25)
+        while(get_color(left_colorsensor) != Color.BLACK):
+            robot.drive(100,0)
+        robot.turn(30)
+        robot.stop()
+        ev3.speaker.beep(duration=25)
+        pidline(sensor='left', distance=350, speed=200, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = False)
+        ev3.speaker.beep(duration=25) # duration units [ms]
+        while(get_color(right_colorsensor) != Color.WHITE):
+            robot.drive(50,0)
+        while(get_color(right_colorsensor) != Color.BLACK):
+            robot.drive(50,0)
         gyro_stop()
     
 
