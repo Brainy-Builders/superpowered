@@ -115,8 +115,8 @@ def functions(x):
     elif selected == 6:
         tv.flip_tv()
     elif selected == 7:
-        print("something there")
-        oil_supporter.followline()
+        print("oil rocks")
+        oil_supporter.main()
     elif selected == 9:
         
         tv.halftesla()
