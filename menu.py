@@ -22,6 +22,7 @@ import threading
 import tv
 import lib
 import oil_supporter
+import Waterfall_goes_splash
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "callums test",
@@ -33,7 +34,8 @@ lis = [
     "tv flip",
     "oil supporter",
     "test follow",
-    "wind"
+    "wind",
+    "waterfall"
     ]
 
 def thread():
@@ -123,7 +125,8 @@ def functions(x):
         # tv.windthing()
     elif selected == 8:
         lib.test_follow()
-
+    elif selected == 10:
+        Waterfall_goes_splash.waterfall()
 while True: 
     time.sleep(.2)
     ev3.screen.clear()
