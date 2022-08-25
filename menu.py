@@ -34,8 +34,7 @@ lis = [
     "tv flip",
     "oil supporter",
     "test follow",
-    "wind",
-    "waterfall"
+    "wind"
     ]
 
 def thread():
@@ -117,16 +116,15 @@ def functions(x):
     elif selected == 6:
         tv.flip_tv()
     elif selected == 7:
-        print("something there")
-        oil_supporter.followline()
+        print("oil rocks")
+        oil_supporter.main()
     elif selected == 9:
         
         tv.halftesla()
         # tv.windthing()
     elif selected == 8:
         lib.test_follow()
-    elif selected == 10:
-        Waterfall_goes_splash.waterfall()
+
 while True: 
     time.sleep(.2)
     ev3.screen.clear()
