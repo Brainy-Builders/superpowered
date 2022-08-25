@@ -33,7 +33,8 @@ lis = [
     "tv flip",
     "oil supporter",
     "test follow",
-    "wind"
+    "wind",
+    "motor_test"
     ]
 
 def thread():
@@ -123,6 +124,8 @@ def functions(x):
         # tv.windthing()
     elif selected == 8:
         lib.test_follow()
+    elif selected == 10:
+        lib.motor_test()
 
 while True: 
     time.sleep(.2)

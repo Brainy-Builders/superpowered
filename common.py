@@ -43,16 +43,23 @@ except:
     back_motor = Motor(Port.B)
 #axle_track = 108 # Cor-3 robot from 2019 season
 axle_track = 96  # Chloe's robot for 2020, '21, '22 seasons
-
-gyro = GyroSensor(Port.S2, direction=Direction.CLOCKWISE)
-gyro.reset_angle(0)
+try:
+    gyro = GyroSensor(Port.S2, direction=Direction.CLOCKWISE)
+    gyro.reset_angle(0)
+except:
+    class fg:
+        def reset_angle(self,angle):
+            pass
+        def angle(self):
+            return "fake gyro sensor "
+    gyro=fg()
 cwd = 90
 cat = 134 
 robot = DriveBase(left_wheel, right_wheel, cwd, cat)
 def panic_alarm():
     ev3.light.on(Color.RED)
     ev3.screen.print("ERROR: COLOR_SENSORS NOT ENTERED ¯\_(ツ)_/¯")
-    for i in range(0, 10):
+    for i in range(0, 2):
         ev3.speaker.beep(750)
         time.sleep(.2)
         

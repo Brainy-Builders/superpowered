@@ -9,6 +9,8 @@ from gyroturno import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
+import threading
+import logging
 
 def cs_data(truth):
     i = 0
@@ -107,4 +109,27 @@ def test_follow():
     left_wheel.brake()
     right_wheel.brake() 
 def motor_test():
-    pass
+    
+    time.sleep(5)
+    def log():
+        
+        t=time.time()
+        print(t,t+7)
+        while time.time() < t+10.00001:
+            print(str(time.time()-t)+", "+str(left_wheel.speed()))
+        
+    x=threading.Thread(target=log)
+    x.start()
+    left_wheel.run(650)
+    time.sleep(1)
+    left_wheel.stop()
+    time.sleep(.5)
+    left_wheel.run(650)
+    time.sleep(1)
+    left_wheel.brake()
+    time.sleep(.5)
+    left_wheel.run(650)
+    time.sleep(1)
+    left_wheel.hold()
+    time.sleep(.5)
+    ev3.speaker.beep(1000,900)
