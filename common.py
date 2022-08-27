@@ -246,4 +246,4 @@ def get_color(sensor):
                     color = "OTHER"
             if reflectivity >  39.50:
                     color = Color.WHITE
-    return color, (green,blue,reflectivity)
+    return color
