@@ -38,16 +38,18 @@ main_motor = Motor(Port.C)
 
 try:
     open("back")
-    back_motor= Motor(Port.C)
-    gyro = GyroSensor(Port.S2, direction=Direction.COUNTERCLOCKWISE)
-except: # backless robot
-    back_motor = Motor(Port.B)
+except:
+    print("didn't find back (new robot)")
+    back_motor= Motor(Port.B)
     gyro = GyroSensor(Port.S2, direction=Direction.CLOCKWISE)
+else:
+    print("old robot!")
+    back_motor = Motor(Port.C)
+    gyro = GyroSensor(Port.S2, direction=Direction.COUNTERCLOCKWISE)
 
 #axle_track = 108 # Cor-3 robot from 2019 season
 axle_track = 96  # Chloe's robot for 2020, '21, '22 seasons
 
-gyro = GyroSensor(Port.S2, direction=Direction.CLOCKWISE)
 gyro.reset_angle(0)
 cwd = 90
 cat = 134 

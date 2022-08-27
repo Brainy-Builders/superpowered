@@ -25,7 +25,7 @@ import oil_supporter
 import Waterfall_goes_splash
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
-    "callums test",
+    "waterfall",
     "turn test",
     "pid test",
     "gyro test",
@@ -60,7 +60,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 2
+selected = 0
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -102,7 +102,7 @@ def functions(x):
         data["stated"] = True
         qw.start()
     if selected == 0:
-        lib.callum()
+        Waterfall_goes_splash.waterfall2()
     elif selected == 1:
         lib.turntest()
     elif selected == 2:
