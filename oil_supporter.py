@@ -31,7 +31,7 @@ def findline():
 
 def followline_findcross():
     ev3.speaker.beep(duration=25)
-    pidline(sensor='left', distance=320, speed=200, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = False)
+    pidline(sensor='left', distance=350, speed=200, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = False)
     ev3.speaker.beep(duration=25) # duration units [ms]
     while(get_color(right_colorsensor) != Color.WHITE):
         robot.drive(50,0)
@@ -39,23 +39,23 @@ def followline_findcross():
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(50,0)
     ev3.speaker.beep()
-    gyro_stop()
+    robot.stop()
 
 def pump_oil():
     robot.straight(70)
     ev3.speaker.beep()
-    move_motor(200, -570, mustWait=False)
+    move_motor(250, -570, mustWait=False)
     gyroturno(-90)
     robot.stop()
     ev3.speaker.beep()
     time.sleep(1)
     robot.drive(100, 0)
-    time.sleep(0.6)
+    time.sleep(1)
     robot.stop()
-    for _ in range(3):
+    for _ in range(2):
         move_motor(1000, 600)
         move_motor(1000, -600)
-    #move_motor(1000, 600)
+    move_motor(1000, 600)
     #move_motor(1000, -600)
     #move_motor(1000, 600)
     #move_motor(1000, -600)
@@ -69,17 +69,20 @@ def align_to_cart():
         robot.drive(-60,0)
     ev3.speaker.beep()
     gyro_stop()
-    move_motor(200, 500, mustWait=True)
+    #move_motor(200, 500, mustWait=False)
     gyroturno(0)
     ev3.speaker.beep()
     robot.straight(30)
 
-def hook_cart():
-    move_motor(300, -370)
+def hookcart_gohome():
+    move_motor(300, -450)
+    robot.drive(-1000, 15)
+    time.sleep(3.5)
+    robot.stop()
 
 def main():
     findline()
     followline_findcross()
     pump_oil()
     align_to_cart()
-    hook_cart()
+    hookcart_gohome()
