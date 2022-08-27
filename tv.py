@@ -12,7 +12,9 @@ from lib import *
 def flip_tv():
     gyro.reset_angle(0)
     ev3.speaker.beep()
-    forward_dist(300, 0, 270)
+    robot.settings(straight_acceleration = 250, straight_speed = 300)
+    robot.straight(270)
+    #forward_dist(300, 0, 270)
     #robot.settings(straight_acc = )
     robot.drive(200, 0)
     time.sleep(2)
@@ -27,9 +29,9 @@ def windthing():
 
     #go to wind#
 
-    forward_dist(-100, 0, -100)
+    forward_dist(-100, 0, -150)
     gyroturno(-40)
-    forward_dist(200, 0, 280)
+    forward_dist(200, 0, 330)
     # find_colors(WHITE, "right", 70)
     # ev3.speaker.beep()
     # find_colors(BLACK, "right", 50)
@@ -38,13 +40,16 @@ def windthing():
     # ev3.speaker.beep()
     while get_color(right_colorsensor) != Color.WHITE:  #
         robot.drive(70, 0)                              # Maybe these 3 lines should be a function with color as the argument
-    robot.stop()                                        #
+    robot.stop()          
+    ev3.speaker.beep(25)                              #
     while get_color(right_colorsensor) != Color.BLACK:
         robot.drive(50, 0)
     robot.stop()
+    ev3.speaker.beep(25) 
     while get_color(right_colorsensor) != Color.WHITE:
         robot.drive(50, 0)
     robot.stop()
+    ev3.speaker.beep(25) 
     forward_dist(50, 0, 20)
     gyroturno(43)
     forward_dist(100, 0, 85)
@@ -73,11 +78,16 @@ def halftesla():
     robot.drive(-200, 0)
     time.sleep(2)
     robot.stop()
+    gyro.reset_angle(135)
     # forward_dist(-200, 0, -300)
     back_motor.run_time(speed = -200, time=700)
     forward_dist(300, 0, 100)
     robot.stop()
     back_motor.run_time(speed = 200, time = 700)
+    gyroturno(135+90)
+    robot.stop()
+    forward_dist(100, 0, 80)
+    gyroturno(-225)
     robot.drive(300, 0)
     time.sleep(4)
     robot.stop()

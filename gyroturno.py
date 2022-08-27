@@ -74,12 +74,12 @@ def gyroturno(angle, rate_control=1, speed=0):
     previous_speed = 10
     gyroangle = gyro.angle()
     
-    if gyroangle > 180:
-        while gyroangle > 180:
+    if gyroangle >= 180:
+        while gyroangle >= 180:
             gyroangle -= 360
 
-    elif gyroangle < -180:
-        while gyroangle < -180:
+    elif gyroangle <= -180:
+        while gyroangle <= -180:
             gyroangle += 360
 
     gyro.reset_angle(gyroangle)
