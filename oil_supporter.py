@@ -42,10 +42,10 @@ def followline_findcross():
     gyro_stop()
 
 def pump_oil():
-    robot.straight(50)
+    robot.straight(70)
     ev3.speaker.beep()
-    move_motor(200, -500, mustWait=False)
-    gyroturno(-95)
+    move_motor(200, -570, mustWait=False)
+    gyroturno(-90)
     robot.stop()
     ev3.speaker.beep()
     time.sleep(1)
@@ -62,26 +62,24 @@ def pump_oil():
 
 def align_to_cart():
     gyro.reset_angle(-90)
-    while(get_color(right_colorsensor) != Color.WHITE):
-        robot.drive(-60,0)
-    ev3.speaker.beep()
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(-60,0)
     ev3.speaker.beep()
+    while(get_color(right_colorsensor) != Color.WHITE):
+        robot.drive(-60,0)
+    ev3.speaker.beep()
     gyro_stop()
-    move_motor(200, 500, mustWait=False)
+    move_motor(200, 500, mustWait=True)
     gyroturno(0)
     ev3.speaker.beep()
-    robot.drive(100, 0)
-    time.sleep(0.3)
-    robot.stop
+    robot.straight(30)
 
 def hook_cart():
-    move_motor(200, -200)
+    move_motor(300, -370)
 
 def main():
     findline()
     followline_findcross()
     pump_oil()
     align_to_cart()
-    #hook_cart()
+    hook_cart()
