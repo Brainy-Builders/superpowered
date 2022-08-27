@@ -235,13 +235,13 @@ def get_color(sensor):
     green,blue=r[1],r[2]
     reflectivity=sensor.reflection()
     if green <= 14.00:
-            color = Color.BLACK
+                color = Color.BLACK
     if green >  14.00:
-        if blue <= 72.00:
+        if blue <= 70.50:
                 color = "OTHER"
-        if blue >  72.00:
-            if reflectivity <= 40.50:
+        if blue >  70.50:
+            if reflectivity <= 39.50:
                     color = "OTHER"
-            if reflectivity >  40.50:
+            if reflectivity >  39.50:
                     color = Color.WHITE
     return color
