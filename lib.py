@@ -6,6 +6,7 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 from gyroturno import *
+from gyrostraight import *
 from pidlinefollow import *
 from linefollow import *
 from line_a_line import *
@@ -76,17 +77,40 @@ def pidtest():
     
 
 def gyrotest():
-    gyro.reset_angle(0)
-    gyroturno(90)
-    gyroturno(180)
-    gyroturno(270)
-    gyroturno(0)
-    robot.stop()
-    gyroturno(-90)
-    gyroturno(-180)
-    gyroturno(-270)
-    gyroturno(-0)
-    robot.stop()
+    gyro.reset_angle(90)
+
+    test_gyro_turno=False
+    if (test_gyro_turno):
+        gyroturno2(90)
+        time.sleep(2)
+        ev3.speaker.beep()
+        gyroturno2(180)
+        ev3.speaker.beep()
+        time.sleep(2)
+        gyroturno2(270)
+        ev3.speaker.beep()
+        time.sleep(2)
+        gyroturno2(0)
+        ev3.speaker.beep()
+        time.sleep(2)
+        robot.stop()
+
+        gyroturno2(-90)
+        ev3.speaker.beep()
+        time.sleep(2)
+        gyroturno2(-180)
+        ev3.speaker.beep()
+        time.sleep(2)
+        gyroturno2(-270)
+        ev3.speaker.beep()
+        time.sleep(2)
+        gyroturno2(-0)
+        robot.stop()
+    else:
+
+        gyro_straight(distance=1000, speed=-100, reset_angle=45)
+        ev3.speaker.beep()
+        robot.stop()
 def view_color():
     ev3.screen.set_font(med_font)
     while Button.LEFT not in ev3.buttons.pressed():

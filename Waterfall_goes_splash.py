@@ -1,4 +1,4 @@
-#!/usr/bin/env pybricks-micropython
+ #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (
     Motor,
@@ -31,7 +31,7 @@ def waterfall():
     drive(2)
 
 def get_there(): # Get there without stopping until at the mission model
-    move_motor(500, 90, mustWait= False)
+    move_motor(500, 60, mustWait= False)
     robot.drive(230,0)
     time.sleep(0.225)
     robot.drive(200,90)

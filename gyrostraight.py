@@ -1,5 +1,5 @@
 from common import * # includes gyro
-from gyroturno import gyroturno
+from gyroturno import *
 
 def gyro_straight(distance, speed, reset_angle=None, GCV=2.5):
   # If no "reset_angle" is given, continue in the same direction
@@ -8,7 +8,8 @@ def gyro_straight(distance, speed, reset_angle=None, GCV=2.5):
   if(reset_angle is None):
     heading = gyro.angle()
   else:
-    heading = -reset_angle # negative due to inverted gyro sensor
+    gyroturno2(reset_angle)   # change it to offical gyroturno when finalized
+    heading = gyro.angle()
 
   if backwards:
     end_distance = robot.distance()-distance
@@ -18,10 +19,10 @@ def gyro_straight(distance, speed, reset_angle=None, GCV=2.5):
   if backwards:
     while robot.distance() > end_distance:
       correction = (heading-gyro.angle()) * GCV
-      robot.drive(speed, -correction)
-  else:
+      robot.drive(speed, correction)
+  else: #forward
     while robot.distance() < end_distance:
-      correction = - (heading-gyro.angle()) * GCV
+      correction = (heading-gyro.angle()) * GCV
       robot.drive(speed, correction)
       #print("robot distnace is", robot.distance())
   return robot.distance()  
