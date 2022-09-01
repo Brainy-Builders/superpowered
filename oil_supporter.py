@@ -76,8 +76,14 @@ def align_to_cart():
 
 def hookcart_gohome():
     move_motor(300, -450)
-    robot.drive(-1000, 15)
-    time.sleep(3.5)
+    robot.drive(-500, 15)
+    time.sleep(0.73)
+    robot.stop()
+    gyroturno(50)
+    robot.stop()
+    #robot.straight(-60)
+    robot.drive(-1000, 0)
+    time.sleep(0.7)
     robot.stop()
 
 def main():
