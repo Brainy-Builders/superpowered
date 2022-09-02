@@ -23,6 +23,7 @@ import tv
 import lib
 import oil_supporter
 import Waterfall_goes_splash
+import power
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "waterfall",
@@ -34,7 +35,7 @@ lis = [
     "tv flip",
     "oil supporter",
     "test follow",
-    "wind"
+    "power"
     ]
 
 def thread():
@@ -118,12 +119,10 @@ def functions(x):
     elif selected == 7:
         print("oil rocks")
         oil_supporter.main()
-    elif selected == 9:
-        
-        tv.halftesla()
-        # tv.windthing()
     elif selected == 8:
         lib.test_follow()
+    elif selected == 9:
+        power.dispense()
 
 while True: 
     time.sleep(.2)

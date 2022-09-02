@@ -39,11 +39,11 @@ main_motor = Motor(Port.C)
 try:
     open("back")
 except:
-    print("didn't find back (new robot)")
+    print("New robot detected!!")
     back_motor= Motor(Port.B)
     gyro = GyroSensor(Port.S2, direction=Direction.CLOCKWISE)
 else:
-    print("old robot!")
+    print("OLD robot detected!")
     back_motor = Motor(Port.C)
     gyro = GyroSensor(Port.S2, direction=Direction.COUNTERCLOCKWISE)
 
