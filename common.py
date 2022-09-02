@@ -233,9 +233,10 @@ def detection():
         time.sleep(.3)
 
 def get_color(sensor):
-    r=sensor.rgb()
-    green,blue=r[1],r[2]
-    reflectivity=sensor.reflection()
+    r=sensor.rgb()#get red, green, blue values from sensor
+    green,blue=r[1],r[2]#extract green and blue values
+    reflectivity=sensor.reflection()#get reflectivity value from sensor
+    #decision tree below
     if green <= 14.00:
                 color = Color.BLACK
     if green >  14.00:
@@ -246,4 +247,5 @@ def get_color(sensor):
                     color = "OTHER"
             if reflectivity >  39.50:
                     color = Color.WHITE
+    #return color guess
     return color
