@@ -56,25 +56,16 @@ def pidtest():
     # pidline(sensor='left', distance=1000, speed=30, Kp=0.45, Ki=0.9, Kd=1.1)
     ev3.speaker.beep()
     ev3.speaker.set_speech_options(voice='f2')
-    # pidline(sensor='left', distance=400, speed=20, Kp=0.25, Ki=0.008, Kd=0.4, find_cross = True)
-    for _ in range(5):
+    ev3.speaker.say("starting test")
+    for _ in [0, 0.0002, 0.0004,0.0006, 0.0008, 0.0015, 0.002, 0.0025, 0.003]:
         ev3.speaker.say(str(_))
-        # pidline(sensor='left', distance=600, speed=_, Kp=0.3, Ki=0.001, Kd=1.0, find_cross = True)
-        forward_dist(100,0,180)
-        ev3.speaker.beep(duration=25)
-        while(get_color(left_colorsensor) != Color.BLACK):
-            robot.drive(100,0)
-        robot.turn(30)
+        pidline(sensor='left', distance=600, speed=200, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False)
         robot.stop()
-        ev3.speaker.beep(duration=25)
-        pidline(sensor='left', distance=350, speed=200, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = False)
+      # pidline(sensor='left', distance=600, speed=_, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = True)
         ev3.speaker.beep(duration=25) # duration units [ms]
-        while(get_color(right_colorsensor) != Color.WHITE):
-            robot.drive(50,0)
-        while(get_color(right_colorsensor) != Color.BLACK):
-            robot.drive(50,0)
-        gyro_stop()
-    
+        time.sleep(3)
+    ev3.speaker.say("Hi")
+    gyro_stop()
 
 def gyrotest():
     gyro.reset_angle(90)
