@@ -9,6 +9,7 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 from gyroturno import *
 from pidlinefollow import *
+
 import common
 gyro.reset_angle(0)
 ev3.screen.draw_image(x = 0, y = 0, source = "splash.png", transparent=None)
