@@ -11,10 +11,11 @@ from gyrostraight import *
 from lib import *
 
 def dispense():
-    robot.drive(200, 5)
-    time.sleep(3)
+    robot.drive(256, 5)
+    time.sleep(2.5)
     robot.stop()
-    main_motor.run_time(-60*16, 2000)
-    ev3.speaker.say('trey is cool')
+    main_motor.run_time(-60*16, 1350)
     main_motor.run_time(90*16, 2000)
+    forward_dist(-300,0,-640)
     robot.stop()
+    

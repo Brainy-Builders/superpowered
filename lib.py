@@ -127,11 +127,9 @@ def view_color():
         ev3.screen.print("R clr: {}".format(right_colorsensor.color()))
 
 def test_follow():
-    [ev3.speaker.beep() for i in range(3)]
+    
     line_follow(1000,200,"left" , "right", True)
-    robot.stop()
-    left_wheel.brake()
-    right_wheel.brake() 
+
 def motor_test():
     
     time.sleep(5)
