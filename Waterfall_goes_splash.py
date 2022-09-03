@@ -31,15 +31,20 @@ def waterfall():
     drive(2)
 
 def get_there(): # Get there without stopping until at the mission model
-    main_motor.run_time(500, 2000, wait = False)
-    robot.drive(230,0)
-    time.sleep(0.225)
-    robot.drive(200,90)
-    time.sleep(0.5)
-    robot.drive(300,0)
-    time.sleep(1.0)
-    robot.stop()
-    
+    forward_dist(130, 0, 100)
+    # robot.drive(300,0)
+    # time.sleep(1.0)
+    # robot.stop()
+
+def hang_water():
+    move_motor(700, -3000)
+    robot.settings(200, 400, 180, 180)
+    robot.straight(-80)
+    move_motor(700, -1000)
+    robot.straight(90)
+    move_motor(700, 2000)
+
+
 
 def lift_and_collect():
     move_motor(400, -80, mustWait = False)
@@ -58,6 +63,10 @@ def get_home():
     robot.stop()
 
 def waterfall2():
+    # move_motor(700, -3000)
+    # ev3.speaker.beep()
+    # time.sleep(2)
     get_there()
-    # lift_and_collect()
+    # hang_water()
+    # lift_ando_collect()
     # get_home()

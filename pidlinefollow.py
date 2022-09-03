@@ -20,8 +20,9 @@ import math
 from common import *
 from gyroturno import *
 # An example of this code is
-# pidline(sensor='left', distance=5000, speed=30, Kp=0.25, Ki=0.008, Kd=0.2)
-def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
+# pidline(sensor='left', distance=600, speed=200, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False)
+
+def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross):
   Td = distance # target distance
   Tp_pct = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
   Tp = Tp_pct * 35/250 # Scale to approximate mm/s units
@@ -35,6 +36,7 @@ def pidline(sensor, distance, speed, Kp, Ki, Kd, find_cross):
     detection_sensor = right_colorsensor
   stop = False 
   target_distance = robot.distance() + Td
+  robot.stop()
   while (stop == False):
     error = follow_sensor.reflection()-50 # proportional
     # if (error == 0):
