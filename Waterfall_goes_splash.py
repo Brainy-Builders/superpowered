@@ -41,11 +41,13 @@ def get_there(): # Get there without stopping until at the mission model
     robot.stop()
 
 def hang_water():
-    main_motor.run_until_stalled(-1000)
-    move_motor(1000, 500)
-    robot.drive(-200, 0) 
-    time.sleep(0.2)
-    robot.stop()
+    move_motor(700, -6000)
+    robot.settings(200, 400, 180, 180)
+    robot.straight(-60)
+    move_motor(700, -1000)
+    robot.straight(70)
+    move_motor(700, 3000)
+
 
 
 def lift_and_collect():
