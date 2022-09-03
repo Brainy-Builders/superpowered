@@ -40,7 +40,7 @@ def get_there(): # Get there without stopping until at the mission model
     time.sleep(1.0)
     robot.stop()
     
-def 
+
 def lift_and_collect():
     move_motor(400, -80, mustWait = False)
     robot.drive(-300, 0)

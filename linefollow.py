@@ -22,6 +22,7 @@ from common import *
 # An example of this code is
 # line_follow(followlength=200, followspeed=100, "left")
 # followlength=0 goes until an intersection
+
 def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     go_distance = robot.distance() + length
     # Calculate the light threshold. Choose values based on your measurements.
@@ -42,35 +43,25 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     else:
         follow_sensor = left_colorsensor 
         detection_sensor = right_colorsensor
-    Ki = 0. #  the Constanbricks.ev3devices import (
+    Ki = 0 #  the Constanbricks.ev3devices import (
     #Motot 'K' for the 'i' integral term
     integral = [Ki]
     lastError = [0] # initialize
     Kd = 0 #  the Constant 'K' for the 'd' derivative term
     def apply_corrections():
+        t1=time.time()
         error = follow_sensor.reflection()-50 # proportional
-        
-        Kp =  0.67 #  the Constant 'K' for the 'p' proportional controller
-        
-            # initialize
-        Tp = speed
+        # initialize
         if (error == 0):
             integral[0] = 0
         else:
             integral[0] = integral[0] + error 
         derivative = error - lastError[0]
-        
-        correction = (Kp*(error) + Ki*(integral[0]) + Kd*derivative) * side_mod
-        robot.drive(Tp, correction/-1)
-        power_left = Tp + correction
-        power_right = Tp - correction   
-        
-        #left_wheel.dc(power_left) 
-        #right_wheel.dc(power_right) 
-        
-        lastError[0] = error  
-        print("error " + str(error) + "; correction " + str(correction)  + "; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
 
+        correction = (0.67*(error) + Ki*(integral[0]) + Kd*derivative) * side_mod
+        robot.drive(speed, correction*-1) 
+        lastError[0] = error
+        print("ac: ",time.time()-t1)
     while robot.distance() < go_distance:
       apply_corrections()
     
