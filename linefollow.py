@@ -52,7 +52,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
         t1=time.time()
         error = follow_sensor.reflection()-50 # proportional
         # initialize
-        if (error == 0):
+        if error == 0:
             integral[0] = 0
         else:
             integral[0] = integral[0] + error 
