@@ -31,7 +31,7 @@ def waterfall():
     drive(2)
 
 def get_there(): # Get there without stopping until at the mission model
-    forward_dist(speed = 100, turn_rate = 0, distance = 10)
+    forward_dist(speed = 100, turn_rate = 0, distance = 16)
     forward_dist(speed = 100, turn_rate = 45, distance = 100)
     robot.drive(200,0)
     time.sleep(1.5)
@@ -40,21 +40,16 @@ def get_there(): # Get there without stopping until at the mission model
 def hang_water():
     move_motor(700, -1900)
     robot.settings(200, 400, 180, 180)
-    robot.straight(-80)
+    robot.straight(-65)
     move_motor(700, -1000)
-    robot.straight(90)
-    move_motor(700, 2000)
+    robot.straight(75)
+    move_motor(700, 200)
 
 
 
 def lift_and_collect():
-    move_motor(400, -80, mustWait = False)
-    robot.drive(-300, 0)
-    time.sleep(.5)
-    robot.drive(300, 0)
-    time.sleep(.5)
-    robot.stop()
-    main_motor.run_time(300, 2000)
+    robot.straight(-70)
+    main_motor.run_time(1000, 4)
 
     
 
@@ -69,5 +64,5 @@ def waterfall2():
     time.sleep(2)
     get_there()
     hang_water()
-    # lift_ando_collect()
+    lift_ando_collect()
     get_home()

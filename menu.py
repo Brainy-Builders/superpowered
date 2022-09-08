@@ -61,7 +61,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 6
+selected = 0
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
