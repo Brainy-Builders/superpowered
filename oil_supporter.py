@@ -18,7 +18,7 @@ import os
 from linefollow import line_follow
 from common import *
 from pidlinefollow import *
-
+from gyrostraight import *
 def findline():
     gyro.reset_angle(0)
     move_motor(1000, 500, mustWait=False)
@@ -92,3 +92,14 @@ def main():
     pump_oil()
     align_to_cart()
     hookcart_gohome()
+
+def oiltruck():
+    gyro.reset_angle(0)
+    gyro_straight(distance=300, speed=250)
+    robot.drive(speed=120, turn_rate=0) 
+    time.sleep(1)
+    robot.stop()
+    robot.drive(speed=-400, turn_rate=0)
+    time.sleep(2)
+    robot.stop()
+

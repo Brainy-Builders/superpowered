@@ -35,7 +35,8 @@ lis = [
     "tv flip",
     "oil supporter",
     "test follow",
-    "power"
+    "power",
+    "truck"
     ]
 
 def thread():
@@ -123,6 +124,8 @@ def functions(x):
         lib.test_follow()
     elif selected == 9:
         power.dispense()
+    elif selected==10:
+        oil_supporter.oiltruck()
 
 
 
