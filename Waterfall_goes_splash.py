@@ -48,8 +48,8 @@ def hang_water():
 
 
 def lift_and_collect():
-    robot.straight(-70)
-    main_motor.run_time(1000, 4)
+    robot.straight(-40)
+    main_motor.run_time(1000, 4000)
 
     
 
@@ -64,5 +64,5 @@ def waterfall2():
     time.sleep(2)
     get_there()
     hang_water()
-    lift_ando_collect()
+    lift_and_collect()
     get_home()
