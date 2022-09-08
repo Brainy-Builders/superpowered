@@ -58,7 +58,28 @@ def get_home():
     time.sleep(2)
     robot.stop()
 
+def test_stuff():
+    robot.stop()
+    ev3.screen.clear()
+    ev3.screen.print("LEFT  => UP")
+    ev3.screen.print("RIGHT => DOWN")
+    ev3.screen.print("DOWN  => drive back")
+    ev3.screen.print("UP    => drive fwd")
+    while(not Button.CENTER in ev3.buttons.pressed()):
+        if(Button.LEFT in ev3.buttons.pressed()):
+            main_motor.run(speed=4000)
+        elif(Button.RIGHT in ev3.buttons.pressed()):
+            main_motor.run(speed=-4000)
+        elif(Button.UP in ev3.buttons.pressed()):
+            robot.drive(speed=200, turn_rate=0)
+        elif(Button.DOWN in ev3.buttons.pressed()):
+            robot.drive(speed=-200, turn_rate=0)
+        else:
+            robot.stop()
+            main_motor.stop()
+
 def waterfall2():
+    test_stuff()
     move_motor(700, -4100)
     ev3.speaker.beep()
     time.sleep(2)
