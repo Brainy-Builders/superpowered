@@ -31,7 +31,7 @@ def waterfall():
     drive(2)
 
 def get_there(): # Get there without stopping until at the mission model
-    forward_dist(speed = 100, turn_rate = 0, distance = 10)
+    forward_dist(speed = 100, turn_rate = 0, distance = 16)
     forward_dist(speed = 100, turn_rate = 45, distance = 100)
     robot.drive(200,0)
     time.sleep(1.5)
@@ -40,21 +40,16 @@ def get_there(): # Get there without stopping until at the mission model
 def hang_water():
     move_motor(700, -1900)
     robot.settings(200, 400, 180, 180)
-    robot.straight(-80)
+    robot.straight(-65)
     move_motor(700, -1000)
-    robot.straight(90)
-    move_motor(700, 2000)
+    robot.straight(75)
+    move_motor(700, 200)
 
 
 
 def lift_and_collect():
-    move_motor(400, -80, mustWait = False)
-    robot.drive(-300, 0)
-    time.sleep(.5)
-    robot.drive(300, 0)
-    time.sleep(.5)
-    robot.stop()
-    main_motor.run_time(300, 2000)
+    robot.straight(-40)
+    main_motor.run_time(1000, 4000)
 
     
 
@@ -63,11 +58,32 @@ def get_home():
     time.sleep(2)
     robot.stop()
 
+def test_stuff():
+    robot.stop()
+    ev3.screen.clear()
+    ev3.screen.print("LEFT  => UP")
+    ev3.screen.print("RIGHT => DOWN")
+    ev3.screen.print("DOWN  => drive back")
+    ev3.screen.print("UP    => drive fwd")
+    while(not Button.CENTER in ev3.buttons.pressed()):
+        if(Button.LEFT in ev3.buttons.pressed()):
+            main_motor.run(speed=4000)
+        elif(Button.RIGHT in ev3.buttons.pressed()):
+            main_motor.run(speed=-4000)
+        elif(Button.UP in ev3.buttons.pressed()):
+            robot.drive(speed=200, turn_rate=0)
+        elif(Button.DOWN in ev3.buttons.pressed()):
+            robot.drive(speed=-200, turn_rate=0)
+        else:
+            robot.stop()
+            main_motor.stop()
+
 def waterfall2():
+    test_stuff()
     move_motor(700, -4100)
     ev3.speaker.beep()
     time.sleep(2)
     get_there()
     hang_water()
-    # lift_ando_collect()
+    lift_and_collect()
     get_home()

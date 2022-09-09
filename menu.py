@@ -37,7 +37,8 @@ lis = [
     "oil supporter",
     "test follow",
     "power",
-    "collect"
+    "collect",
+    "truck"
     ]
 
 def thread():
@@ -63,7 +64,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 6
+selected = 0
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -127,6 +128,8 @@ def functions(x):
         power.dispense()
     elif selected == 10:
         collectit.main()
+    elif selected==11:
+        oil_supporter.oiltruck()
 
 
 

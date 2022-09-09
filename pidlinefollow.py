@@ -22,7 +22,7 @@ from gyroturno import *
 # An example of this code is
 # pidline(sensor='left', distance=600, speed=200, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False)
 
-def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross= False):
+def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False):
   Td = distance # target distance
   Tp_pct = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
   Tp = Tp_pct * 35/250 # Scale to approximate mm/s units
