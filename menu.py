@@ -24,6 +24,7 @@ import lib
 import oil_supporter
 import Waterfall_goes_splash
 import power
+import collectit
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "waterfall",
@@ -35,7 +36,8 @@ lis = [
     "tv flip",
     "oil supporter",
     "test follow",
-    "power"
+    "power",
+    "collect"
     ]
 
 def thread():
@@ -123,6 +125,8 @@ def functions(x):
         lib.test_follow()
     elif selected == 9:
         power.dispense()
+    elif selected == 10:
+        collectit.main()
 
 
 
