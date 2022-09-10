@@ -1,6 +1,4 @@
 from common import *
-
+import linefollow
 def main():
-    robot.drive(101.6,8.3)
-    time.sleep(3)
-    robot.stop()
+        linefollow.line_follow(350,150,"left","left",True)
