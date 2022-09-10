@@ -24,6 +24,7 @@ import lib
 import oil_supporter
 import Waterfall_goes_splash
 import power
+import collectit
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "waterfall",
@@ -36,6 +37,7 @@ lis = [
     "oil supporter",
     "test follow",
     "power",
+    "collect",
     "truck"
     ]
 
@@ -124,7 +126,9 @@ def functions(x):
         lib.test_follow()
     elif selected == 9:
         power.dispense()
-    elif selected==10:
+    elif selected == 10:
+        collectit.main()
+    elif selected==11:
         oil_supporter.oiltruck()
 
 

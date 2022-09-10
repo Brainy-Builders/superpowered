@@ -95,11 +95,13 @@ def main():
 
 def oiltruck():
     gyro.reset_angle(0)
-    gyro_straight(distance=300, speed=250)
-    robot.drive(speed=120, turn_rate=0) 
-    time.sleep(1)
+    #gyro_straight(distance=300, speed=200)
+    #robot.straight()
+    robot.drive(speed=150, turn_rate=0) 
+    time.sleep(2)
     robot.stop()
-    robot.drive(speed=-400, turn_rate=0)
+    time.sleep(2)
+    robot.drive(speed=-200, turn_rate=0)
     time.sleep(2)
     robot.stop()
 
