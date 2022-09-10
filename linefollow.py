@@ -50,7 +50,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     lastError = [0] # initialize
     Kd = 0 #  the Constant 'K' for the 'd' derivative term
     def apply_corrections():
-        t1=time.time()
+
         error = follow_sensor.reflection()-50 # proportional
         # initialize
         if error == 0:
@@ -62,7 +62,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
         correction = (0.67*(error) + Ki*(integral[0]) + Kd*derivative) * side_mod
         robot.drive(speed, correction*-1) 
         lastError[0] = error
-        print("ac: ",time.time()-t1)
+
     while robot.distance() < go_distance:
       apply_corrections()
     
