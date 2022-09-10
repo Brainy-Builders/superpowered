@@ -29,10 +29,20 @@ def waterfall():
     drive(.23)
     gyroturno(45)
     drive(2)
+def forward_angle(speed, turn_rate, angle):
+    if(angle<0):
+        end_angle = robot.angle()+angle
+        while(robot.angle() > end_angle):
+            robot.drive(speed,turn_rate)
+    end_angle = robot.angle()+angle
+    while(robot.angle() < end_angle):
+        robot.drive(speed,turn_rate)
+
 
 def get_there(): # Get there without stopping until at the mission model
-    forward_dist(speed = 100, turn_rate = 0, distance = 16)
-    forward_dist(speed = 100, turn_rate = 45, distance = 100)
+    forward_dist(speed = 100, turn_rate = 0, distance = 19)
+    # forward_dist(speed = 100, turn_rate = 45, distance = 100)
+    forward_angle(100, 45, 45)
     robot.drive(200,0)
     time.sleep(1.5)
     robot.stop()
@@ -79,10 +89,10 @@ def test_stuff():
             main_motor.stop()
 
 def waterfall2():
-    test_stuff()
-    move_motor(700, -4100)
-    ev3.speaker.beep()
-    time.sleep(2)
+    # test_stuff()
+    # move_motor(700, -4100)
+    # ev3.speaker.beep()
+    # time.sleep(2)
     get_there()
     hang_water()
     lift_and_collect()
