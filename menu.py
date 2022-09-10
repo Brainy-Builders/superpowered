@@ -54,7 +54,7 @@ def thread():
             time.sleep(.5)
             ev3.light.off()
         else:
-            time.sleep(1)
+             time.sleep(1)
 qw = threading.Thread(target=thread)
 ev3.screen.set_font(med_font)
 
