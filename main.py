@@ -18,10 +18,10 @@ ev3.screen.draw_image(x = 0, y = 0, source = "splash.png", transparent=None)
 
 
 
-3# The "import menu" below runs the menu program!
+# The "import menu" below runs the menu program!
 import menu
 
-#IF YOU FOUND THIS YOU ARE smart
+#IF YOU FOUND THIS YOU SHOULD MINE CRYPTO
 #😎
 
 

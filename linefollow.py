@@ -24,6 +24,7 @@ from common import *
 # followlength=0 goes until an intersection
 
 def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
+    """length in mm, speed in mm/sec, sensor is which sensor is following, side is which side of the line your on, and find cross is weather to continue until cross is found"""
     go_distance = robot.distance() + length
     # Calculate the light threshold. Choose values based on your measurements.
     threshold = (BLACK + WHITE) / 2
