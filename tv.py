@@ -29,7 +29,7 @@ def flip_tv():
 def windthing(): #go to wind#
     gyro_straight(150, -100)
     gyroturno(-45)
-    forward_dist(speed = 200, turn_rate = 2, distance = 330) # slight turn right to not miss white line
+    forward_dist(speed = 200, turn_rate = 3, distance = 330) # slight turn right to not miss white line
     ev3.speaker.beep(25)
     while get_color(right_colorsensor) != Color.WHITE:  
         robot.drive(50, 0)                              
@@ -46,7 +46,7 @@ def windthing(): #go to wind#
     forward_dist(speed = 50, turn_rate = 0, distance = 25) # distance from white to black 
     forward_dist(speed = 50, turn_rate = 0, distance = 50) # rest of the distance 
     gyroturno(45)
-    forward_dist(speed = 100, turn_rate = 0, distance = 85)
+    forward_dist(speed = 250, turn_rate = 0, distance = 85)
     
     #collecting the energy units#
 
@@ -63,31 +63,32 @@ def halftesla():
     # back_motor.run_until_stalled(speed=100, then=Stop.HOLD, duty_limit=None)
     gyro.reset_angle(45)
     # forward_dist(-200, 0, -140)
-    gyro_straight(distance=140, speed=-200)
-    gyroturno(135)
+    gyro_straight(distance=130, speed=-200)
+    gyroturno(137)
     # robot.stop()
-    robot.drive(-100,-5) # slight angle into the car model
-    time.sleep(2.5)
+    robot.drive(-200,-5) # slight angle into the car model
+    time.sleep(1.5)
     robot.stop()
     # gyro.reset_angle(135)  # uncomment if/when reliably aligned
     # forward_dist(-200, 0, -300)
-    back_motor.run_time(speed = -200, time=700)  # down
+    back_motor.run_time(speed = -200, time=800)  # down
     forward_dist(speed=375, turn_rate=0, distance=100)
     forward_dist(speed=375, turn_rate=0, distance=50) # extra distance to allow car to fall
     gyro_stop()
-    back_motor.run_time(speed = 200, time = 700, wait=False) # up
-    gyroturno(135+90)
-    robot.stop()
-    forward_dist(100, 0, 120)
-
-    # gyroturno(-225, rate_control=0.7)  # move forward here
-    # gyro_straight(600, 500)
-    robot.turn(-70)       # most of the turn
-    robot.drive(200,-100) # rest of the turn while moving forward to keep energy unit
     time.sleep(0.5)
-    robot.drive(300,0)    # get the rest of the way home
+    back_motor.run_time(speed = 200, time = 700, wait=False) # up
+    gyroturno(135+82, rate_control=0.5)
+    robot.stop()
+    forward_dist(100, 0, 140)
 
-    time.sleep(2)
+    gyroturno(-225, rate_control=0.7)  # move forward here
+    gyro_straight(700, 500)
+    # robot.turn(-70)       # most of the turn
+    # robot.drive(200,-100) # rest of the turn while moving forward to keep energy unit
+    # time.sleep(0.5)
+    # robot.drive(300,0)    # get the rest of the way home
+
+    # time.sleep(2)
     robot.stop()
     # Try this: 
     # back_motor.run_until_stalled(speed=100, then=Stop.HOLD, duty_limit=None)
