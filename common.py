@@ -182,6 +182,16 @@ def forward_dist(speed, turn_rate, distance):
         robot.drive(speed,turn_rate)
 forward_distance = forward_dist
 
+def forward_angle(speed, turn_rate, angle):
+    if(angle<0):
+        end_angle = robot.angle()+angle
+        while(robot.angle() > end_angle):
+            robot.drive(speed,turn_rate)
+    end_angle = robot.angle()+angle
+    while(robot.angle() < end_angle):
+        robot.drive(speed,turn_rate)
+
+
 def load_avg(): 
     try:
         f = open("color.json", 'r')

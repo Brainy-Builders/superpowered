@@ -29,15 +29,6 @@ def waterfall():
     drive(.23)
     gyroturno(45)
     drive(2)
-def forward_angle(speed, turn_rate, angle):
-    if(angle<0):
-        end_angle = robot.angle()+angle
-        while(robot.angle() > end_angle):
-            robot.drive(speed,turn_rate)
-    end_angle = robot.angle()+angle
-    while(robot.angle() < end_angle):
-        robot.drive(speed,turn_rate)
-
 
 def get_there(): # Get there without stopping until at the mission model
     forward_dist(speed = 100, turn_rate = 0, distance = 19)
@@ -55,13 +46,9 @@ def hang_water():
     robot.straight(75)
     move_motor(700, 200)
 
-
-
 def lift_and_collect():
     robot.straight(-40)
     main_motor.run_time(1000, 4000)
-
-    
 
 def get_home():
     robot.drive(-500, 0)
@@ -81,19 +68,23 @@ def test_stuff():
         elif(Button.RIGHT in ev3.buttons.pressed()):
             main_motor.run(speed=-4000)
         elif(Button.UP in ev3.buttons.pressed()):
-            robot.drive(speed=200, turn_rate=0)
+            robot.drive(speed=100, turn_rate=0)
         elif(Button.DOWN in ev3.buttons.pressed()):
-            robot.drive(speed=-200, turn_rate=0)
+            robot.drive(speed=-100, turn_rate=0)
         else:
             robot.stop()
             main_motor.stop()
 
+def toy():
+    move_motor(200, 10000000)
+
 def waterfall2():
-    # test_stuff()
+    toy()
+    #test_stuff()
     # move_motor(700, -4100)
     # ev3.speaker.beep()
     # time.sleep(2)
-    get_there()
-    hang_water()
-    lift_and_collect()
-    get_home()
+    #get_there()
+    #hang_water()
+    #lift_and_collect()
+    #get_home()
