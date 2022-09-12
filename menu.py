@@ -28,17 +28,13 @@ import collectit
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "waterfall",
-    "turn test",
-    "pid test",
-    "gyro test",
-    "color collect",
-    "color viewer", 
     "tv flip",
     "oil supporter",
-    "test follow",
     "power",
     "collect",
-    "truck"
+    "truck",
+    "color collect",
+    "color viewer", 
     ]
 
 def thread():
@@ -108,28 +104,24 @@ def functions(x):
     if selected == 0:
         Waterfall_goes_splash.waterfall2()
     elif selected == 1:
-        lib.turntest()
+        tv.flip_tv()
     elif selected == 2:
-        lib.pidtest()
+        print("oil rocks")
+        oil_supporter.main()
     elif selected == 3:
-        lib.gyrotest()
-    elif selected == 5:
-        lib.view_color()
+        power.dispense()
     elif selected == 4:
-        lib.cs_data(truth="BLACK")
+        collectit.main()
+    elif selected == 5:
+        oil_supporter.oiltruck()
     elif selected == 6:
         tv.flip_tv()
     elif selected == 7:
-        print("oil rocks")
-        oil_supporter.main()
+        lib.cs_data("WHITE")
     elif selected == 8:
-        lib.test_follow()
-    elif selected == 9:
-        power.dispense()
-    elif selected == 10:
-        collectit.main()
-    elif selected==11:
-        oil_supporter.oiltruck()
+        lib.view_color()
+
+        
 
 
 

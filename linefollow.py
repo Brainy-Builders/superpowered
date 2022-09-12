@@ -24,6 +24,7 @@ from common import *
 # followlength=0 goes until an intersection
 
 def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
+    """length in mm, speed in mm/sec, sensor is which sensor is following, side is which side of the line your on, and find cross is weather to continue until cross is found"""
     go_distance = robot.distance() + length
     # Calculate the light threshold. Choose values based on your measurements.
     threshold = (BLACK + WHITE) / 2
@@ -49,7 +50,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
     lastError = [0] # initialize
     Kd = 0 #  the Constant 'K' for the 'd' derivative term
     def apply_corrections():
-        t1=time.time()
+
         error = follow_sensor.reflection()-50 # proportional
         # initialize
         if error == 0:
@@ -61,7 +62,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
         correction = (0.67*(error) + Ki*(integral[0]) + Kd*derivative) * side_mod
         robot.drive(speed, correction*-1) 
         lastError[0] = error
-        print("ac: ",time.time()-t1)
+
     while robot.distance() < go_distance:
       apply_corrections()
     
