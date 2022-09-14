@@ -172,14 +172,21 @@ def load_data():
     
         return 95, 11
 
-def forward_dist(speed, turn_rate, distance):
-    if(distance<0):
-        end_distance = robot.distance()+distance
-        while(robot.distance() > end_distance):
-            robot.drive(speed,turn_rate)
-    end_distance = robot.distance()+distance
-    while(robot.distance() < end_distance):
-        robot.drive(speed,turn_rate)
+def forward_dist(speed, turn_rate, distance,t_prime=0):
+    t=t_prime
+    sign=">"
+    if distance<0:
+        sign="<"
+    cur_distance=robot.distance()
+    cur_speed=robot.state()[1]
+    speed_calc=speed-cur_speed
+    t_prime=time.time()+t_prime
+    cur_time=time.time()
+    while eval(str(cur_distance+distance)+sign+ str(robot.distance())):
+        if time.time() < t_prime:
+            speed=(speed_calc)/t*(time.time()-cur_time)
+        robot.drive(speed, turn_rate)
+    
 forward_distance = forward_dist
 
 def forward_angle(speed, turn_rate, angle):
