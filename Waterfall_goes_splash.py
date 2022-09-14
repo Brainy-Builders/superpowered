@@ -76,7 +76,15 @@ def test_stuff():
             main_motor.stop()
 
 def toy():
-    move_motor(200, 10000000)
+    robot.drive(200, -55)
+    time.sleep(.9)
+    robot.drive(200, 0)
+    time.sleep(2)
+    robot.stop()
+    move_motor(800, 1440)
+    robot.drive(-200, 0)
+    time.sleep(3)
+    robot.stop()
 
 def waterfall2():
     toy()
