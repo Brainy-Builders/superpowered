@@ -74,8 +74,11 @@ def align_to_cart():
     ev3.speaker.beep()
     robot.straight(30)
 
+def dump_units():
+    move_motor(500, 500)
+
 def hookcart_gohome():
-    move_motor(300, -450)
+    move_motor(300, -850)
     robot.drive(-500, 15)
     time.sleep(0.73)
     robot.stop()
@@ -83,7 +86,7 @@ def hookcart_gohome():
     robot.stop()
     #robot.straight(-60)
     robot.drive(-1000, 0)
-    time.sleep(0.7)
+    time.sleep(0.6)
     robot.stop()
 
 def main():
@@ -91,6 +94,7 @@ def main():
     followline_findcross()
     pump_oil()
     align_to_cart()
+    dump_units()
     hookcart_gohome()
 
 def oiltruck():
