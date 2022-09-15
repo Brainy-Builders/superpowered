@@ -76,8 +76,7 @@ def test_stuff():
             main_motor.stop()
 
 def toy():
-    robot.drive(200, -55)
-    time.sleep(.9)
+    forward_distance(200, -55, 190)
     robot.drive(200, 0)
     time.sleep(2)
     robot.stop()
@@ -87,8 +86,7 @@ def toy():
     robot.stop()
 
 def waterfall2():
-    toy()
-    #test_stuff()
+    test_stuff()
     # move_motor(700, -4100)
     # ev3.speaker.beep()
     # time.sleep(2)
