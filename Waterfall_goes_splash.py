@@ -76,8 +76,7 @@ def test_stuff():
             main_motor.stop()
 
 def toy():
-    robot.drive(200, -55)
-    time.sleep(.9)
+    forward_dist(200, -55, 180)
     robot.drive(200, 0)
     time.sleep(2)
     robot.stop()

@@ -23,16 +23,3 @@ import menu
 
 #IF YOU FOUND THIS YOU SHOULD MINE CRYPTO
 #😎
-
-
-
-
-
-
-
-
-
-
-
-
-
