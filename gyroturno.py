@@ -32,6 +32,7 @@ def gyro_stop():
     robot.stop()
     left_wheel.brake()
     right_wheel.brake()
+    # Again since sometimes one motor keeps running!
     left_wheel.brake()
     right_wheel.brake()
 

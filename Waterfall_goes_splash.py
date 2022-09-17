@@ -76,16 +76,34 @@ def test_stuff():
             main_motor.stop()
 
 def toy():
-    forward_distance(200, -55, 190)
+    gyro.reset_angle(0)
+    forward_distance(200, 0, 26, 1)
+    time.sleep(1)
+    gyroturno(-62, .5)
+    forward_distance(200, 0, 250)
     robot.drive(200, 0)
-    time.sleep(2)
+    time.sleep(1.5)
     robot.stop()
     move_motor(800, 1440)
+    time.sleep(.5)
     robot.drive(-200, 0)
     time.sleep(3)
     robot.stop()
 
+def coach():
+    for _ in [100, 200, 300, 400, 500, 600, 700]:
+        ev3.speaker.set_speech_options(voice='f2')
+        ev3.speaker.say(str(_))
+        forward_dist(speed=_, turn_rate=0, distance=1000, t_prime=1)
+        gyro_stop()
+        time.sleep(1)
+        forward_dist(speed=-_, turn_rate=0, distance=-1000, t_prime=1)
+        gyro_stop()
+        time.sleep(1)
+
 def waterfall2():
+    #toy()
+    coach()
     test_stuff()
     # move_motor(700, -4100)
     # ev3.speaker.beep()
