@@ -115,11 +115,11 @@ def functions(x):
     elif selected == 5:
         oil_supporter.oiltruck()
     elif selected == 6:
-        tv.flip_tv()
-    elif selected == 7:
         lib.cs_data("WHITE")
-    elif selected == 8:
+    elif selected == 7:
         lib.view_color()
+
+        
 
         
 
