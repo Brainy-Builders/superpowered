@@ -77,17 +77,18 @@ def test_stuff():
 
 def toy():
     gyro.reset_angle(0)
-    forward_distance(200, 0, 26, 1)
+    forward_distance(400, 0, 26, 1)
     time.sleep(1)
-    gyroturno(-62, .5)
-    forward_distance(200, 0, 250)
+    gyroturno(-62)
+    forward_distance(400, 0, 250, 1)
     robot.drive(200, 0)
     time.sleep(1.5)
     robot.stop()
-    move_motor(800, 1440)
+    move_motor(800, 720)
     time.sleep(.5)
-    robot.drive(-200, 0)
-    time.sleep(3)
+    forward_distance(-800, 0, -80, 1)
+    robot.drive(-800, 80)
+    time.sleep(1)
     robot.stop()
 
 def coach():
@@ -102,9 +103,9 @@ def coach():
         time.sleep(1)
 
 def waterfall2():
-    #toy()
-    coach()
-    test_stuff()
+    toy()
+    #coach()
+    #test_stuff()
     # move_motor(700, -4100)
     # ev3.speaker.beep()
     # time.sleep(2)
