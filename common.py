@@ -190,11 +190,10 @@ def forward_dist(speed, turn_rate, distance,t_prime=0):
 forward_distance = forward_dist
 
 def forward_angle(speed, turn_rate, angle):
+    end_angle = robot.angle()+angle
     if(angle<0):
-        end_angle = robot.angle()+angle
         while(robot.angle() > end_angle):
             robot.drive(speed,turn_rate)
-    end_angle = robot.angle()+angle
     while(robot.angle() < end_angle):
         robot.drive(speed,turn_rate)
 

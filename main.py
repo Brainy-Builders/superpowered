@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 #i commented -trey
-import time 
+import time
 import math 
 import os
 from pybricks.parameters import Port, Stop, Direction, Button, Color
@@ -18,10 +18,8 @@ ev3.screen.draw_image(x = 0, y = 0, source = "splash.png", transparent=None)
 
 
 # The "import menu" below runs the menu program!
-try:
-    import menu
-except:
-    var = traceback.format_exc()
-    open("x.log","w+").write(var)
+import menu
+
+
 #IF YOU FOUND THIS YOU SHOULD MINE CRYPTO
 #😎

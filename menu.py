@@ -60,7 +60,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 0
+selected = 4
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -118,10 +118,6 @@ def functions(x):
         lib.cs_data("WHITE")
     elif selected == 7:
         lib.view_color()
-
-        
-
-        
 
 
 
