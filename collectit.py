@@ -21,8 +21,13 @@ def travel2():
     back_motor.run_time(speed=600,time=1333,then=Stop.HOLD,wait=False)
     # forward_dist(speed=-100, turn_rate=0, distance=-150, t_prime=0)
     gyro_stop()
-    linefollow.line_follow(length=200,speed=150,sensor="right",side="left")
+    ev3.speaker.say("ready to collect")
+    time.sleep(3)
+
+    linefollow.line_follow(length=300,speed=150,sensor="right",side="left")
     gyro_stop()
+    main_motor.run_time(speed=300,time=600,then=Stop.HOLD,wait=False) # put hand out
+
     time.sleep(3)
     
     linefollow.line_follow(length=140,speed=100,sensor="right",side="left")
@@ -51,7 +56,6 @@ def travel():
     forward_dist(speed=100,turn_rate=0,distance=25, t_prime=0)
     robot.stop()
     gyroturno(90,.9)
-    main_motor.run_time(-200,1000,Stop.HOLD,False)
     robot.stop()
     forward_dist(speed=75,turn_rate=10,distance=150, t_prime=1)
     ev3.speaker.beep()
@@ -60,12 +64,6 @@ def travel():
     back_motor.run_time(speed=210,time=3650)
     linefollow.line_follow(length=140,speed=100,sensor="right",side="left")
     robot.stop()
-    forward_dist(-100, 0, -85)
-    robot.stop()
-    back_motor.run_time(210,3700)
-    linefollow.line_follow(100,100,"right","left")
-    robot.stop()
-    move_motor(100, 180)
     gyroturno(135)
     gyro_straight(distance=200,speed=200)
     robot.stop()
