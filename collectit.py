@@ -21,7 +21,7 @@ def travel2():
     back_motor.run_time(speed=600,time=1333,then=Stop.HOLD,wait=False)
     # forward_dist(speed=-100, turn_rate=0, distance=-150, t_prime=0)
     gyro_stop()
-    linefollow.line_follow(length=300,speed=150,sensor="right",side="left")
+    linefollow.line_follow(length=200,speed=150,sensor="right",side="left")
     gyro_stop()
     time.sleep(3)
     
