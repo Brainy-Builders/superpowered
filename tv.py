@@ -9,49 +9,45 @@ from linefollow import *
 from line_a_line import *
 from gyrostraight import *
 from lib import *
+
 def flip_tv():
     gyro.reset_angle(0)
     ev3.speaker.beep()
     back_motor.run_time(speed = 200, time=200, wait=False) # make sure UP
-    gyro_straight(200, 250)
-    # robot.settings(straight_acceleration = 200, straight_speed = 300)
-    # robot.straight(270)
-    #forward_dist(300, 0, 270)
-    #robot.settings(straight_acc = )
+    gyro_straight(distance=250, speed=250) # add acceleration
     robot.drive(200, 0)
-    time.sleep(1.75)
-    robot.stop()
-    
-    windthing()
-    halftesla()
-    
+    time.sleep(1.75 - 0.75)
+    gyro_stop()
+    ev3.speaker.beep()
+    time.sleep(3)
 
+    windthing()
+    halftesla2()
+    
 def windthing(): #go to wind#
     gyro_straight(150, -100)
-    gyroturno(-45)
-    forward_dist(speed = 200, turn_rate = 3, distance = 330) # slight turn right to not miss white line
+    gyroturno(-45+5)
+    forward_dist(speed = 200, turn_rate = 3+2, distance = 330) # slight turn right to not miss white line
     ev3.speaker.beep(25)
-    while get_color(right_colorsensor) != Color.WHITE:  
-        robot.drive(50, 0)                              
-    # robot.stop()          
-    # ev3.speaker.beep(25)                              #
-    # while get_color(right_colorsensor) != Color.BLACK:
-    #     robot.drive(50, 0)
+    while right_colorsensor.reflection() > 25:
+      robot.drive(100,0)
+
+    # while get_color(right_colorsensor) != Color.WHITE:  
+    #     robot.drive(50, 0)                              
     robot.stop()
     ev3.speaker.beep(25) 
     # while get_color(right_colorsensor) != Color.WHITE:
     #     robot.drive(50, 0)
     # robot.stop()
     # ev3.speaker.beep(25) 
-    forward_dist(speed = 50, turn_rate = 0, distance = 25) # distance from white to black 
-    forward_dist(speed = 50, turn_rate = 0, distance = 50) # rest of the distance 
+    forward_dist(speed = 50, turn_rate = 0, distance = 50) # go slightly past white
     gyroturno(45)
     forward_dist(speed = 250, turn_rate = 0, distance = 85)
     
     #collecting the energy units#
 
-    for _ in range(4):          # one extra for luck?
-        robot.drive(200, 0)
+    for _ in range(3):
+        robot.drive(250, 0)
         time.sleep(0.8)
         robot.drive(-100, 0)
         time.sleep(0.75)
@@ -93,6 +89,46 @@ def halftesla():
     # Try this: 
     # back_motor.run_until_stalled(speed=100, then=Stop.HOLD, duty_limit=None)
     # back_motor.run_until_stalled(100, stop_type=Stop.HOLD)
+
+def halftesla2():
+    # backup into car
+    forward_dist(speed=-200, turn_rate=0, distance=-120, t_prime = 0.5)
+    gyroturno(120)
+    ev3.speaker.beep()
+    time.sleep(3)
+    robot.drive(speed=-200,turn_rate=0) 
+    time.sleep(0.75)
+    back_motor.run_time(speed = -200, time=800, wait=False)  # down
+    time.sleep(0.75)
+    gyro_stop()
+    ev3.speaker.beep()
+    time.sleep(3)
+    # Let car down
+    forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.5)
+    gyro_stop()
+    back_motor.run_time(speed = 200, time = 700, wait=False) # up
+    ev3.speaker.beep()
+    time.sleep(3)
+    # push the car away, then run into Toy Factory
+    forward_angle(speed=-150, turn_rate=90, angle=90)
+    gyro_stop()
+    ev3.speaker.beep()
+    time.sleep(3)
+    forward_dist(speed=200, turn_rate=0, distance=250, t_prime=0.5)
+    robot.drive(speed=200, turn_rate=0)
+    time.sleep(1)
+    gyro_stop()
+    ev3.speaker.beep()
+    time.sleep(3)
+    
+    # backup, turn, go home
+    forward_dist(speed=-100, turn_rate=0, distance=-25)
+    gyroturno(angle=-225, rate_control=1.0, speed=50)  # move forward here
+    forward_dist(speed=400, turn_rate=20, distance=500, t_prime=1.0)
+    robot.drive(speed=400, turn_rate=0)
+    time.sleep(1)
+    gyro_stop()
+
 def find_colors(color, sensor, speed=60):
     if sensor == "right":
         csensor = right_colorsensor

@@ -7,9 +7,48 @@ import os
 def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
+    coach()
     main_motor.run_time(speed=-300,time=800,then=Stop.HOLD,wait=False)
     get_to_cross()
     travel2()    
+
+def coach():
+    for cc in range(1000):
+        gyro.reset_angle(0)
+        forward_distance(speed=200, turn_rate=0, distance=200, t_prime=2)
+        gyro_stop()
+        time.sleep(1)
+        for _ in range(5):
+            c = gyro.angle()
+            if(c<0):
+                ev3.speaker.say("negative")
+            ev3.speaker.say(str(abs(c)))
+            gyroturno(45)
+            time.sleep(1)
+            gyroturno(-45)
+            time.sleep(1)
+            gyroturno(0)
+        robot.drive(-100,0)
+        time.sleep(4)
+        c = gyro.angle()
+        if(c<0):
+            ev3.speaker.say("negative")
+            ev3.speaker.say(str(abs(c)))
+
+    forward_dist(100, 0, 140)
+
+    gyroturno(-225, rate_control=0.7)  # move forward here
+
+    for _ in range(10):
+        ev3.speaker.say(str(gyro.angle()))
+        gyroturno(angle=90)
+        time.sleep(2)
+        gyroturno(angle=0)
+        time.sleep(2)
+        gyroturno(angle=-90)
+        time.sleep(2)
+        gyroturno(angle=0)
+        time.sleep(2)
 
 def travel2():
     # go a little past the cross and turn
