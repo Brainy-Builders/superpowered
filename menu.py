@@ -105,6 +105,7 @@ def functions(x):
         Waterfall_goes_splash.waterfall2()
     elif selected == 1:
         tv.flip_tv()
+        # lib.gyrotest()
     elif selected == 2:
         print("oil rocks")
         oil_supporter.main()
