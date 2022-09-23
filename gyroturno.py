@@ -36,7 +36,6 @@ def gyro_stop():
     left_wheel.brake()
     right_wheel.brake()
 
-
 def gyroturno(angle, rate_control=1.2, speed=0): 
     # robot.stop()
 
@@ -48,29 +47,25 @@ def gyroturno(angle, rate_control=1.2, speed=0):
     if left_angle > right_angle:
         #right turn
         #t_angle is the target angle
-        t_angle = right_angle + gyro.angle()
-        print("right turn: left angle = ", left_angle," right angle = ", right_angle, " gyro angle ", gyro.angle(), " t_angle = ", t_angle)
+        t_angle = gyro.angle() + right_angle 
+        # print("right turn: left angle = ", left_angle," right angle = ", right_angle, " gyro angle ", gyro.angle(), " t_angle = ", t_angle)
         while gyro.angle() <= t_angle:      
             difference=min(abs(3*(t_angle - gyro.angle())* rate_control), previous_speed)
             previous_speed += 1
             robot.drive(speed, (max(difference, 9)))
-            #robot.drive(speed, max((angle - (gyro.angle())*(-1)) * 3 * rate_control, 9))
-        # gyro_stop()
 
     elif right_angle > left_angle:
         #left turn
+        #t_angle is the target angle
         t_angle = gyro.angle() - left_angle
-        print("left turn: left angle = ", left_angle," right angle = ", right_angle, " gyro angle ", gyro.angle(), " angle = ", t_angle)
+        # print("left turn: left angle = ", left_angle," right angle = ", right_angle, " gyro angle ", gyro.angle(), " angle = ", t_angle)
         while gyro.angle() >= t_angle:
             difference=min(abs(3*(t_angle - gyro.angle())* rate_control), previous_speed)
             previous_speed += 1
             robot.drive(speed, (-1 * max(difference, 9)))
-            #robot.drive(speed, min((angle - gyro.angle()) * 3 * rate_control, -9))
-        # gyro_stop()
 
     gyro_stop()
     return angle
-
 
 
 def gyroturno2(angle, rate_control=1, speed=0):
