@@ -14,19 +14,19 @@ def flip_tv():
     gyro.reset_angle(0)
     ev3.speaker.beep()
     back_motor.run_time(speed = 200, time=200, wait=False) # make sure UP
-    gyro_straight(distance=250, speed=250) # add acceleration
-    robot.drive(200, 0)
-    time.sleep(1.75 - 0.75)
+    gyro_straight(distance=200, speed=250) # add acceleration
+    robot.drive(170, 0)
+    time.sleep(2.75 - 0.75)
     gyro_stop()
     ev3.speaker.beep()
-    time.sleep(3)
+    # time.sleep(3)
 
     windthing()
     halftesla2()
     
 def windthing(): #go to wind#
     gyro_straight(150, -100)
-    gyroturno(-45+5)
+    gyroturno(-45+5-2)
     forward_dist(speed = 200, turn_rate = 3+2, distance = 330) # slight turn right to not miss white line
     ev3.speaker.beep(25)
     while right_colorsensor.reflection() > 25:
@@ -47,12 +47,14 @@ def windthing(): #go to wind#
     #collecting the energy units#
 
     for _ in range(3):
-        robot.drive(250, 0)
-        time.sleep(0.8)
+        robot.drive(300, 0)
+        time.sleep(0.85)
+        robot.stop()
+        time.sleep(0.2)
         robot.drive(-100, 0)
         time.sleep(0.75)
         robot.stop()
-        time.sleep(0.4)
+        time.sleep(0.2)
     robot.stop()
 
 def halftesla():
@@ -95,37 +97,37 @@ def halftesla2():
     forward_dist(speed=-200, turn_rate=0, distance=-120, t_prime = 0.5)
     gyroturno(120)
     ev3.speaker.beep()
-    time.sleep(3)
+    # time.sleep(3)
     robot.drive(speed=-200,turn_rate=0) 
     time.sleep(0.75)
     back_motor.run_time(speed = -200, time=800, wait=False)  # down
     time.sleep(0.75)
     gyro_stop()
     ev3.speaker.beep()
-    time.sleep(3)
+    # time.sleep(3)
     # Let car down
     forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.5)
     gyro_stop()
     back_motor.run_time(speed = 200, time = 700, wait=False) # up
     ev3.speaker.beep()
-    time.sleep(3)
+    # time.sleep(3)
     # push the car away, then run into Toy Factory
     forward_angle(speed=-150, turn_rate=90, angle=90)
     gyro_stop()
     ev3.speaker.beep()
-    time.sleep(3)
+    # time.sleep(3)
     forward_dist(speed=200, turn_rate=0, distance=250, t_prime=0.5)
     robot.drive(speed=200, turn_rate=0)
     time.sleep(1)
     gyro_stop()
     ev3.speaker.beep()
-    time.sleep(3)
+    # time.sleep(3)
     
     # backup, turn, go home
     forward_dist(speed=-100, turn_rate=0, distance=-25)
     gyroturno(angle=-225, rate_control=1.0, speed=50)  # move forward here
     forward_dist(speed=400, turn_rate=20, distance=500, t_prime=1.0)
-    robot.drive(speed=400, turn_rate=0)
+    robot.drive(speed=800, turn_rate=0)
     time.sleep(1)
     gyro_stop()
 
