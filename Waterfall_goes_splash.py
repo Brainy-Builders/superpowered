@@ -107,7 +107,6 @@ def waterfall2():
     gyro_straight(distance = 360, speed = 200, reset_angle = None, GCV = 2.5, t_prime = 1)
     gyro_straight(distance = 360, speed = -200, reset_angle = None, GCV = 2.5, t_prime = 1)
     gyro_stop()
-#     toy()
 #     #coach()
 #     #test_stuff()
 #     # move_motor(700, -4100)

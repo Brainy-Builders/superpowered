@@ -11,11 +11,12 @@ from gyrostraight import *
 from lib import *
 
 def dispense():
-    robot.drive(256, 5)
+    robot.drive(speed = 256, turn_rate = 5)
     time.sleep(2.5)
     robot.stop()
     main_motor.run_time(-60*16, 1350)
     main_motor.run_time(90*16, 2000)
-    forward_dist(-300,0,-640)
-    robot.stop()
-    
+    forward_dist(speed = -300, turn_rate = 0, distance = -200)
+    forward_dist(speed = 200, turn_rate = -20, distance = 400)
+    forward_dist(speed = 200, turn_rate = 20, distance = 400)
+

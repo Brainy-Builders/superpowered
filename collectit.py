@@ -7,7 +7,6 @@ import os
 def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
-    coach()
     main_motor.run_time(speed=-300,time=800,then=Stop.HOLD,wait=False)
     get_to_cross()
     travel2()    

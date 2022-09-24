@@ -25,6 +25,7 @@ import oil_supporter
 import Waterfall_goes_splash
 import power
 import collectit
+import toy_factory
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "waterfall",
@@ -35,6 +36,7 @@ lis = [
     "truck",
     "color collect",
     "color viewer", 
+    "toy factory"
     ]
 
 def thread():
@@ -119,6 +121,8 @@ def functions(x):
         lib.cs_data("WHITE")
     elif selected == 7:
         lib.view_color()
+    elif selected == 8:
+        toy_factory.toy()
 
 
 
