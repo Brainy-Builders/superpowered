@@ -7,17 +7,14 @@ import os
 def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
-
-    main_motor.run_time(speed=-300,time=800,then=Stop.HOLD,wait=False)
-
-
+    main_motor.run_time(speed=500,time=800,then=Stop.HOLD,wait=False)
     get_to_cross()
     travel2()
 
 def travel2():
     # go a little past the cross and turn
     forward_dist(speed=100,turn_rate=0,distance=70, t_prime=0)
-    robot.stop()
+    gyro_stop()
     smart_turn(left_wheel,right_colorsensor)
 
     # follow the line, then drop the energy harvester
@@ -30,20 +27,25 @@ def travel2():
     # keep following the line, get ready to high five
     linefollow.line_follow(length=240,speed=150,sensor="right",side="left")
     gyro_stop()
-    main_motor.run_time(speed=300,time=1250,then=Stop.HOLD,wait=True) # put hand out
+    main_motor.run_time(speed=500,time=1450,then=Stop.HOLD,wait=False) # put hand out
     gyro_straight(100,-70)
-    robot.stop()
-    time.sleep(3)
-    
+    gyro_stop()
     gyroturno(155)
     gyro_straight(distance=400,speed=200)
-    robot.stop()
+    gyro_stop()
+    main_motor.run_time(speed=-200,time=1500,then=Stop.HOLD,wait=False)
+    forward_angle(speed=200,turn_rate=90,angle=90)
+    
+
+    robot.drive(300,0)
+    time.sleep(5)
+    gyro_stop()
 
 def get_to_cross():
     gyro.reset_angle(angle=0)
     # move forward and find the line
     gyro_straight(distance=180, speed=200) # use gyro at beginning 
-    main_motor.run_time(speed=-150,time=800,then=Stop.HOLD,wait=False) # put hand out
+    main_motor.run_angle(speed=-150,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
     ev3.speaker.beep(duration=25)
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(75,0)
