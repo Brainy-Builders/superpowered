@@ -15,10 +15,12 @@ from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 import time
 import math
 import os
-from linefollow import line_follow
 from common import *
-from pidlinefollow import *
+import linefollow
+from gyroturno import *
 from gyrostraight import *
+from pidlinefollow import *
+import os
 def findline():
     gyro.reset_angle(0)
     move_motor(1000, 500, mustWait=False)
@@ -30,16 +32,25 @@ def findline():
     robot.stop()
 
 def followline_findcross():
+    gyro.reset_angle(angle=0)
+    move_motor(1000, 500, mustWait=False)
+    # move forward and find the line
+    gyro_straight(distance=180, speed=200) # use gyro at beginning 
+    #main_motor.run_angle(speed=-150,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
     ev3.speaker.beep(duration=25)
-    pidline(sensor='left', distance=350, speed=200, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = False)
+    while(get_color(left_colorsensor) != Color.BLACK):
+        robot.drive(75,0)
+
+    # follow the line SMART distance
+    dist=robot.distance()
+    forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
+    linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right")
+
+    # get to the cross
     ev3.speaker.beep(duration=25) # duration units [ms]
-    while(get_color(right_colorsensor) != Color.WHITE):
-        robot.drive(50,0)
-    ev3.speaker.beep()
     while(get_color(right_colorsensor) != Color.BLACK):
-        robot.drive(50,0)
-    ev3.speaker.beep()
-    robot.stop()
+        robot.drive(100,0)
+    ev3.speaker.beep(duration=25) 
 
 def pump_oil():
     robot.straight(70)
@@ -90,7 +101,7 @@ def hookcart_gohome():
     robot.stop()
 
 def main():
-    findline()
+    #findline()
     followline_findcross()
     pump_oil()
     align_to_cart()
