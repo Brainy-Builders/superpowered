@@ -11,12 +11,23 @@ from gyrostraight import *
 from lib import *
 
 def dispense():
-    robot.drive(speed = 256, turn_rate = 5)
-    time.sleep(2.5)
+    forward_distance(400, 5, 450, 1)
+    robot.drive(speed = 400, turn_rate = 5)
+    time.sleep(.8)
     robot.stop()
     main_motor.run_time(-60*16, 1350)
     main_motor.run_time(90*16, 2000)
-    forward_dist(speed = -300, turn_rate = 0, distance = -200)
-    forward_dist(speed = 200, turn_rate = -20, distance = 400)
-    forward_dist(speed = 200, turn_rate = 20, distance = 400)
+    forward_dist(speed = -300, turn_rate = 20, distance = -200, t_prime=1)
+    forward_dist(speed = 100, turn_rate = -70, distance = 100, t_prime=1)
+    ev3.speaker.beep()
+    forward_distance(speed=100, turn_rate=25, distance=150, t_prime=0)
+    ev3.speaker.beep()
+    forward_distance(speed=100, turn_rate= 0, distance=250, t_prime=0)
+    #Get home
+    forward_distance(speed=100, turn_rate=25, distance=150, t_prime=0)
+    forward_dist(speed = 100, turn_rate = -70, distance = 100, t_prime=1)
+
+    ev3.speaker.beep()
+
+    robot.stop()
 
