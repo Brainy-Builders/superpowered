@@ -25,6 +25,7 @@ import oil_supporter
 import faucet
 import power
 import collectit
+import epic_x
 import toy_factory
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
@@ -36,7 +37,8 @@ lis = [
     "truck",
     "color collect",
     "color viewer", 
-    "toy factory"
+    "toy factory",
+    "black_x"
     ]
 
 def thread():
@@ -62,7 +64,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 3
+selected = 9
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -123,6 +125,8 @@ def functions(x):
         lib.view_color()
     elif selected == 8:
         toy_factory.toy()
+    elif selected == 9:
+        epic_x.main()
 
 
 
