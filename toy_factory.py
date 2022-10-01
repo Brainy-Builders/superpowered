@@ -28,7 +28,7 @@ def toy():
     robot.drive(200, 0)
     time.sleep(1.5)
     robot.stop()
-    move_motor(800, 720)
+    move_motor(400, 900)
     time.sleep(.5)
     forward_distance(-800, 0, -80, 1)
     robot.drive(-800, 80)
