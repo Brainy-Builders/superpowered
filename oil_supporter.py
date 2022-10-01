@@ -96,14 +96,15 @@ def hookcart_gohome():
 
 def main():
     #findline()
-    #followline_findcross()
-    #pump_oil()
-    #align_to_cart()
-    #dump_units()
-    #hookcart_gohome()
-    for _ in range(10):
-        main_motor(speed=500, time=2200)
-        main_motor(speed=-500, time=2200)
+    followline_findcross()
+    pump_oil()
+    align_to_cart()
+    dump_units()
+    hookcart_gohome()
+    #for _ in range(10):
+        #main_motor(speed=500, time=2200)
+        #main_motor(speed=-500, time=2200)
+        #time.sleep(5)
 
 def oiltruck():
     gyro.reset_angle(0)
