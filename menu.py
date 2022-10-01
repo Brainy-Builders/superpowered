@@ -22,7 +22,7 @@ import threading
 import tv
 import lib
 import oil_supporter
-import Waterfall_goes_splash
+import faucet
 import power
 import collectit
 import toy_factory
@@ -104,7 +104,7 @@ def functions(x):
         data["stated"] = True
         qw.start()
     if selected == 0:
-        Waterfall_goes_splash.waterfall2()
+        faucet.get_to_there()
     elif selected == 1:
         tv.flip_tv()
         # lib.gyrotest()
