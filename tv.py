@@ -27,11 +27,16 @@ def flip_tv():
 def windthing(): #go to wind#
     gyro_straight(150, -100)
     gyroturno(-45+5-2)
-    forward_dist(speed = 200, turn_rate = 3+2, distance = 330) # slight turn right to not miss white line
+    forward_dist(speed = 200, turn_rate = 1, distance = 300, t_prime=1) # slight turn right to not miss white line
     ev3.speaker.beep(25)
-    while right_colorsensor.reflection() > 25:
+    turn_right = False
+    max_distance = robot.distance()
+    while turn_right == False:
       robot.drive(100,0)
-
+      if right_colorsensor.reflection() < 25:
+        turn_right = True
+      if robot.distance() > max_distance+100:
+        turn_right = True
     # while get_color(right_colorsensor) != Color.WHITE:  
     #     robot.drive(50, 0)                              
     robot.stop()
@@ -118,7 +123,7 @@ def halftesla2():
     # time.sleep(3)
     forward_dist(speed=200, turn_rate=0, distance=250, t_prime=0.5)
     robot.drive(speed=200, turn_rate=0)
-    time.sleep(1)
+    time.sleep(0.5)
     gyro_stop()
     ev3.speaker.beep()
     # time.sleep(3)
@@ -126,7 +131,7 @@ def halftesla2():
     # backup, turn, go home
     forward_dist(speed=-100, turn_rate=0, distance=-25)
     gyroturno(angle=-225, rate_control=1.0, speed=50)  # move forward here
-    forward_dist(speed=400, turn_rate=20, distance=500, t_prime=1.0)
+    forward_dist(speed=400, turn_rate=5, distance=500, t_prime=1.0)
     robot.drive(speed=800, turn_rate=0)
     time.sleep(1)
     gyro_stop()
