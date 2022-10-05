@@ -31,9 +31,8 @@ import os
     #robot.turn(30)
     #robot.stop()
 
+
 def followline_findcross():
-    gyro.reset_angle(angle=0)
-    move_motor(1000, 500, mustWait=False)
     # move forward and find the line
     gyro_straight(distance=180, speed=200, t_prime=0.5) # use gyro at beginning 
     #main_motor.run_angle(speed=-150,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
@@ -43,8 +42,9 @@ def followline_findcross():
 
     # follow the line SMART distance
     dist=robot.distance()
-    forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
-    linefollow.line_follow(length=650-dist,speed=100,sensor="left",side="right")
+    # forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
+    smart_turn(left_wheel, left_colorsensor)
+    linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right", find_cross=True)
 
     # get to the cross
     ev3.speaker.beep(duration=25) # duration units [ms]
@@ -55,24 +55,20 @@ def followline_findcross():
 def pump_oil():
     robot.straight(70)
     ev3.speaker.beep()
-    move_motor(250, -570, mustWait=False)
+    # move_motor(250, -570, mustWait=False) # down
     gyroturno(-90)
     robot.stop()
     ev3.speaker.beep()
-    time.sleep(1)
     robot.drive(100, 0)
     time.sleep(1)
+    forward_dist(speed=-50, turn_rate=0, distance=-10)
     robot.stop()
     for _ in range(2):
-        move_motor(1500, 600)
-        move_motor(1500, -600)
-    move_motor(1500, 600)
-    #move_motor(1000, -600)
-    #move_motor(1000, 600)
-    #move_motor(1000, -600)
+        move_motor(1500, 800)  # up
+        move_motor(1500, -775) # down
+    move_motor(1500, 800) # up
 
 def align_to_cart():
-    gyro.reset_angle(-90)
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(-60,0)
     ev3.speaker.beep()
@@ -86,16 +82,19 @@ def align_to_cart():
     robot.straight(30)
 
 def dump_units():
-    main_motor.run_time(speed=500,time=2200)
+    main_motor.run_time(speed=1000,time=2200)
 
 def hookcart_gohome():
-    main_motor.run_time(speed=-500,time=2200)
+    main_motor.run_time(speed=-1000,time=2200)
     robot.drive(-500, 30)
     time.sleep(1.5)
     robot.stop()
 
 def main():
-    #findline()
+    # get ready
+    gyro.reset_angle(angle=0)
+    move_motor(speed=1000, angle=-1000, mustWait=False) # down
+    # go
     followline_findcross()
     pump_oil()
     align_to_cart()
