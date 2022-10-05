@@ -106,7 +106,6 @@ def functions(x):
         data["stated"] = True
         qw.start()
     if selected == 0:
-        faucet.coach()
         faucet.get_to_there()
     elif selected == 1:
         tv.flip_tv()

@@ -10,6 +10,10 @@ from line_a_line import *
 from gyrostraight import *
 from lib import *
 
+# Miles -> Break this up into at least three sub-functions
+#       -> Also the forward_angle isn't working reliably getting off the wall.abs(x)
+#       -> Think of how to make sure the target angles are achieved even when "skidding" 
+#       -> against the wall. 
 def dispense():
     forward_distance(400, 5, 450, 1)
     robot.drive(speed = 400, turn_rate = 5)

@@ -19,15 +19,7 @@ from common import *
 from pidlinefollow import *
 from gyrostraight import *
 
-def coach():
-    # def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False):
-
-    for _ in [0.000, 0.0001, 0.0002, 0.0004, 0.0008, 0.0016, 0.0032]:
-        ev3.speaker.say(str(_))
-        line_follow(length=350,speed=125,sensor="left",side="right", find_cross="True", Kp=0.15, Ki=0.0008, Kd=0.16)
-        gyro_stop()
-        time.sleep(2)
-
+# Chloe - please also try the "get_there()" routine below to compare.
 def get_to_there():
     # forward_angle(300, 90, 45)
     gyro.reset_angle(0)
