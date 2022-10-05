@@ -64,9 +64,10 @@ def pump_oil():
     forward_dist(speed=-50, turn_rate=0, distance=-10)
     robot.stop()
     for _ in range(2):
-        move_motor(1500, 800)  # up
-        move_motor(1500, -775) # down
-    move_motor(1500, 800) # up
+        main_motor.run_time(speed=1000,time=1100)  # up
+        main_motor.run_time(speed=-1000,time=1100) # down
+    main_motor.run_time(speed=1000,time=800)
+    #main_motor.run_time(speed=500,time=2000, wait=False) # up
 
 def align_to_cart():
     while(get_color(right_colorsensor) != Color.BLACK):
@@ -79,14 +80,13 @@ def align_to_cart():
     #move_motor(200, 500, mustWait=False)
     gyroturno(0)
     ev3.speaker.beep()
+    main_motor.run_time(speed=500,time=2000, wait=False)
     robot.straight(30)
-
-def dump_units():
-    main_motor.run_time(speed=1000,time=2200)
+    time.sleep(1)
 
 def hookcart_gohome():
     main_motor.run_time(speed=-1000,time=2200)
-    robot.drive(-500, 30)
+    robot.drive(-500, 28)
     time.sleep(1.5)
     robot.stop()
 
@@ -98,7 +98,6 @@ def main():
     followline_findcross()
     pump_oil()
     align_to_cart()
-    dump_units()
     hookcart_gohome()
     #for _ in range(10):
         #main_motor(speed=500, time=2200)
