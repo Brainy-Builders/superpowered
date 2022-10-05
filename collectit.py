@@ -62,13 +62,3 @@ def get_to_cross():
     ev3.speaker.beep(duration=25)    
 
 
-def smart_turn(wheel,sensor):
-    if wheel==left_wheel:
-        opp=right_wheel
-    else:
-        opp=left_wheel
-    while sensor.reflection() < 80:
-    # while get_color(sensor) != Color.WHITE:
-        wheel.dc(20)
-        opp.dc(-20)
-    wheel.hold()

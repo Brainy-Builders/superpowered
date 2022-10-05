@@ -22,7 +22,8 @@ from gyroturno import *
 # An example of this code is
 # pidline(sensor='left', distance=600, speed=200, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False)
 
-def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False):
+# def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False):
+def pidline(sensor, distance, speed, Kp=0.15, Ki=0.0032, Kd=0.512, find_cross = False):
   Td = distance # target distance
   Tp_pct = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
   Tp = Tp_pct * 35/250 # Scale to approximate mm/s units
@@ -39,10 +40,10 @@ def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = F
   robot.stop()
   while (stop == False):
     error = follow_sensor.reflection()-50 # proportional
-    # if (error == 0):
-    #   integral = 0
-    # else:
-    integral = integral + error # maybe limit the integral?
+    if (abs(error) < 10):
+      integral = 0
+    else:
+      integral = integral + error 
     derivative = error - lastError  
 
     correction = -(Kp*(error) + Ki*(integral) + Kd*derivative)

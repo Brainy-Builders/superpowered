@@ -172,6 +172,18 @@ def load_data():
     
         return 95, 11
 
+def smart_turn(wheel,sensor):
+    robot.stop()
+    if wheel==left_wheel:
+        opp=right_wheel
+    else:
+        opp=left_wheel
+    while sensor.reflection() < 80:
+    # while get_color(sensor) != Color.WHITE:
+        wheel.dc(20)
+        opp.dc(-20)
+    wheel.hold()
+
 def forward_dist(speed, turn_rate, distance,t_prime=0):
     t=t_prime
     sign=">"

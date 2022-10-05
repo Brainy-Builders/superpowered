@@ -23,12 +23,10 @@ from common import *
 # line_follow(followlength=200, followspeed=100, "left")
 # followlength=0 goes until an intersection
 
-def line_follow(length, speed, sensor, side, find_cross = False):
+def line_follow(length, speed, sensor, side, find_cross = False, Kp=0.15, Ki=0.0032, Kd=0.512):
   """length in mm, speed in mm/sec, sensor is which sensor is following, side is which side of the line your on, and find cross is weather to continue until cross is found"""
-  Kp = 0.2
-  Ki = 0.0006
-  Kd = 0.256
-  Tp = speed * 50/250 # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
+  # Kp, Ki, Kd = 0.2, 0.0006, 0.256  # original from Sophia
+  Tp = speed * 35/250 # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
   
   if sensor == 'right':
     follow_sensor = right_colorsensor
@@ -43,13 +41,16 @@ def line_follow(length, speed, sensor, side, find_cross = False):
     side_mod = 1
 
   target_distance = robot.distance() + length
-  stop = False 
   lastError = 0 # initialize
   integral = 0  # initialize
   robot.stop()  # deactivate DriveBase before powering wheels individually 
+  stop = False 
   while (stop == False):
     error = follow_sensor.reflection()-50 # proportional
-    integral = integral + error           # maybe limit the integral?
+    if (abs(error) < 10):
+      integral = 0
+    else:
+      integral = integral + error 
     derivative = error - lastError  
 
     correction = -(Kp*(error) + Ki*(integral) + Kd*derivative) * side_mod
@@ -66,10 +67,11 @@ def line_follow(length, speed, sensor, side, find_cross = False):
       if(not find_cross):
         stop = True
       else:
-        sensed_color = get_color(detection_sensor)
-        if (sensed_color == Color.WHITE): 
-          while sensed_color != Color.BLACK:          
-            sensed_color = get_color(detection_sensor)
+        if(detection_sensor.reflection()>80):
+        # sensed_color = get_color(detection_sensor)
+        # if (sensed_color == Color.WHITE): 
+          # while sensed_color != Color.BLACK:          
+          #   sensed_color = get_color(detection_sensor)
           stop = True
           
 def old_line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.0):
@@ -116,14 +118,11 @@ def old_line_follow(length, speed, sensor, side, find_cross = False, gain_mod=1.
       apply_corrections()
     
     if find_cross == True:
-        while get_color(detection_sensor) != Color.WHITE:
-            apply_corrections()
-            #ev3.screen.print(detection_sensor.reflection())
-        ev3.screen.print("found white")
-        while get_color(detection_sensor) != Color.BLACK:
-            apply_corrections()
-        #ev3.screen.print(detection_sensor.reflection())
-        ev3.screen.print("found black")  
+        # while get_color(detection_sensor) != Color.WHITE:
+        while detection_sensor.reflection() < 80:
+          apply_corrections()
+        # while get_color(detection_sensor) != Color.BLACK:
+        #     apply_corrections()
 
 def test1():
     time.sleep(5)

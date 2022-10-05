@@ -64,7 +64,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 9
+selected = 2
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -106,10 +106,10 @@ def functions(x):
         data["stated"] = True
         qw.start()
     if selected == 0:
+        faucet.coach()
         faucet.get_to_there()
     elif selected == 1:
         tv.flip_tv()
-        # lib.gyrotest()
     elif selected == 2:
         print("oil rocks")
         oil_supporter.main()
