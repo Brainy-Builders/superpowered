@@ -33,6 +33,7 @@ import os
 
 
 def followline_findcross():
+    back_motor.run_time(-200, 800, wait=False)
     # move forward and find the line
     gyro_straight(distance=180, speed=200, t_prime=0.5) # use gyro at beginning 
     #main_motor.run_angle(speed=-150,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
@@ -44,7 +45,10 @@ def followline_findcross():
     dist=robot.distance()
     # forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
     smart_turn(left_wheel, left_colorsensor)
-    linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right", find_cross=True)
+    linefollow.line_follow(length=440-dist,speed=150,sensor="left",side="right", find_cross=False)
+    back_motor.run_time(800, 800, wait=False)
+    dist = robot.distance()
+    linefollow.line_follow(650-dist, speed=150, sensor = "left", side = "right", find_cross = True)
 
     # get to the cross
     ev3.speaker.beep(duration=25) # duration units [ms]
