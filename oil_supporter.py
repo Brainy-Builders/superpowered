@@ -33,10 +33,9 @@ import os
 
 
 def followline_findcross():
-    back_motor.run_time(-200, 800, wait=False)
+    back_motor.run_time(-1000, 1000, wait=False)
     # move forward and find the line
-    gyro_straight(distance=180, speed=200, t_prime=0.5) # use gyro at beginning 
-    #main_motor.run_angle(speed=-150,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
+    gyro_straight(distance=180, speed=300, t_prime=0.5) # use gyro at beginning 
     ev3.speaker.beep(duration=25)
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(75,0)
@@ -45,20 +44,25 @@ def followline_findcross():
     dist=robot.distance()
     # forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
     smart_turn(left_wheel, left_colorsensor)
-    linefollow.line_follow(length=440-dist,speed=150,sensor="left",side="right", find_cross=False)
+    linefollow.line_follow(length=440-dist,speed=200,sensor="left",side="right", find_cross=False)
     back_motor.run_time(800, 800, wait=False)
     dist = robot.distance()
-    linefollow.line_follow(650-dist, speed=150, sensor = "left", side = "right", find_cross = True)
-
+    move_motor(1000, 900, mustWait=False)
+    #main_motor.run_time(speed=1000,time=1200, wait=False)
+    linefollow.line_follow(650-dist, speed=200, sensor = "left", side = "right", find_cross = True)
     # get to the cross
     ev3.speaker.beep(duration=25) # duration units [ms]
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(100,0)
-    ev3.speaker.beep(duration=25) 
+    ev3.speaker.beep(duration=25)
+
 
 def pump_oil():
-    robot.straight(70)
+    robot.straight(100)
+    main_motor.run_time(speed=5000,time=2000)
+    main_motor.run_time(speed=-7000,time=2500, wait=False)
     ev3.speaker.beep()
+    robot.straight(-20)
     # move_motor(250, -570, mustWait=False) # down
     gyroturno(-90)
     robot.stop()
@@ -70,7 +74,7 @@ def pump_oil():
     for _ in range(2):
         main_motor.run_time(speed=1000,time=1100)  # up
         main_motor.run_time(speed=-1000,time=1100) # down
-    main_motor.run_time(speed=1000,time=800)
+    main_motor.run_time(speed=1000,time=1100)
     #main_motor.run_time(speed=500,time=2000, wait=False) # up
 
 def align_to_cart():
@@ -84,12 +88,12 @@ def align_to_cart():
     #move_motor(200, 500, mustWait=False)
     gyroturno(0)
     ev3.speaker.beep()
-    main_motor.run_time(speed=500,time=2000, wait=False)
+    #main_motor.run_time(speed=500,time=2000, wait=False)
     robot.straight(30)
-    time.sleep(1)
+    #time.sleep(1)
 
 def hookcart_gohome():
-    main_motor.run_time(speed=-1000,time=2200)
+    main_motor.run_time(speed=-1000,time=1100)
     robot.drive(-500, 28)
     time.sleep(1.5)
     robot.stop()
