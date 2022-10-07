@@ -13,39 +13,31 @@ from lib import *
 # Miles -> Break this up into at least three sub-functions
 #       -> Also the forward_angle isn't working reliably getting off the wall.abs(x)
 #       -> Think of how to make sure the target angles are achieved even when "skidding" 
-#       -> against the wall. 
-def dispense():
+#       -> against the wall. I fixed it with gyroturno.
+
+def power_generator():
+    get_there_and_dispense()
+    get_off_wall()
+    get_home()
+
+def get_there_and_dispense():
     forward_distance(400, 5, 450, 1)
     robot.drive(speed = 400, turn_rate = 5)
     time.sleep(.8)
     robot.stop()
+    #dispense units
     main_motor.run_time(-60*16, 1350)
     main_motor.run_time(90*16, 2000)
-    forward_angle(speed=-200, turn_rate=40, angle=45)
-    forward_angle(speed=200, turn_rate= -70, angle=-70)
+
+def get_off_wall():
+    gyroturno(35, .8, -200)
+    gyroturno(-50, 1, 300)
     ev3.speaker.beep()
+
+def get_home():
     forward_angle(speed=300, turn_rate=50, angle= 90)
     ev3.speaker.beep()
     forward_angle(speed=300, turn_rate=-20, angle=-20)
     ev3.speaker.beep()
     forward_distance(speed=300, turn_rate=0, distance=300)
-    gyro_stop()
-    time.sleep(1000000)
-
-    #forward_dist(speed = -300, turn_rate = 20, distance = -200, t_prime=1)
-    forward_dist(speed = 100, turn_rate = -70, distance = 100, t_prime=1)
-    forward_dist(speed= 100, turn_rate= 0, distance=90)
-    ev3.speaker.beep()
-    forward_distance(speed=100, turn_rate=25, distance=150, t_prime=0)
-    #ev3.speaker.beep()
-    forward_distance(speed=100, turn_rate= 0, distance=250, t_prime=0)
-    #Get home
-    forward_distance(speed=100, turn_rate=25, distance=150, t_prime=0)
-    forward_distance(speed=100, turn_rate= 0, distance=10, t_prime=0)
-    ev3.speaker.beep()
-    forward_dist(speed = 100, turn_rate = -20, distance = 50, t_prime=0)
-    ev3.speaker.beep()
-    forward_dist(speed=100, turn_rate=0, distance=200)
-
     robot.stop()
-
