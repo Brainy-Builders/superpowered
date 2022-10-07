@@ -64,7 +64,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 2
+selected = 3
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -113,7 +113,7 @@ def functions(x):
         print("oil rocks")
         oil_supporter.main()
     elif selected == 3:
-        power.dispense()
+        power.power_generator()
     elif selected == 4:
         collectit.main()
     elif selected == 5:
