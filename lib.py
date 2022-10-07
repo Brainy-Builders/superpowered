@@ -109,14 +109,17 @@ def view_color():
         ev3.screen.clear()
         r_color = get_color(right_colorsensor)
         l_color = get_color(left_colorsensor)
+        r_raw = get_color(right_colorsensor, raw=True)
+        l_raw = get_color(left_colorsensor, raw=True)
         ev3.screen.print("press LEFT to end")
-        ev3.screen.print("ml:\n")
+        ev3.screen.print("ml:")
         ev3.screen.print("L clr: {}".format(l_color))
+        ev3.screen.print(" raw:", l_raw, l_raw[0][0]-10)
         ev3.screen.print("R clr: {}".format(r_color))
-        ev3.screen.print("\npybricks:\n")
-        ev3.screen.print("L clr: {}".format(left_colorsensor.color()))
-        ev3.screen.print("R clr: {}".format(right_colorsensor.color()))
-
+        ev3.screen.print(" raw:", r_raw, r_raw[0][0]-10)
+        ev3.screen.print("pb L clr: {}".format(left_colorsensor.color()))
+        ev3.screen.print("pb R clr: {}".format(right_colorsensor.color()))
+        time.sleep(1)
 def test_follow():
     
     line_follow(1000,200,"left" , "right", True)

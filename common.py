@@ -178,7 +178,8 @@ def smart_turn(wheel,sensor):
         opp=right_wheel
     else:
         opp=left_wheel
-    while sensor.reflection() < 80:
+    val_hist = []
+    while (sensor.reflection() < 80):
     # while get_color(sensor) != Color.WHITE:
         wheel.dc(20)
         opp.dc(-20)
@@ -260,10 +261,12 @@ def detection():
         ev3.screen.print("i think the colors are: \nLEFT: {0}, RIGHT: {1}".format(str(left_colorsensor.color()).strip("Color."), str(right_colorsensor.color()).strip("Color.")))
         time.sleep(.3)
 
-def get_color(sensor):
+def get_color(sensor, raw=False):
     r=sensor.rgb()#get red, green, blue values from sensor
     green,blue=r[1],r[2]#extract green and blue values
     reflectivity=sensor.reflection()#get reflectivity value from sensor
+    if(raw):
+        return r, reflectivity
     #decision tree below
     if green <= 14.00:
                 color = Color.BLACK
