@@ -47,7 +47,7 @@ def followline_findcross():
     linefollow.line_follow(length=440-dist,speed=200,sensor="left",side="right", find_cross=False)
     back_motor.run_time(800, 800, wait=False)
     dist = robot.distance()
-    move_motor(1000, 900, mustWait=False)
+    move_motor(600, 700, mustWait=False)
     #main_motor.run_time(speed=1000,time=1200, wait=False)
     linefollow.line_follow(650-dist, speed=200, sensor = "left", side = "right", find_cross = True)
     # get to the cross
@@ -61,7 +61,7 @@ def pump_oil():
     robot.straight(100)
     main_motor.run_time(speed=5000,time=2000)
     main_motor.run_time(speed=-7000,time=2500, wait=False)
-    ev3.speaker.beep()
+    # ev3.speaker.beep()
     robot.straight(-20)
     # move_motor(250, -570, mustWait=False) # down
     gyroturno(-90)
