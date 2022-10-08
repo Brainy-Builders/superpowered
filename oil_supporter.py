@@ -43,9 +43,10 @@ def followline_findcross():
     # follow the line SMART distance
     dist=robot.distance()
     # forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
-    smart_turn(left_wheel, left_colorsensor)
-    linefollow.line_follow(length=440-dist,speed=200,sensor="left",side="right", find_cross=False)
     back_motor.run_time(800, 800, wait=False)
+    smart_turn(left_wheel, left_colorsensor)
+    linefollow.line_follow(length=460-dist,speed=200,sensor="left",side="right", find_cross=False)
+    # back_motor.run_time(800, 800, wait=False)
     dist = robot.distance()
     move_motor(600, 700, mustWait=False)
     #main_motor.run_time(speed=1000,time=1200, wait=False)
@@ -58,9 +59,10 @@ def followline_findcross():
 
 
 def pump_oil():
-    robot.straight(100)
-    main_motor.run_time(speed=5000,time=2000)
-    main_motor.run_time(speed=-7000,time=2500, wait=False)
+    gyro_straight(100, 100)
+    # robot.straight(100)
+    main_motor.run_time(speed=1000,time=2000)
+    main_motor.run_time(speed=-1000,time=2000, wait=False)
     # ev3.speaker.beep()
     robot.straight(-20)
     # move_motor(250, -570, mustWait=False) # down

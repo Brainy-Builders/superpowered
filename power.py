@@ -31,6 +31,7 @@ def get_there_and_dispense():
 
 def get_off_wall():
     gyroturno(35, .8, -200)
+    time.sleep(.1)
     gyroturno(-30, 1, 300)
 
 
@@ -40,5 +41,5 @@ def get_home():
     ev3.speaker.beep()
     forward_angle(speed=300, turn_rate=-20, angle=-20)
     ev3.speaker.beep()
-    forward_distance(speed=300, turn_rate=0, distance=300)
+    forward_distance(speed=900, turn_rate=0, distance=300)
     robot.stop()
