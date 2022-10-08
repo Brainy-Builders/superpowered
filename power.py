@@ -31,11 +31,12 @@ def get_there_and_dispense():
 
 def get_off_wall():
     gyroturno(35, .8, -200)
-    gyroturno(-50, 1, 300)
-    ev3.speaker.beep()
+    gyroturno(-30, 1, 300)
+
+
 
 def get_home():
-    forward_angle(speed=300, turn_rate=50, angle= 90)
+    forward_angle(speed=300, turn_rate=25, angle= 75)
     ev3.speaker.beep()
     forward_angle(speed=300, turn_rate=-20, angle=-20)
     ev3.speaker.beep()
