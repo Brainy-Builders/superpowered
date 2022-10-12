@@ -48,8 +48,9 @@ def followline_findcross():
     # continue to the cross
     dist = robot.distance()
     move_motor(speed=600, angle=700, mustWait=False)
-    linefollow.line_follow(650-dist, speed=150, sensor = "left", side = "right", find_cross = True)
+    linefollow.line_follow(650-dist, speed=125, sensor = "left", side = "right", find_cross = True)
     ev3.speaker.beep(duration=25) # duration units [ms]
+    robot.stop()
 
 def dump_energy():
     forward_dist(speed=100, turn_rate=0, distance=100)
@@ -78,7 +79,7 @@ def align_to_cart():
         robot.drive(-60,0)
     ev3.speaker.beep()
     gyro_stop()
-    #move_motor(200, 500, mustWait=False)
+    #main_motor.run_time(speed=-450,time=1100, wait=False)
     gyroturno(0)
     ev3.speaker.beep()
     #main_motor.run_time(speed=500,time=2000, wait=False)
@@ -87,8 +88,8 @@ def align_to_cart():
 
 def hookcart_gohome():
     main_motor.run_time(speed=-1000,time=1100)
-    robot.drive(-500, 28)
-    time.sleep(1.5)
+    robot.drive(-500, 27)
+    time.sleep(1.7)
     robot.stop()
 
 def main():
