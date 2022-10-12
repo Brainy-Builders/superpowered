@@ -113,7 +113,7 @@ def halftesla2():
     # Let car down
     forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.5)
     gyro_stop()
-    back_motor.run_time(speed = 200, time = 700, wait=False) # up
+    back_motor.run_time(speed = 400, time = 1000, wait=False) # up
     ev3.speaker.beep()
     # time.sleep(3)
     # push the car away, then run into Toy Factory
