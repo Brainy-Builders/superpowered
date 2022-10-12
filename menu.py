@@ -29,16 +29,16 @@ import epic_x
 import toy_factory
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
-    "waterfall",
-    "tv flip",
-    "oil supporter",
-    "power",
     "collect",
+    "oil supporter",
+    "waterfall",
     "truck",
-    "color collect",
-    "color viewer", 
+    "power",
+    "tv flip",
     "toy factory",
-    "black_x"
+    "black_x", 
+    "color collect",
+    "color viewer"
     ]
 
 def thread():
@@ -64,7 +64,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 3
+selected = 0
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -105,26 +105,26 @@ def functions(x):
     if not data["started"]:
         data["stated"] = True
         qw.start()
-    if selected == 0:
+    if selected == 2:
         faucet.get_to_there()
-    elif selected == 1:
+    elif selected == 5:
         tv.flip_tv()
-    elif selected == 2:
+    elif selected == 1:
         print("oil rocks")
         oil_supporter.main()
-    elif selected == 3:
-        power.power_generator()
     elif selected == 4:
+        power.power_generator()
+    elif selected == 0:
         collectit.main()
-    elif selected == 5:
+    elif selected == 3:
         oil_supporter.oiltruck()
-    elif selected == 6:
-        lib.cs_data("WHITE")
-    elif selected == 7:
-        lib.view_color()
-    elif selected == 8:
-        toy_factory.toy()
     elif selected == 9:
+        lib.cs_data("WHITE")
+    elif selected == 8:
+        lib.view_color()
+    elif selected == 6:
+        toy_factory.toy()
+    elif selected == 7:
         epic_x.main()
 
 
@@ -159,5 +159,5 @@ while True:
         robot.stop()
         
         functions(selected)
-
+        selected += 1
         data['values'] = load_data()
