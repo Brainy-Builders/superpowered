@@ -37,8 +37,8 @@ lis = [
     "tv flip",
     "toy factory",
     "black_x", 
-    "color collect",
     "color viewer"
+    "color collect",
     ]
 
 def thread():
