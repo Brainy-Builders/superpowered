@@ -20,17 +20,32 @@ from pidlinefollow import *
 from gyrostraight import *
 
 def toy():
-    gyro.reset_angle(0)
-    forward_distance(400, 0, 26, 1)
-    time.sleep(1)
-    gyroturno(-62)
-    forward_distance(400, 0, 250, 1)
-    robot.drive(200, 0)
+    # gyro.reset_angle(0)
+    # forward_distance(400, 0, 26, 1)
+    # time.sleep(1)
+    # gyroturno(-62)
+    # forward_distance(400, 0, 250, 1)
+    # robot.drive(200, 0)
+    # time.sleep(1.5)
+    # robot.stop()
+    # move_motor(400, 900)
+    # time.sleep(.5)
+    # forward_distance(-800, 0, -80, 1)
+    # robot.drive(-800, 80)
+    # time.sleep(1)
+    # robot.stop()
+    toy_alternative()
+    
+
+def toy_alternative():
+    forward_distance(400, 0, 150, 1)
+    ev3.speaker.beep()
+    robot.drive(400, 0)
     time.sleep(1.5)
     robot.stop()
-    move_motor(400, 900)
     time.sleep(.5)
-    forward_distance(-800, 0, -80, 1)
-    robot.drive(-800, 80)
+    forward_distance(-400, 0, -150, 1)
+    robot.drive(-400, 0)
     time.sleep(1)
     robot.stop()
+

@@ -4,9 +4,29 @@ from gyroturno import *
 from gyrostraight import *
 from pidlinefollow import *
 import os
+
+def coach():
+    # go straight with acceleration
+    forward_dist(speed=300,  turn_rate=0,  distance=300, t_prime=1.5)
+    ev3.speaker.beep(50)
+    # turn right then left
+    forward_angle(speed=300,  turn_rate=45, angle=30)
+    ev3.speaker.beep(50)
+    forward_angle(speed=300,  turn_rate=-45, angle=-30)
+    ev3.speaker.beep(50)
+    # go straight to the end
+    robot.drive(50,0)
+    time.sleep(3)
+    ev3.speaker.beep(50)
+    # straight
+    # forward_dist(speed=300,  turn_rate=0,  distance=150, t_prime=0)
+    gyro_stop()
+    time.sleep(5)
+
 def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
+    coach()
     main_motor.run_time(speed=500,time=800,then=Stop.HOLD,wait=False)
     get_to_cross()
     travel2()
