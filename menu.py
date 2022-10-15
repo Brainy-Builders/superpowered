@@ -153,8 +153,10 @@ while True:
         print("center")
         ev3.speaker.beep()
         # Back up against the wall, reset gyro angle
-        robot.drive(-100, 0)
-        time.sleep(0.25)
+        skip_backup = [6]
+        if selected not in skip_backup:
+            robot.drive(-100, 0)
+            time.sleep(0.25)
         gyro.reset_angle(0)
         robot.stop()
         
