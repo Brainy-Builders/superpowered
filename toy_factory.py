@@ -38,10 +38,10 @@ def toy():
     
 
 def toy_alternative():
-    gyro_straight(distance=150, speed=400, reset_angle=None, t_prime = 1)
+    gyro_straight(distance=290, speed=400, reset_angle=None, t_prime = 1)
     ev3.speaker.beep()
-    robot.drive(400, 0)
-    time.sleep(1.5)
+    robot.drive(200, 0)
+    time.sleep(2)
     robot.stop()
     time.sleep(.25)
     forward_distance(-400, 0, -150, 0)
