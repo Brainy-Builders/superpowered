@@ -39,35 +39,37 @@ def newstart():
     forward_angle(300, -45, -35)
     #gyro_stop()
 
-def followline_findcross():
-    # move forward and find the line
-    gyro_straight(distance=200, speed=300, t_prime=0.5) # use gyro at beginning 
-    ev3.speaker.beep(duration=25)
-    while(get_color(left_colorsensor) != Color.BLACK):
-        robot.drive(200,0)
+# def followline_findcross():
+#     # move forward and find the line
+#     gyro_straight(distance=200, speed=300, t_prime=0.5) # use gyro at beginning 
+#     ev3.speaker.beep(duration=25)
+#     while(get_color(left_colorsensor) != Color.BLACK):
+#         robot.drive(200,0)
 
-    # follow the line SMART distance
-    dist=robot.distance()
-    gyroturno(30)
-    forward_dist(400, 0, 130, t_prime = 0.5)
-    move_motor(speed=600, angle=700, mustWait=False)
+#     # follow the line SMART distance
+#     dist=robot.distance()
+#     gyroturno(30)
+#     forward_dist(400, 0, 130, t_prime = 0.5)
+#     move_motor(speed=600, angle=700, mustWait=False)
     
-    # continue to the cross
-    dist = robot.distance()
-    #move_motor(speed=600, angle=700, mustWait=False)
-    # linefollow.line_follow(650-dist, speed=125, sensor = "left", side = "right", find_cross = True)
-    ev3.speaker.beep(duration=25) # duration units [ms]
-    gyroturno(0)
-    while(get_color(right_colorsensor) != Color.BLACK):
-        robot.drive(150, 0)
-    # forward_dist(200, 0, 200, t_prime=0.5)
-    robot.stop()
+#     # continue to the cross
+#     dist = robot.distance()
+#     #move_motor(speed=600, angle=700, mustWait=False)
+#     # linefollow.line_follow(650-dist, speed=125, sensor = "left", side = "right", find_cross = True)
+#     ev3.speaker.beep(duration=25) # duration units [ms]
+#     gyroturno(0)
+#     while(get_color(right_colorsensor) != Color.BLACK):
+#         robot.drive(150, 0)
+#     # forward_dist(200, 0, 200, t_prime=0.5)
+#     robot.stop()
 
 def dump_energy():
     forward_dist(speed=200, turn_rate=0, distance=10)
     gyro_stop()
     main_motor.run_time(speed=1000,time=1000, wait=True) #up
-    main_motor.run_time(speed=-1000,time=2000, wait=False) #down
+    main_motor.run_time(speed=-1000,time=1500, wait=False) #down
+    forward_dist(-100, 0, -15, t_prime=0.3)
+    gyro_stop()
 
 def pump_oil():
     # ev3.speaker.beep()
@@ -83,18 +85,28 @@ def pump_oil():
     main_motor.run_time(speed=1000,time=1100)
 
 def align_to_cart():
-    while(get_color(right_colorsensor) != Color.BLACK):
-        robot.drive(-60,0)
+    turn_right = False
+    max_distance = robot.distance()
+    while turn_right == False:
+      robot.drive(-60,0)
+      if (get_color(right_colorsensor) == Color.BLACK):
+        turn_right = True
+      if robot.distance() > max_distance+150:
+        turn_right = True
     ev3.speaker.beep()
-    while(get_color(right_colorsensor) != Color.WHITE):
-        robot.drive(-60,0)
+    forward_dist(-200, 0, -20, t_prime=0.2)
+    # while(get_color(right_colorsensor) != Color.BLACK):
+    #     robot.drive(-60,0)
+    # ev3.speaker.beep()
+    # while(get_color(right_colorsensor) != Color.WHITE):
+    #     robot.drive(-60,0)
     ev3.speaker.beep()
     gyro_stop()
     #main_motor.run_time(speed=-450,time=1100, wait=False)
     gyroturno(0)
     ev3.speaker.beep()
     #main_motor.run_time(speed=500,time=2000, wait=False)
-    robot.straight(30)
+    robot.straight(40)
     #time.sleep(1)
 
 def hookcart_gohome():
@@ -106,7 +118,7 @@ def hookcart_gohome():
 def main():
     # get ready
     gyro.reset_angle(angle=0)
-    move_motor(speed=1000, angle=-1000, mustWait=False) # down
+    move_motor(speed=1000, angle=-500, mustWait=False) # down
     # go
     newstart()
     #followline_findcross()
