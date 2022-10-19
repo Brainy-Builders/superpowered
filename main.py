@@ -10,7 +10,6 @@
 # from pybricks.robotics import DriveBase
 # from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 # speed up launch
-
 from gyroturno import *
 
 import common
