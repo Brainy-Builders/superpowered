@@ -207,6 +207,7 @@ def forward_angle(speed, turn_rate, angle):
     if(angle<0):
         while(robot.angle() > end_angle):
             robot.drive(speed,turn_rate)
+        return
     while(robot.angle() < end_angle):
         robot.drive(speed,turn_rate)
 
