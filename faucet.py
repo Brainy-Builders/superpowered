@@ -23,10 +23,10 @@ from gyrostraight import *
 def get_to_there():
     # forward_angle(300, 90, 45)
     gyro.reset_angle(0)
-    gyroturno(45, speed=200)
-    robot.stop()
+    gyroturno(50, speed=200)
+    gyro_stop()
     # time.sleep(2)
-    gyro_straight(250, 300)
+    gyro_straight(250, 450, t_prime=0.5)
     robot.drive(300, 0)
     time.sleep(1)
     robot.drive(-300, 0)
