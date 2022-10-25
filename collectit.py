@@ -22,7 +22,7 @@ def travel2():
     gyro_stop()
     linefollow.line_follow(length=170,speed=175,sensor="right",side="left")
     gyro_stop()
-    back_motor.run_time(speed=650,time=1133,then=Stop.HOLD,wait=False)
+    back_motor.run_time(speed=700,time=1133,then=Stop.HOLD,wait=False)
     time.sleep(1)
 
     # keep following the line, get ready to high five
@@ -35,10 +35,10 @@ def travel2():
     gyro_straight(distance=400,speed=300, t_prime=1)
     gyro_stop()
     # main_motor.run_time(speed=-200,time=700,then=Stop.HOLD,wait=False)
-    forward_angle(speed=200,turn_rate=90,angle=90)
+    forward_angle(speed=200,turn_rate=90,angle=75)
     
 
-    robot.drive(700,0)
+    robot.drive(700,10)
     time.sleep(2.2)
     gyro_stop()
 
@@ -54,7 +54,7 @@ def get_to_cross():
     # follow the line SMART distance
     dist=robot.distance()
     forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
-    linefollow.line_follow(440-dist, speed=175, sensor="left", side="right")
+    linefollow.line_follow(440-15-dist, speed=175, sensor="left", side="right")
     ev3.speaker.beep()
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False)
     dist=robot.distance()
