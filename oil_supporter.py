@@ -32,11 +32,12 @@ import os
     #robot.stop()
 
 def newstart():
-    forward_dist(300, 0, 300, t_prime=0.5)
+    forward_dist(300, 0, 300, t_prime=0.75)
     forward_angle(300, 45, 30)
+    # 
     ev3.speaker.beep()
-    move_motor(speed=600, angle=700, mustWait=False)
-    forward_angle(300, -45, -35)
+    # move_motor(speed=600, angle=700, mustWait=False)
+    forward_angle(300, -45, -30)
     #gyro_stop()
 
 # def followline_findcross():
@@ -64,7 +65,7 @@ def newstart():
 #     robot.stop()
 
 def dump_energy():
-    forward_dist(speed=200, turn_rate=0, distance=10)
+    forward_dist(speed=200, turn_rate=0, distance=50)
     gyro_stop()
     main_motor.run_time(speed=1000,time=1000, wait=True) #up
     main_motor.run_time(speed=-1000,time=1500, wait=False) #down
@@ -94,6 +95,7 @@ def align_to_cart():
       if robot.distance() > max_distance+150:
         turn_right = True
     ev3.speaker.beep()
+    move_motor(400, -450, mustWait=False)
     forward_dist(-200, 0, -20, t_prime=0.2)
     # while(get_color(right_colorsensor) != Color.BLACK):
     #     robot.drive(-60,0)
@@ -110,7 +112,7 @@ def align_to_cart():
     #time.sleep(1)
 
 def hookcart_gohome():
-    main_motor.run_time(speed=-1000,time=1100)
+    main_motor.run_time(speed=-1500,time=1500)
     robot.drive(-500, 27)
     time.sleep(1.7)
     robot.stop()
