@@ -2,9 +2,9 @@ from common import *
 from gyroturno import gyroturno,gyro_stop
 import time
 def main():
-    forward_distance(400,0,450,.5)
+    forward_distance(400,0,350,.5)
     # robot.stop()
-    forward_dist(300,34,460)
+    forward_dist(300,27,500)
     forward_angle(300, -180, -60)
     # ev3.speaker.beep()
     # robot.stop()
