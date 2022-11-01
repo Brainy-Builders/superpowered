@@ -32,11 +32,12 @@ def travel2():
     gyro_straight(100,-70)
     gyro_stop()
     gyroturno(155)
-    gyro_straight(distance=400,speed=300, t_prime=1)
+    gyro_straight(distance=350,speed=300, t_prime=1)
     gyro_stop()
+    # time.sleep(3)
     # main_motor.run_time(speed=-200,time=700,then=Stop.HOLD,wait=False)
-    forward_angle(speed=200,turn_rate=90,angle=75)
-    
+    forward_angle(speed=150,turn_rate=100,angle=90)
+    forward_angle(speed=200, turn_rate=60, angle = 45)
 
     robot.drive(700,10)
     time.sleep(2.2)
