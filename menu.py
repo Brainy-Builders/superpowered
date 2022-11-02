@@ -32,7 +32,7 @@ lis = [
     "collect",
     "oil supporter",
     "waterfall",
-    "truck",
+#    "truck",
     "power",
     "tv flip",
     "toy factory",
@@ -107,24 +107,24 @@ def functions(x):
         qw.start()
     if selected == 2:
         faucet.get_to_there()
-    elif selected == 5:
+    elif selected == 4:
         tv.flip_tv()
     elif selected == 1:
         print("oil rocks")
         oil_supporter.main()
-    elif selected == 4:
+    elif selected == 3:
         power.power_generator()
     elif selected == 0:
         collectit.main()
-    elif selected == 3:
-        oil_supporter.oiltruck()
-    elif selected == 9:
-        lib.cs_data("WHITE")
+    # elif selected == 3:
+    #     oil_supporter.oiltruck()
     elif selected == 8:
-        lib.view_color()
-    elif selected == 6:
-        toy_factory.toy()
+        lib.cs_data("WHITE")
     elif selected == 7:
+        lib.view_color()
+    elif selected == 5:
+        toy_factory.toy()
+    elif selected == 6:
         epic_x.main()
 
 
@@ -157,9 +157,9 @@ while True:
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)
+        gyro_stop()
         gyro.reset_angle(0)
-        robot.stop()
-        
+
         functions(selected)
         selected += 1
         data['values'] = load_data()

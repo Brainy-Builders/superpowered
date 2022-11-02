@@ -105,13 +105,14 @@ def halftesla2():
     # time.sleep(3)
     robot.drive(speed=-250,turn_rate=0) 
     time.sleep(0.75)
-    back_motor.run_time(speed = -200, time=800, wait=False)  # down
+    back_motor.run_time(speed = -200, time=1000, wait=False)  # down
     time.sleep(0.75)
     gyro_stop()
     ev3.speaker.beep()
     # time.sleep(3)
     # Let car down
-    forward_dist(speed=200, turn_rate=0, distance=230, t_prime=0.5)
+    #Changed dist from 230 to 260:
+    forward_dist(speed=200, turn_rate=0, distance=260, t_prime=0.5)
     gyro_stop()
     back_motor.run_time(speed = 400, time = 1000, wait=False) # up
     # ev3.speaker.beep()
