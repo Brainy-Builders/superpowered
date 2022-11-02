@@ -17,6 +17,7 @@ import math
 #import newlinefollow
 import linefollow
 from common import *
+from gyroturno import *
 import os
 import threading
 import tv
