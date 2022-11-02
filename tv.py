@@ -14,9 +14,9 @@ def flip_tv():
     gyro.reset_angle(0)
     # ev3.speaker.beep()
     back_motor.run_time(speed = 200, time=200, wait=False) # make sure UP
-    gyro_straight(distance=200, speed=250) # add acceleration
+    gyro_straight(distance=270, speed=250) # add acceleration
     robot.drive(170, 0)
-    time.sleep(2.75 - 0.75)
+    time.sleep(2.75 - 1.75)
     gyro_stop()
     # ev3.speaker.beep()
     # time.sleep(3)
