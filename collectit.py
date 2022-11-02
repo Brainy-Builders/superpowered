@@ -36,9 +36,10 @@ def travel2():
     gyro_stop()
     # time.sleep(3)
     # main_motor.run_time(speed=-200,time=700,then=Stop.HOLD,wait=False)
-    forward_angle(speed=150,turn_rate=100,angle=90)
-    forward_angle(speed=200, turn_rate=60, angle = 45)
-
+    ev3.speaker.beep()
+    forward_angle(speed=300,turn_rate=100,angle=100)
+    #forward_angle(speed=200, turn_rate=60, angle = -15)
+    ev3.speaker.beep()
     robot.drive(700,10)
     time.sleep(2.2)
     gyro_stop()
@@ -47,7 +48,7 @@ def get_to_cross():
     gyro.reset_angle(angle=0)
     # move forward and find the line
     gyro_straight(distance=180, speed=250, t_prime=.6) # use gyro at beginning 
-    main_motor.run_angle(speed=-150,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
+    main_motor.run_angle(speed=-200,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
     ev3.speaker.beep(duration=25)
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(75,0)
