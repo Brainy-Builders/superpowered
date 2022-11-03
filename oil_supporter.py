@@ -38,6 +38,8 @@ def backup_from_energy():
     turn_left=False
     max_distance = robot.distance()
     while turn_left == False:
+      if Button.CENTER == ev3.buttons.pressed:
+        raise Exception
       robot.drive(-100,0)
       if (get_color(right_colorsensor) == Color.WHITE):
         turn_left = True
@@ -47,6 +49,7 @@ def backup_from_energy():
         turn_left = True
         gyro_stop()
         forward_dist(speed=100, turn_rate=0, distance=60, t_prime=0)
+    
 
 def pump_oil():
     # ev3.speaker.beep()
@@ -91,7 +94,11 @@ def main():
     newstart()
     #followline_findcross()
     dump_energy()
-    backup_from_energy()
+    try:
+        backup_from_energy()
+    except:
+        ev3.speaker.beep()
+        return 0
     pump_oil()
     align_to_cart()
     hookcart_gohome()
