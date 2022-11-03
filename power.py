@@ -37,9 +37,10 @@ def get_off_wall():
 
 
 def get_home():
-    forward_angle(speed=300, turn_rate=25, angle= 75)
+    forward_dist(500, 0, 200, t_prime=1)
+    forward_angle(speed=500, turn_rate=70, angle= 50)
     ev3.speaker.beep()
-    forward_angle(speed=300, turn_rate=-20, angle=-20)
+    forward_angle(speed=500, turn_rate=-30, angle=-45)
     ev3.speaker.beep()
     forward_distance(speed=900, turn_rate=0, distance=300)
     robot.stop()

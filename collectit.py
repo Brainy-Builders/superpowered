@@ -31,16 +31,16 @@ def travel2():
     main_motor.run_time(speed=100,time=1450,then=Stop.HOLD,wait=False) # put hand out
     gyro_straight(100,-70)
     gyro_stop()
-    gyroturno(155)
+    gyroturno(140)
     gyro_straight(distance=350,speed=300, t_prime=1)
     gyro_stop()
     # time.sleep(3)
     # main_motor.run_time(speed=-200,time=700,then=Stop.HOLD,wait=False)
     ev3.speaker.beep()
-    forward_angle(speed=300,turn_rate=100,angle=100)
+    forward_angle(speed=300,turn_rate=107,angle=108)
     #forward_angle(speed=200, turn_rate=60, angle = -15)
     ev3.speaker.beep()
-    robot.drive(700,10)
+    robot.drive(700,12)
     time.sleep(2.2)
     gyro_stop()
 
@@ -58,7 +58,7 @@ def get_to_cross():
     forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
     linefollow.line_follow(440-15-dist, speed=175, sensor="left", side="right")
     ev3.speaker.beep()
-    back_motor.run_angle(600,240,then=Stop.HOLD,wait=False)
+    back_motor.run_angle(600,260,then=Stop.HOLD,wait=False)
     dist=robot.distance()
     linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right")
     # get to the cross
