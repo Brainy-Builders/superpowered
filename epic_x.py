@@ -9,7 +9,7 @@ def main():
     # ev3.speaker.beep()
     # robot.stop()
     # gyroturno(-20)
-    forward_distance(700, 3, 1000, t_prime=1)
+    forward_distance(700, 2, 1000, t_prime=1)
     # gyro_stop()
     # robot.drive(700,3)
     # time.sleep(10)
