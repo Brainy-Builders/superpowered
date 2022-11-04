@@ -67,11 +67,11 @@ def windthing(): #go to wind#
 
 def halftesla2():
     # backup into car
-    forward_dist(speed=-250, turn_rate=20, distance=-150, t_prime = 0.5)
+    forward_dist(speed=-250, turn_rate=25, distance=-150, t_prime = 0.5)
     gyroturno(120)
     # ev3.speaker.beep()
     # time.sleep(3)
-    robot.drive(speed=-200,turn_rate=0) 
+    robot.drive(speed=-250,turn_rate=0) 
     time.sleep(0.5)
     back_motor.run_time(speed = -200, time=1000, wait=False)  # down
     time.sleep(0.75)
@@ -80,10 +80,10 @@ def halftesla2():
     # time.sleep(3)
     # Let car down
     #Changed dist from 230 to 260:
-    forward_dist(speed=200, turn_rate=0, distance=200)
+    forward_dist(speed=300, turn_rate=0, distance=200)
     gyro_stop()
-    back_motor.run_time(speed = 500, time = 900, wait=False)
-    forward_dist(200, 0, 60) # up
+    back_motor.run_time(speed = 300, time = 900, wait=False)
+    forward_dist(400, 0, 60) # up
     # ev3.speaker.beep()
     # time.sleep(3)
     # push the car away, then run into Toy Factory
@@ -124,3 +124,15 @@ def find_colors(color, sensor, speed=60):
     #     while get_color(right_colorsensor) != Color.WHITE:  
     #         robot.drive(speed, 0)                              
     #     robot.stop()
+
+def test_departure():
+    #from hybrid car
+    for myspeed in [200, 250, 300, 350, 400, 450, 500]:
+        back_motor.run_time(speed = -200, time=1000, wait=True)
+        ev3.speaker.say(str(myspeed))
+        forward_dist(speed=myspeed, turn_rate=0, distance=200)
+        gyro_stop()
+        back_motor.run_time(speed = 500, time = 900, wait=False)
+        forward_dist(200, 0, 60)
+        robot.stop()
+        time.sleep(5)
