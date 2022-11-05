@@ -68,11 +68,14 @@ def windthing(): #go to wind#
 def halftesla2():
     # backup into car
     forward_dist(speed=-250, turn_rate=25, distance=-150, t_prime = 0.5)
-    gyroturno(120)
+    gyroturno(122)
     # ev3.speaker.beep()
     # time.sleep(3)
-    robot.drive(speed=-250,turn_rate=0) 
-    time.sleep(0.5)
+    robot.drive(speed=-125,turn_rate=0) 
+    time.sleep(1)
+    # forward_dist(70, 0, 15)
+    # gyro_stop()
+    # ev3.speaker.beep()
     back_motor.run_time(speed = -200, time=1000, wait=False)  # down
     time.sleep(0.75)
     gyro_stop()
@@ -80,9 +83,9 @@ def halftesla2():
     # time.sleep(3)
     # Let car down
     #Changed dist from 230 to 260:
-    forward_dist(speed=300, turn_rate=0, distance=200)
+    forward_dist(speed=250, turn_rate=0, distance=180)
     gyro_stop()
-    back_motor.run_time(speed = 300, time = 900, wait=False)
+    back_motor.run_time(speed = 250, time = 900, wait=False)
     forward_dist(400, 0, 60) # up
     # ev3.speaker.beep()
     # time.sleep(3)
@@ -91,7 +94,7 @@ def halftesla2():
     gyro_stop()
     ev3.speaker.beep()
     # time.sleep(3)
-    forward_dist(speed=200, turn_rate=4, distance=250, t_prime=0.5)
+    forward_dist(speed=200, turn_rate=6, distance=250, t_prime=0.5)
     robot.drive(speed=200, turn_rate=0)
     time.sleep(0.5)
     gyro_stop()
