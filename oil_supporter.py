@@ -27,7 +27,7 @@ def newstart():
     forward_angle(speed=300, turn_rate=30, angle=25)
     ev3.speaker.beep()
     forward_angle(speed=300, turn_rate=-30, angle=-25)
-    forward_dist(speed=200, turn_rate=0, distance=50)
+    forward_dist(speed=200, turn_rate=0, distance=60)
     gyro_stop()
 
 def dump_energy():

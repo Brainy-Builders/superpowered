@@ -45,11 +45,11 @@ lis = [
 def thread():
     while data["time"] >= 0:
         data["time"] -= 1
-        if data["time"] < 45:
+        if data["time"] < 20:
             ev3.light.on(Color.RED)
         elif data["time"] > 50:
             ev3.light.on(Color.GREEN)
-        if data["time"] >= 45 and data["time"] <= 50:
+        if data["time"] >= 21 and data["time"] <= 50:
             time.sleep(.5)
             ev3.light.on(Color.GREEN)
             time.sleep(.5)

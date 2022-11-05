@@ -57,7 +57,7 @@ def get_to_cross():
     dist=robot.distance()
     forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
     linefollow.line_follow(440-30-dist, speed=175, sensor="left", side="right")
-    back_motor.run_angle(600,200,then=Stop.HOLD,wait=False) # moving back motor up
+    back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
     dist=robot.distance()
     linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right")
     # get to the cross

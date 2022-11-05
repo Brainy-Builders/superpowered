@@ -24,7 +24,7 @@ def get_there_and_dispense():
     forward_distance(400, 5, 450, 1)
     robot.drive(speed = 400, turn_rate = 5)
     time.sleep(.8)
-    robot.stop()
+    gyro_stop()
     #dispense units
     main_motor.run_time(-60*16, 1350)
     main_motor.run_time(90*16, 2000)
