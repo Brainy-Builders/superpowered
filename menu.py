@@ -28,6 +28,7 @@ import power
 import collectit
 import epic_x
 import toy_factory
+import gyropath
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "collect",
@@ -40,6 +41,8 @@ lis = [
     "black_x", 
     "color viewer"
     "color collect",
+    "xxx",
+    "gyro path "
     ]
 
 def thread():
@@ -127,6 +130,8 @@ def functions(x):
         toy_factory.toy()
     elif selected == 6:
         epic_x.main()
+    elif selected == 9:
+        gyropath.run()
 
 
 
