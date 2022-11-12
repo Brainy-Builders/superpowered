@@ -45,7 +45,7 @@ def run(load=f, speed=300, t_prime=0.5):
         correction = (d[search_key]-gyro.angle()) * 2.
         if time.time() < t_prime:
             speed=(speed_calc)/t*(time.time()-cur_time)
-        robot.drive(200, correction)
+        robot.drive(100, correction)
         x+=1
     robot.stop()
     ev3.screen.print("sdr ",x)
