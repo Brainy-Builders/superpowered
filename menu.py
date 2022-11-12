@@ -33,8 +33,8 @@ data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "collect",
     "oil supporter",
+    "truck",
     "waterfall",
-#    "truck",
     "power",
     "tv flip",
     "toy factory",
@@ -109,29 +109,38 @@ def functions(x):
     if not data["started"]:
         data["stated"] = True
         qw.start()
-    if selected == 2:
-        faucet.get_to_there()
-    elif selected == 4:
-        tv.flip_tv()
+    if selected == 0:
+        collectit.main()
     elif selected == 1:
         print("oil rocks")
         oil_supporter.main()
+    elif selected == 2:
+        oil_supporter.oiltruck()
     elif selected == 3:
+        faucet.get_to_there()
+    elif selected == 4:
         power.power_generator()
-    elif selected == 0:
-        collectit.main()
+    elif selected == 5:
+        tv.flip_tv()
+    elif selected == 6:
+        toy_factory.toy()
+    elif selected == 7:
+        epic_x.main()
+    elif selected == 8:
+        lib.view_color()
+    elif selected == 9:
+        lib.cs_data("WHITE")
+    elif selected == 10:
+        gyropath.run() 
+    
+    
     # elif selected == 3:
     #     oil_supporter.oiltruck()
-    elif selected == 8:
-        lib.cs_data("WHITE")
-    elif selected == 7:
-        lib.view_color()
-    elif selected == 5:
-        toy_factory.toy()
-    elif selected == 6:
-        epic_x.main()
-    elif selected == 9:
-        gyropath.run()
+    
+    
+    
+    
+    
 
 
 
@@ -159,7 +168,7 @@ while True:
         print("center")
         ev3.speaker.beep()
         # Back up against the wall, reset gyro angle
-        skip_backup = [5, 6, 3]
+        skip_backup = [4, 6, 7]
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)

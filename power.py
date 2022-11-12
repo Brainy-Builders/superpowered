@@ -30,17 +30,22 @@ def get_there_and_dispense():
     main_motor.run_time(90*16, 2000)
 
 def get_off_wall():
-    gyroturno(35, .8, -200)
-    time.sleep(.1)
-    gyroturno(-30, 1, 300)
-
+    gyroturno(angle=35, rate_control=.8, speed=-200)
+    # time.sleep(.1)
+    gyroturno(angle=-30, rate_control=1, speed=300, stop=False)
 
 
 def get_home():
-    forward_dist(500, 0, 200, t_prime=1)
-    forward_angle(speed=500, turn_rate=70, angle= 50)
-    ev3.speaker.beep()
-    forward_angle(speed=500, turn_rate=-30, angle=-45)
-    ev3.speaker.beep()
-    forward_distance(speed=900, turn_rate=0, distance=300)
-    robot.stop()
+    forward_dist(speed=300, turn_rate=0, distance=300)
+    gyroturno(angle=30, rate_control=1, speed=300, stop=False)
+    ev3.speaker.beep(duration=25)
+    gyroturno(angle=0, rate_control=0.25, speed=300, stop=False)
+    ev3.speaker.beep(duration=25)
+    # forward_angle(speed=500, turn_rate=70, angle= 50)
+    # ev3.speaker.beep()
+    # forward_angle(speed=500, turn_rate=-30, angle=-45)
+    # ev3.speaker.beep()
+    # forward_distance(speed=500, turn_rate=-5, distance=300)
+    robot.drive(speed=300, turn_rate=-5)
+    time.sleep(1)
+    gyro_stop()
