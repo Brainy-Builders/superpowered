@@ -28,6 +28,9 @@ def travel2():
     # keep following the line, get ready to high five
     linefollow.line_follow(length=240,speed=200,sensor="right",side="left")
     gyro_stop()
+    #TESTING CHANGE:
+    time.sleep(5000)
+    #------------------
     main_motor.run_time(speed=200,time=1450,then=Stop.HOLD,wait=False) # put hand out
     gyro_straight(100,-100)
     gyro_stop()
