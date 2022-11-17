@@ -67,7 +67,7 @@ def get_to_cross():
     # get to the cross
     ev3.speaker.beep(duration=25) # duration units [ms]
     while(get_color(right_colorsensor) != Color.BLACK):
-        robot.drive(100,0)
+        robot.drive(75,0)
     back_motor.run_angle(600,-80,then=Stop.HOLD,wait=False)
     ev3.speaker.beep(duration=25)    
 
