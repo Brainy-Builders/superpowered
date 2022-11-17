@@ -7,7 +7,7 @@ import os
 def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
-    main_motor.run_time(speed=500,time=800,then=Stop.HOLD,wait=False)
+    #main_motor.run_time(speed=500,time=800,then=Stop.HOLD,wait=False)
     back_motor.run_time(speed=-500, time=800, wait=False)
     get_to_cross()
     travel2()
@@ -29,10 +29,11 @@ def travel2():
     linefollow.line_follow(length=240,speed=200,sensor="right",side="left")
     gyro_stop()
     #TESTING CHANGE:
-    time.sleep(5000)
+    # time.sleep(5000)
     #------------------
-    main_motor.run_time(speed=200,time=1450,then=Stop.HOLD,wait=False) # put hand out
+    main_motor.run_time(speed=600,time=2000,then=Stop.HOLD,wait=True) # put hand out
     gyro_straight(100,-100)
+    main_motor.run_time(speed=-600,time=2000,then=Stop.HOLD,wait=False) # put hand out
     gyro_stop()
     gyroturno(143)
     gyro_straight(distance=350,speed=300, t_prime=1)
@@ -51,7 +52,7 @@ def get_to_cross():
     gyro.reset_angle(angle=0)
     # move forward and find the line
     gyro_straight(distance=180, speed=250, t_prime=.6) # use gyro at beginning 
-    main_motor.run_angle(speed=-200,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
+    # main_motor.run_angle(speed=-200,rotation_angle=115,then=Stop.HOLD,wait=False) # put hand out
     ev3.speaker.beep(duration=25)
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(100,0)

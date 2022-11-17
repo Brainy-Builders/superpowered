@@ -35,7 +35,7 @@ def gyro_stop():
     # Again since sometimes one motor keeps running!
     left_wheel.brake()
     right_wheel.brake()
-    robot.stop()
+    # robot.stop() 
 
 def gyroturno(angle, rate_control=1.2, speed=0, stop=True): 
     # robot.stop()
