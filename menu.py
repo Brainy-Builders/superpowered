@@ -47,6 +47,8 @@ lis = [
 
 def thread():
     while data["time"] >= 0:
+        if Button.LEFT in ev3.buttons.pressed():
+            main_menu()
         data["time"] -= 1
         if data["time"] < 20:
             ev3.light.on(Color.RED)
@@ -136,13 +138,6 @@ def functions(x):
     
     # elif selected == 3:
     #     oil_supporter.oiltruck()
-    
-    
-    
-    
-    
-
-
 
 while True: 
     time.sleep(.2)
