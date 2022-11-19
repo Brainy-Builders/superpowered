@@ -3,6 +3,7 @@ from gyroturno import *
 import common
 from common import *
 
+
 import traceback
 ev3.screen.draw_image(x = 0, y = 0, source = "splash.png", transparent=None)
 

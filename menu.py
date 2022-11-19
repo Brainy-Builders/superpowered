@@ -29,6 +29,7 @@ import collectit
 import epic_x
 import toy_factory
 import gyropath
+
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "collect",
@@ -162,6 +163,8 @@ while True:
     elif Button.CENTER in ev3.buttons.pressed():
         print("center")
         ev3.speaker.beep()
+        if selected==1:
+            main_motor.stop()
         # Back up against the wall, reset gyro angle
         skip_backup = [4, 6, 7]
         if selected not in skip_backup:
@@ -173,3 +176,5 @@ while True:
         functions(selected)
         selected += 1
         data['values'] = load_data()
+        if selected==1:
+            main_motor.run(-25)
