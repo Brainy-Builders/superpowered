@@ -78,7 +78,7 @@ def align_to_cart():
     main_motor.run_angle(speed=500, rotation_angle=540, wait=False) # up
     gyro_stop()
     gyroturno(0)
-    robot.straight(40)
+    robot.straight(55)
 
 def hookcart_gohome():
     main_motor.run_time(speed=-2000,time=700, wait=True) #down
