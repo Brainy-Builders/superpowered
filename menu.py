@@ -166,7 +166,7 @@ while True:
         if selected==1:
             main_motor.stop()
         # Back up against the wall, reset gyro angle
-        skip_backup = [4, 6, 7]
+        skip_backup = [3, 4, 6, 7]
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)
@@ -178,3 +178,5 @@ while True:
         data['values'] = load_data()
         if selected==1:
             main_motor.run(-25)
+        elif selected == 5:
+            back_motor.run(25)
