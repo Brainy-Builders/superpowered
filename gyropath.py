@@ -41,7 +41,6 @@ def run(load=f, speed=300, t_prime=0.5):
     x=0
     while robot.distance()<bm:
         search_key=robot.distance()
-        
         correction = (d[search_key]-gyro.angle()) * 2.
         if time.time() < t_prime:
             speed=(speed_calc)/t*(time.time()-cur_time)
