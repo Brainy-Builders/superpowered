@@ -8,7 +8,7 @@ def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
     back_motor.run_time(speed=-500, time=800, wait=False) # put down
-    main_motor.run_time(speed=-600, time=2000,wait=False) # retract
+    main_motor.run_time(speed=-600, time=2200,wait=False) # retract
     get_to_cross()
     travel2()
 
@@ -56,12 +56,12 @@ def travel2():
     gyro_straight(distance=100,speed=-200, t_prime=0.5) # backup
     gyro_stop()
     main_motor.run_time(speed=-600,time=2000,wait=False) # retract
-    gyroturno(143)
+    gyroturno(143+5)
     gyro_straight(distance=350,speed=300, t_prime=1)
     # time.sleep(3)
     # main_motor.run_time(speed=-200,time=700,then=Stop.HOLD,wait=False)
     ev3.speaker.beep()
-    forward_angle(speed=300,turn_rate=100,angle=105)
+    forward_angle(speed=300,turn_rate=100,angle=105-10)
     #forward_angle(speed=200, turn_rate=60, angle = -15)
     ev3.speaker.beep()
     gyro_straight(350, 400)
