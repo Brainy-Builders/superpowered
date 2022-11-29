@@ -107,7 +107,7 @@ def oiltruck():
     gyro.reset_angle(0)
     #gyro_straight(distance=300, speed=200)
     #robot.stop()
-    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
+    # robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
     #robot.straight(400)
     gyro_straight(distance=240, speed=500, reset_angle=None, GCV=2.5,t_prime = 1 )
     # gyro_straight(distance=110, speed=100, reset_angle=None, GCV=2.5)

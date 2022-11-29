@@ -54,7 +54,7 @@ def windthing(): #go to wind#
     
     #collecting the energy units#
 
-    for _ in range(3):
+    for _ in range(2):
         robot.drive(300, 0)
         time.sleep(0.85)
         robot.stop()
@@ -63,12 +63,19 @@ def windthing(): #go to wind#
         time.sleep(0.75)
         robot.stop()
         time.sleep(0.2)
+    robot.drive(300, 0)
+    time.sleep(0.85)
     robot.stop()
+    time.sleep(0.2)
+    robot.drive(-100, 10)
+    time.sleep(0.75)
+    robot.stop()
+    # robot.stop()
 
 def halftesla2():
     # backup into car
     forward_dist(speed=-250, turn_rate=25, distance=-150, t_prime = 0.5)
-    gyroturno(122)
+    gyroturno(120)
     # ev3.speaker.beep()
     # time.sleep(3)
     robot.drive(speed=-125,turn_rate=0) 
