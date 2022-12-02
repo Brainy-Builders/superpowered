@@ -26,9 +26,9 @@ def get_to_cross():
     linefollow.line_follow(440-30-dist, speed=175, sensor="left", side="right")
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
     dist=robot.distance()
-    linefollow.line_follow(length=650-dist,speed=150+50,sensor="left",side="right")
+    linefollow.line_follow(length=650-dist,speed=150+50,sensor="left",side="right", find_cross=True)
     # get to the cross
-    ev3.speaker.beep(duration=25) # duration units [ms]
+    # ev3.speaker.beep(duration=25) # duration units [ms]
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(75,0)
     back_motor.run_angle(600,-80,then=Stop.HOLD,wait=False) # miss oil
