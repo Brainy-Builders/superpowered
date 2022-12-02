@@ -54,7 +54,7 @@ def windthing(): #go to wind#
     
     #collecting the energy units#
 
-    for _ in range(2):
+    for _ in range(3):
         robot.drive(300, 0)
         time.sleep(0.85)
         robot.stop()
@@ -62,20 +62,13 @@ def windthing(): #go to wind#
         robot.drive(-100, 0)
         time.sleep(0.75)
         robot.stop()
-        time.sleep(0.2)
-    robot.drive(300, 0)
-    time.sleep(0.85)
+        time.sleep(0.1)
     robot.stop()
-    time.sleep(0.2)
-    robot.drive(-100, 10)
-    time.sleep(0.75)
-    robot.stop()
-    # robot.stop()
 
 def halftesla2():
     # backup into car
-    forward_dist(speed=-250, turn_rate=25, distance=-150, t_prime = 0.5)
-    gyroturno(120)
+    forward_dist(speed=-225, turn_rate=30, distance=-150, t_prime = 0.5)
+    gyroturno(130)
     # ev3.speaker.beep()
     # time.sleep(3)
     robot.drive(speed=-125,turn_rate=0) 
@@ -90,18 +83,17 @@ def halftesla2():
     # time.sleep(3)
     # Let car down
     #Changed dist from 230 to 260:
-    forward_dist(speed=250, turn_rate=0, distance=180)
-    gyro_stop()
-    back_motor.run_time(speed = 250, time = 900, wait=False)
-    forward_dist(400, 0, 60) # up
+    forward_dist(speed=200, turn_rate=0, distance=140)
+    # gyro_stop()
+    back_motor.run_time(speed = 250, time = 900, wait=False) # up
+    forward_dist(200, 0, 100) # up
     # ev3.speaker.beep()
     # time.sleep(3)
     # push the car away, then run into Toy Factory
-    forward_angle(speed=-150, turn_rate=90, angle=90)
+    forward_angle(speed=-100, turn_rate=90, angle=90)
     gyro_stop()
-    ev3.speaker.beep()
     # time.sleep(3)
-    forward_dist(speed=200, turn_rate=6, distance=250, t_prime=0.5)
+    forward_dist(speed=200, turn_rate=0, distance=250, t_prime=0.5)
     robot.drive(speed=200, turn_rate=0)
     time.sleep(0.5)
     gyro_stop()
