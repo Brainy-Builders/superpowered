@@ -14,7 +14,7 @@ def flip_tv():
     gyro.reset_angle(0)
     # ev3.speaker.beep()
     back_motor.run_time(speed = 200, time=200, wait=False) # make sure UP
-    gyro_straight(distance=270, speed=250) # add acceleration
+    gyro_straight(distance=300, speed=250) # add acceleration
     robot.drive(170, 0)
     time.sleep(2.75 - 1.75)
     gyro_stop()
@@ -82,30 +82,25 @@ def halftesla2():
     ev3.speaker.beep()
     # time.sleep(3)
     # Let car down
-    #Changed dist from 230 to 260:
     forward_dist(speed=200, turn_rate=0, distance=140)
     # gyro_stop()
     back_motor.run_time(speed = 250, time = 900, wait=False) # up
-    forward_dist(200, 0, 100) # up
-    # ev3.speaker.beep()
-    # time.sleep(3)
+    forward_dist(200, 0, 100)
     # push the car away, then run into Toy Factory
     forward_angle(speed=-100, turn_rate=90, angle=90)
     gyro_stop()
     # time.sleep(3)
-    forward_dist(speed=200, turn_rate=0, distance=250, t_prime=0.5)
+    forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.5)
     robot.drive(speed=200, turn_rate=0)
     time.sleep(0.5)
     gyro_stop()
-    ev3.speaker.beep()
-    # time.sleep(3)
-    
     # backup, turn, go home
     forward_dist(speed=-100, turn_rate=0, distance=-25)
-    gyroturno(angle=-225, rate_control=1.0, speed=50)  # move forward here
+    # gyroturno(angle=-225, rate_control=1.0, speed=50)
+    gyroturno(angle=-225, rate_control=0.75, speed=0)
     forward_dist(speed=600, turn_rate=5, distance=500, t_prime=1.0)
     robot.drive(speed=800, turn_rate=0)
-    time.sleep(1)
+    time.sleep(0.75)
     gyro_stop()
 
 def find_colors(color, sensor, speed=60):
