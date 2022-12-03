@@ -32,7 +32,7 @@ def newstart():
 
 def dump_energy():
     main_motor.run_time(speed=1000,time=1000, wait=True) #up
-    main_motor.run_time(speed=-1000,time=1500, wait=False) #down
+    # main_motor.run_time(speed=-1000,time=1500, wait=False) #down
 
 def backup_from_energy():
     turn_left=False
@@ -49,7 +49,7 @@ def backup_from_energy():
         turn_left = True
         gyro_stop()
         forward_dist(speed=100, turn_rate=0, distance=60, t_prime=0)
-    
+    main_motor.run_time(speed=-1000,time=1500, wait=False)
 
 def pump_oil():
     # ev3.speaker.beep()

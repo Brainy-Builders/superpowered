@@ -69,11 +69,11 @@ def halftesla2():
     # backup into car
     forward_dist(speed=-225, turn_rate=30, distance=-150, t_prime = 0.5)
     gyroturno(130)
-    # ev3.speaker.beep()
+    # ev3.speaker.beep()f
     # time.sleep(3)
     robot.drive(speed=-125,turn_rate=0) 
     time.sleep(1)
-    # forward_dist(70, 0, 15)
+    # forward_dist(70, 0, 15)p
     # gyro_stop()
     # ev3.speaker.beep()
     back_motor.run_time(speed = -200, time=1000, wait=False)  # down
