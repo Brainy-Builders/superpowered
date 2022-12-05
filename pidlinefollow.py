@@ -23,50 +23,55 @@ from gyroturno import *
 # pidline(sensor='left', distance=600, speed=200, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False)
 
 # def pidline(sensor, distance, speed, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False):
-def pidline(sensor, distance, speed, Kp=0.15, Ki=0.0032, Kd=0.512, find_cross = False):
-  Td = distance # target distance
-  Tp_pct = speed # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
-  Tp = Tp_pct * 35/250 # Scale to approximate mm/s units
-  lastError = 0 # initialize
-  integral = 0  # initialize
+def pidlinefollow(length,  speed, sensor, side, find_cross = False, Kp=0, Ki=0, Kd=0):
+  """length in mm, speed in mm/sec, sensor is which sensor is following, side is which side of the line your on, and find cross is weather to continue until cross is found"""
+  # Kp, Ki, Kd = 0.2, 0.0006, 0.256  # original from Sophia
+  
   if sensor == 'right':
     follow_sensor = right_colorsensor
     detection_sensor = left_colorsensor
   else:
     follow_sensor = left_colorsensor
     detection_sensor = right_colorsensor
+
+  if side.lower() == "left":
+    side_mod = -1
+  else:
+    side_mod = 1
+
+  target_distance = robot.distance() + length
+  lastError = 0 # initialize
+  integral = 0  # initialize
   stop = False 
-  target_distance = robot.distance() + Td
-  robot.stop()
   while (stop == False):
     error = follow_sensor.reflection()-50 # proportional
-    if (abs(error) < 10):
+    if (abs(error) < 1):
       integral = 0
     else:
       integral = integral + error 
-    derivative = error - lastError  
 
-    correction = -(Kp*(error) + Ki*(integral) + Kd*derivative)
-
-    power_left = Tp + correction
-    power_right = Tp - correction   
-
-    left_wheel.dc(power_left) 
-    right_wheel.dc(power_right) 
-      
+    correction = -(Kp*(error) + Ki*(integral)) * side_mod
+    print("er ", error, ", cor ", correction,"\n")
+    robot.drive(speed, correction)
     lastError = error  
-    rd = robot.distance()
-    if (rd <= target_distance): 
+    if (robot.distance() <= target_distance): 
       stop = False
     else:
       if(not find_cross):
         stop = True
-        print("stop without finding cross")
       else:
+        if(detection_sensor.reflection()>80):
         # sensed_color = get_color(detection_sensor)
-        sensed_color = get_color(detection_sensor)
-        if (sensed_color == Color.WHITE): 
-          while sensed_color != Color.BLACK:          
-            sensed_color = get_color(detection_sensor)
+        # if (sensed_color == Color.WHITE): 
+          # while sensed_color != Color.BLACK:          
+          #   sensed_color = get_color(detection_sensor)
           stop = True
-    # print(str(Kp) + ", " + str(Kd) + ", " + str(Ki) + ", error " + str(error) + "; correction " + str(correction)  +"("+ str(-Kp*error)+","+str(-Ki*integral)+","+str(-Kd*derivative)+ ") ; integral " + str(integral)  + "; derivative " + str(derivative)+ "; power_left " + str(power_left) + "; power_right " + str(power_right))   
+
+def pidtest():
+  for _ in [0.05,0.1, 0.2, 0.4, 0.8, 1.6, 3.2, 6.4, 12.8, 15, 30]:
+    ev3.speaker.say(str(_))
+    # pidlinefollow(length=1000,  speed=_, sensor='right', side='left', find_cross = False, Kp=0.2, Ki=0.0004, Kd=0)
+    pidlinefollow(length=500, speed=100, sensor='left', side='right', find_cross = True, Kp=_, Ki=0, Kd=0)
+    robot.stop()
+    time.sleep(2)
+
