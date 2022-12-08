@@ -121,7 +121,7 @@ def functions(x):
     # elif selected == 2:
     #     oil_supporter.oiltruck()
     elif selected == 2:
-        faucet.get_to_there()
+        faucet.hang_water_units()
     elif selected == 3:
         power.power_generator()
     elif selected == 4:

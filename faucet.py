@@ -33,6 +33,23 @@ def get_to_there():
     time.sleep(2)
     robot.stop()
 
+def hang_water_units():
+    gyro.reset_angle(0)
+    gyro_straight(250, 450, t_prime=0.5)
+    robot.drive(300, 0)
+    time.sleep(1)
+    gyro_stop()
+    main_motor.run_until_stalled(-400, then=Stop.COAST, duty_limit=30)
+    robot.drive(-100, 0)
+    time.sleep(1.5)
+    main_motor.run_target(400, 360, then=Stop.HOLD, wait=False)
+    robot.drive(-400, 0)
+    time.sleep(1.2)
+    robot.stop()
+
+
+
+
 
 # def waterfall():
 #     gyro.reset_angle(0)
