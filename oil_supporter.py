@@ -29,18 +29,28 @@ def newstart():
     forward_angle(speed=300, turn_rate=-30, angle=-25)
     forward_dist(speed=200, turn_rate=0, distance=60)
     gyro_stop()
-
-def pump_oil2():
-    forward_dist(300, 0, 30)
+def gotothere():
+    forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
+    forward_angle(speed=300, turn_rate=28, angle=20)
+    ev3.speaker.beep()
+    forward_angle(speed=300, turn_rate=-28, angle=-20)
+    robot.drive(200, 0)
+    time.sleep(1.5)
+    # forward_dist(speed=200, turn_rate=0, distance=150)
+    robot.stop()
+    time.sleep(0.5)
+def pumping_oil():
+    # forward_dist(300, 0, 30)
     for _ in range(2):
-        forward_dist(-300, 0, -50)
-        forward_dist(300, 0, 50)
-
+        forward_dist(-100, 0, -50)
+        forward_dist(100, 0, 50)
+    robot.stop()
 def main():
     # get ready
     gyro.reset_angle(angle=0)
-    newstart()
-    pump_oil2()
+    gotothere()
+    # newstart()
+    pumping_oil()
     #move_motor(speed=1000, angle=-500, mustWait=False) # down
     # go
     #followline_findcross()
