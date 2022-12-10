@@ -35,7 +35,7 @@ data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "collect",
     "oil supporter",
-    # "truck",
+    "truck",
     "waterfall",
     "power",
     "tv flip",
@@ -118,23 +118,23 @@ def functions(x):
     elif selected == 1:
         print("oil rocks")
         oil_supporter.main()
-    # elif selected == 2:
-    #     oil_supporter.oiltruck()
     elif selected == 2:
-        faucet.hang_water_units()
+        oil_supporter.oiltruck()
     elif selected == 3:
-        power.power_generator()
+        faucet.hang_water_units()
     elif selected == 4:
-        tv.flip_tv()
+        power.power_generator()
     elif selected == 5:
-        toy_factory.toy()
+        tv.flip_tv()
     elif selected == 6:
-        epic_x.main()
+        toy_factory.toy()
     elif selected == 7:
-        lib.view_color()
+        epic_x.main()
     elif selected == 8:
-        lib.cs_data("WHITE")
+        lib.view_color()
     elif selected == 9:
+        lib.cs_data("WHITE")
+    elif selected == 10:
         gyropath.run() 
     
     
@@ -167,7 +167,7 @@ while True:
         if selected==1:
             main_motor.stop()
         # Back up against the wall, reset gyro angle
-        skip_backup = [2, 3, 5,6]
+        skip_backup = [3, 4, 6,7]
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)

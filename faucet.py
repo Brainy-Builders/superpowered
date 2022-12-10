@@ -34,12 +34,14 @@ def get_to_there():
     robot.stop()
 
 def hang_water_units():
+    for _ in range(3):
+        ev3.speaker.beep()
     gyro.reset_angle(0)
     gyro_straight(250, 450, t_prime=0.5)
     robot.drive(300, 0)
     time.sleep(1)
     gyro_stop()
-    main_motor.run_until_stalled(-400, then=Stop.COAST, duty_limit=30)
+    main_motor.run_until_stalled(-600, then=Stop.COAST, duty_limit=30)
     robot.drive(-100, 0)
     time.sleep(1.5)
     main_motor.run_target(400, 360, then=Stop.HOLD, wait=False)
