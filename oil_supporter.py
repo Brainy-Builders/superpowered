@@ -22,29 +22,34 @@ from gyrostraight import *
 from pidlinefollow import *
 import os
 
-def newstart():
-    forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
-    forward_angle(speed=300, turn_rate=30, angle=25)
-    ev3.speaker.beep()
-    forward_angle(speed=300, turn_rate=-30, angle=-25)
-    forward_dist(speed=200, turn_rate=0, distance=60)
-    gyro_stop()
+# def newstart():
+#     forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
+#     forward_angle(speed=300, turn_rate=30, angle=25)
+#     ev3.speaker.beep()
+#     forward_angle(speed=300, turn_rate=-30, angle=-25)
+#     forward_dist(speed=200, turn_rate=0, distance=60)
+#     gyro_stop()
+
 def gotothere():
     forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
     forward_angle(speed=300, turn_rate=28, angle=20)
     ev3.speaker.beep()
     forward_angle(speed=300, turn_rate=-28, angle=-20)
     robot.drive(200, 0)
-    time.sleep(1.5)
+    time.sleep(2)
     # forward_dist(speed=200, turn_rate=0, distance=150)
     robot.stop()
     time.sleep(0.5)
+
 def pumping_oil():
     # forward_dist(300, 0, 30)
-    for _ in range(2):
-        forward_dist(-100, 0, -50)
-        forward_dist(100, 0, 50)
-    robot.stop()
+    forward_dist(-100, 0, -40)
+    for _ in range(3):
+        robot.drive(150, 0)
+        time.sleep(0.75)
+        forward_dist(-100, 0, -40)
+    gyro_stop()
+
 def main():
     # get ready
     gyro.reset_angle(angle=0)
@@ -62,7 +67,7 @@ def main():
     #    return 0
     #pump_oil()
     #align_to_cart()
-    #hookcart_gohome()
+    hookcart_gohome()
 
 
 # def dump_energy():
@@ -115,11 +120,11 @@ def main():
 #     gyroturno(0)
 #     robot.straight(40)
 
-# def hookcart_gohome():
-#     main_motor.run_time(speed=-2000,time=700, wait=True) #down
-#     robot.drive(-500, 27)
-#     time.sleep(1.7)
-#     robot.stop()
+def hookcart_gohome():
+    #main_motor.run_time(speed=-2000,time=700, wait=True) #down
+    robot.drive(-500, 27)
+    time.sleep(1.7)
+    robot.stop()
 
 def oiltruck():
     gyro.reset_angle(0)
