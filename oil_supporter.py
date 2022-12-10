@@ -29,7 +29,19 @@ import os
 #     forward_angle(speed=300, turn_rate=-30, angle=-25)
 #     forward_dist(speed=200, turn_rate=0, distance=60)
 #     gyro_stop()
-
+def gototherewline():
+    gyro.reset_angle(angle=0)
+    gyro_straight(distance=180, speed=250, t_prime=.6)
+    while(get_color(left_colorsensor) != Color.BLACK):
+        robot.drive(100,0)
+    dist=robot.distance()
+    forward_angle(speed=150, turn_rate=90, angle=30)
+    linefollow.line_follow(440-30-dist, speed=175-50, sensor="left", side="right")
+    dist=robot.distance()
+    linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right")
+    while(get_color(right_colorsensor) != Color.BLACK):
+        robot.drive(75,0)
+    gyro_straight(distance=100, speed=200)
 def gotothere():
     forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
     forward_angle(speed=300, turn_rate=28, angle=20)
@@ -53,7 +65,7 @@ def pumping_oil():
 def main():
     # get ready
     gyro.reset_angle(angle=0)
-    gotothere()
+    gototherewline()
     # newstart()
     pumping_oil()
     #move_motor(speed=1000, angle=-500, mustWait=False) # down
