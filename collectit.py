@@ -23,7 +23,7 @@ def get_to_cross():
     # follow the line SMART distance
     dist=robot.distance()
     forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
-    linefollow.line_follow(440-30-dist, speed=175-50, sensor="left", side="right")
+    linefollow.line_follow(440-30-dist, speed=175, sensor="left", side="right")
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
     dist=robot.distance()
     linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right")
@@ -41,10 +41,9 @@ def travel2():
 
     # follow the line, then drop the energy harvester
     gyro_stop()
-    linefollow.line_follow(length=170,speed=200,sensor="right",side="left")
+    linefollow.line_follow(length=170,speed=175,sensor="right",side="left")
     gyro_stop()
-    back_motor.run_time(speed=1000,time=800,then=Stop.HOLD,wait=False)
-    time.sleep(0.5)
+    back_motor.run_time(speed=1000,time=800,then=Stop.HOLD,wait=True)
 
     # keep following the line, get ready to high five
     linefollow.line_follow(length=240,speed=250,sensor="right",side="left")

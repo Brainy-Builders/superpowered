@@ -52,6 +52,17 @@ def gotothere():
     # forward_dist(speed=200, turn_rate=0, distance=150)
     robot.stop()
     time.sleep(0.5)
+def gototheregyro():
+    gyro.reset_angle(0)
+    gyro_straight(700, 300, t_prime=1)
+    robot.drive(200, 0)
+    time.sleep(0.5)
+    for _ in range(3):
+        robot.drive(400, 0)
+        time.sleep(0.5)
+        robot.drive(-100, 0)
+        time.sleep(0.75)
+    gyro_stop()
 
 def pumping_oil():
     # forward_dist(300, 0, 30)
@@ -65,9 +76,9 @@ def pumping_oil():
 def main():
     # get ready
     gyro.reset_angle(angle=0)
-    gototherewline()
+    gototheregyro()
     # newstart()
-    pumping_oil()
+    # pumping_oil()
     #move_motor(speed=1000, angle=-500, mustWait=False) # down
     # go
     #followline_findcross()
@@ -134,8 +145,9 @@ def main():
 
 def hookcart_gohome():
     #main_motor.run_time(speed=-2000,time=700, wait=True) #down
-    robot.drive(-500, 27)
-    time.sleep(1.7)
+    forward_dist(-500, 0, -350, t_prime=1)
+    robot.drive(-500, 35)
+    time.sleep(1)
     robot.stop()
 
 def oiltruck():
