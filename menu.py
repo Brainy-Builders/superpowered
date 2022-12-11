@@ -31,6 +31,7 @@ import toy_factory
 import gyropath
 import pidlinefollow
 
+skip_truck = True
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "collect",
@@ -176,6 +177,8 @@ while True:
 
         functions(selected)
         selected += 1
+        if skip_truck and selected == 2:
+            selected = 3
         data['values'] = load_data()
         if selected==1:
             main_motor.run(-25)
