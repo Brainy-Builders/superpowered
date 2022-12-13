@@ -43,15 +43,20 @@ def gototherewline():
         robot.drive(75,0)
     gyro_straight(distance=100, speed=200)
 def gotothere():
-    forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
-    forward_angle(speed=300, turn_rate=28, angle=20)
+    forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
+    forward_angle(speed=200, turn_rate=20, angle=18)
     ev3.speaker.beep()
-    forward_angle(speed=300, turn_rate=-28, angle=-20)
+    forward_angle(speed=200, turn_rate=-20, angle=-18)
     robot.drive(200, 0)
-    time.sleep(2)
+    time.sleep(1.5)
     # forward_dist(speed=200, turn_rate=0, distance=150)
     robot.stop()
     time.sleep(0.5)
+    for _ in range(4):
+        forward_dist(speed=-100, turn_rate=0, distance=-40)
+        robot.drive(200, 0)
+        time.sleep(0.75)
+    gyro_stop()
 def gototheregyro():
     gyro.reset_angle(0)
     gyro_straight(700, 200, t_prime=1)
@@ -76,7 +81,7 @@ def pumping_oil():
 def main():
     # get ready
     gyro.reset_angle(angle=0)
-    gototheregyro()
+    gotothere()
     # newstart()
     # pumping_oil()
     #move_motor(speed=1000, angle=-500, mustWait=False) # down
