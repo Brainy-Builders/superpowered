@@ -43,7 +43,7 @@ def hang_water_units():
     robot.drive(-100, 0)
     time.sleep(1.5)
     main_motor.run_target(400, 360, then=Stop.HOLD, wait=False)
-    robot.drive(-400, 0)q
+    robot.drive(-400, 0)
     time.sleep(1.2)
     robot.stop()
 

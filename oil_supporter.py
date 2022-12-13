@@ -54,13 +54,13 @@ def gotothere():
     time.sleep(0.5)
 def gototheregyro():
     gyro.reset_angle(0)
-    gyro_straight(700, 300, t_prime=1)
-    robot.drive(200, 0)
-    time.sleep(0.5)
-    for _ in range(3):
-        robot.drive(400, 0)
-        time.sleep(0.5)
-        robot.drive(-100, 0)
+    gyro_straight(700, 200, t_prime=1)
+    ev3.speaker.beep()
+    robot.drive(100, 0)
+    time.sleep(1.0)
+    for _ in range(4):
+        forward_dist(speed=-100, turn_rate=0, distance=-40)
+        robot.drive(200, 0)
         time.sleep(0.75)
     gyro_stop()
 
@@ -145,7 +145,8 @@ def main():
 
 def hookcart_gohome():
     #main_motor.run_time(speed=-2000,time=700, wait=True) #down
-    forward_dist(-500, 0, -350, t_prime=1)
+    # forward_dist(-500, 0, -350, t_prime=1)
+    gyro_straight(350, -225, t_prime=1)
     robot.drive(-500, 35)
     time.sleep(1)
     robot.stop()
