@@ -49,29 +49,32 @@ def gotothere():
     # forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
     forward_angle(speed=200, turn_rate=20, angle=20)
     forward_angle(speed=200, turn_rate=-20, angle=-20)
-    
+
+    linefollow.line_follow(length=150,speed=150,sensor="right",side="right", Ki=0.0000)
+
     # make a course correction if needed
-    turn=None
-    if get_color(right_colorsensor)==Color.BLACK:
-        turn=10
-        ev3.light.on(Color.ORANGE)
-    elif get_color(left_colorsensor)==Color.WHITE:
-        turn=-10
-        ev3.light.on(Color.RED)
-    else:
-        ev3.light.on(Color.GREEN)
-    gyro_straight(distance=100, speed=200, t_prime=0.0,reset_angle=turn)
+    # turn=None
+    # if get_color(right_colorsensor)==Color.BLACK:
+    #     turn=10
+    #     ev3.light.on(Color.ORANGE)
+    # elif get_color(left_colorsensor)==Color.WHITE:
+    #     turn=-10
+    #     ev3.light.on(Color.RED)
+    # else:
+    #     ev3.light.on(Color.GREEN)
+    # gyro_straight(distance=100, speed=200, t_prime=0.0,reset_angle=turn)
     ev3.speaker.beep()
-    robot.drive(200, 0)
+    robot.drive(200, 5)
     time.sleep(1.0)
     # forward_dist(speed=200, turn_rate=0, distance=150)
     robot.stop()
     ev3.speaker.beep()
     for _ in range(3):
-        forward_dist(speed=-100, turn_rate=0, distance=-50)
+        forward_dist(speed=-100, turn_rate=0, distance=-40)
+        robot.stop()
         time.sleep(0.2)
-        robot.drive(300, 10)
-        time.sleep(0.65)
+        robot.drive(300, 0)
+        time.sleep(0.55)
     ev3.light.off()
 def gototheregyro():
     gyro.reset_angle(0)
@@ -167,9 +170,9 @@ def main():
 def hookcart_gohome():
     #main_motor.run_time(speed=-2000,time=700, wait=True) #down
     # forward_dist(-500, 0, -350, t_prime=1)
-    gyro_straight(distance=350, speed=-200, t_prime=1)
-    robot.drive(-400, 35)
-    time.sleep(1)
+    gyro_straight(distance=150, speed=-100, t_prime=1)
+    robot.drive(-300, 25)
+    time.sleep(1.7)
     robot.stop()
 
 def oiltruck():
