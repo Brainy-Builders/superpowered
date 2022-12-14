@@ -45,24 +45,33 @@ def gototherewline():
 
 def gotothere():
     gyro.reset_angle(0)
-    gyro_straight(distance=150, speed=200, t_prime=1.0)
+    gyro_straight(distance=125, speed=200, t_prime=1.0)
     # forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
     forward_angle(speed=200, turn_rate=20, angle=20)
-    ev3.speaker.beep()
+    
     forward_angle(speed=200, turn_rate=-20, angle=-20)
-    gyro_straight(distance=100, speed=200, t_prime=0.0)
+    turn=None
+    if get_color(right_colorsensor)==Color.BLACK:
+        turn=10
+        ev3.light.on(Color.ORANGE)
+    elif get_color(left_colorsensor)==Color.WHITE:
+        turn=-10
+        ev3.light.on(Color.RED)
+    else:
+        ev3.light.on(Color.GREEN)
+    gyro_straight(distance=100, speed=200, t_prime=0.0,reset_angle=turn)
     ev3.speaker.beep()
     robot.drive(200, 0)
     time.sleep(1.0)
     # forward_dist(speed=200, turn_rate=0, distance=150)
     robot.stop()
     ev3.speaker.beep()
-    time.sleep(2.5)
     for _ in range(4):
         forward_dist(speed=-100, turn_rate=0, distance=-40)
-        robot.drive(300, 20)
+        robot.drive(300, 10)
         time.sleep(0.75)
     gyro_stop()
+    ev3.light.off()
 def gototheregyro():
     gyro.reset_angle(0)
     gyro_straight(700, 200, t_prime=1)

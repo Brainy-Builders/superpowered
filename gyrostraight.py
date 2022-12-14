@@ -9,8 +9,8 @@ def gyro_straight(distance, speed, reset_angle=None, GCV=2.5, t_prime = 0):
   if(reset_angle is None):
     heading = gyro.angle()
   else:
-    gyroturno2(reset_angle)   # change it to offical gyroturno when finalized
-    heading = gyro.angle()
+    # gyroturno2(reset_angle)   # change it to offical gyroturno when finalized
+    heading = reset_angle
   t=t_prime
   t_prime=time.time()+t_prime
   cur_time=time.time()
