@@ -42,19 +42,25 @@ def gototherewline():
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(75,0)
     gyro_straight(distance=100, speed=200)
+
 def gotothere():
-    forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
-    forward_angle(speed=200, turn_rate=20, angle=18)
+    gyro.reset_angle(0)
+    gyro_straight(distance=150, speed=200, t_prime=1.0)
+    # forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
+    forward_angle(speed=200, turn_rate=20, angle=20)
     ev3.speaker.beep()
-    forward_angle(speed=200, turn_rate=-20, angle=-18)
+    forward_angle(speed=200, turn_rate=-20, angle=-20)
+    gyro_straight(distance=100, speed=200, t_prime=0.0)
+    ev3.speaker.beep()
     robot.drive(200, 0)
-    time.sleep(1.5)
+    time.sleep(1.0)
     # forward_dist(speed=200, turn_rate=0, distance=150)
     robot.stop()
-    time.sleep(0.5)
+    ev3.speaker.beep()
+    time.sleep(2.5)
     for _ in range(4):
         forward_dist(speed=-100, turn_rate=0, distance=-40)
-        robot.drive(200, 0)
+        robot.drive(300, 20)
         time.sleep(0.75)
     gyro_stop()
 def gototheregyro():
@@ -151,7 +157,7 @@ def main():
 def hookcart_gohome():
     #main_motor.run_time(speed=-2000,time=700, wait=True) #down
     # forward_dist(-500, 0, -350, t_prime=1)
-    gyro_straight(350, -225, t_prime=1)
+    gyro_straight(distance=350, speed=-225, t_prime=1)
     robot.drive(-500, 35)
     time.sleep(1)
     robot.stop()

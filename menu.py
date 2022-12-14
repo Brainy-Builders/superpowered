@@ -31,7 +31,7 @@ import toy_factory
 import gyropath
 import pidlinefollow
 
-skip_truck = True
+skip_truck = False
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "collect",
