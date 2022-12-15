@@ -26,7 +26,7 @@ from common import *
 def line_follow(length, speed, sensor, side, find_cross = False, Kp=0.15, Ki=0.0032, Kd=0.512):
   """length in mm, speed in mm/sec, sensor is which sensor is following, side is which side of the line your on, and find cross is weather to continue until cross is found"""
   # Kp, Ki, Kd = 0.2, 0.0006, 0.256  # original from Sophia
-  Tp = speed * 35/250 # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
+  # Tp = speed * 35/250 # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
   
   if sensor == 'right':
     follow_sensor = right_colorsensor
@@ -55,10 +55,11 @@ def line_follow(length, speed, sensor, side, find_cross = False, Kp=0.15, Ki=0.0
 
     correction = -(Kp*(error) + Ki*(integral) + Kd*derivative) * side_mod
 
-    power_left = Tp + correction
-    power_right = Tp - correction   
-    left_wheel.dc(power_left) 
-    right_wheel.dc(power_right) 
+    # power_left = Tp + correction
+    # power_right = Tp - correction   
+    # left_wheel.dc(power_left) 
+    # right_wheel.dc(power_right) 
+    robot.drive(speed, correction)
       
     lastError = error  
     if (robot.distance() <= target_distance): 

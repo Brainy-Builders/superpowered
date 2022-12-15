@@ -57,15 +57,10 @@ def pidtest():
     ev3.speaker.beep()
     ev3.speaker.set_speech_options(voice='f2')
     ev3.speaker.say("starting test")
-    for _ in [0, 0.0002, 0.0004,0.0006, 0.0008, 0.0015, 0.002, 0.0025, 0.003]:
+    for _ in [0.00001,0.00002,0.00004,0.00008,0.00016, 0.00032]:
         ev3.speaker.say(str(_))
-        pidline(sensor='left', distance=600, speed=200, Kp=0.2, Ki=0.0006, Kd=0.256, find_cross = False)
-        robot.stop()
-      # pidline(sensor='left', distance=600, speed=_, Kp=0.2, Ki=0.001, Kd=0.3, find_cross = True)
-        ev3.speaker.beep(duration=25) # duration units [ms]
-        time.sleep(3)
-    ev3.speaker.say("Hi")
-    gyro_stop()
+        line_follow(700,125,"left","right",Kp=0.6,Ki=_,Kd=0)
+        gyro_stop()
 
 def gyrotest():
     gyro.reset_angle(0)
