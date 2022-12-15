@@ -57,9 +57,9 @@ def pidtest():
     ev3.speaker.beep()
     ev3.speaker.set_speech_options(voice='f2')
     ev3.speaker.say("starting test")
-    for _ in [0.00001,0.00002,0.00004,0.00008,0.00016, 0.00032]:
+    for _ in range(100,200,20):
         ev3.speaker.say(str(_))
-        line_follow(700,125,"left","right",Kp=0.6,Ki=_,Kd=0)
+        line_follow(700,_,"left","right",Kp=0.6,Ki=0.00006,Kd=0)
         gyro_stop()
 
 def gyrotest():

@@ -183,6 +183,9 @@ def smart_turn(wheel,sensor):
     # while get_color(sensor) != Color.WHITE:
         wheel.dc(20)
         opp.dc(-20)
+    while (sensor.reflection() > 80):
+        wheel.dc(20)
+        opp.dc(-20)
     wheel.hold()
 
 def forward_dist(speed, turn_rate, distance,t_prime=0):
