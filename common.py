@@ -179,11 +179,11 @@ def smart_turn(wheel,sensor):
     else:
         opp=left_wheel
     val_hist = []
-    while (sensor.reflection() < 80):
+    while (sensor.reflection() < 80): # white-ish
     # while get_color(sensor) != Color.WHITE:
         wheel.dc(20)
         opp.dc(-20)
-    while (sensor.reflection() > 80):
+    while (sensor.reflection() > 50): # not white
         wheel.dc(20)
         opp.dc(-20)
     wheel.hold()

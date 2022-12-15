@@ -26,17 +26,19 @@ def get_to_cross():
     linefollow.line_follow(440-30-dist, speed=130, sensor="left", side="right")
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
     dist=robot.distance()
-    linefollow.line_follow(length=650-dist,speed=100,sensor="left",side="right")
+    linefollow.line_follow(length=650+25-dist,speed=100,sensor="left",side="right")
     # get to the cross
-    ev3.speaker.beep(duration=25) # duration units [ms]
+    # ev3.speaker.beep(duration=25) # duration units [ms]
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(75,0)
     back_motor.run_angle(600,-80,then=Stop.HOLD,wait=False) # miss oil
 
 def travel2():
     # go a little past the cross and turn
-    forward_dist(speed=150,turn_rate=0,distance=70, t_prime=0)
-    gyro_stop()
+    gyro_straight(distance=50, speed=125, reset_angle=0)
+    # forward_dist(speed=150,turn_rate=0,distance=50, t_prime=0)
+
+    robot.stop()
     smart_turn(left_wheel,right_colorsensor)
 
     # follow the line, then drop the energy harvester
@@ -46,7 +48,7 @@ def travel2():
     back_motor.run_time(speed=1000,time=800,then=Stop.HOLD,wait=True)
 
     # keep following the line, get ready to high five
-    linefollow.line_follow(length=240,speed=250,sensor="right",side="left", Ki=0.0000)
+    linefollow.line_follow(length=240,speed=200,sensor="right",side="left", Ki=0.0000)
     gyro_stop()
     #TESTING CHANGE:
     # time.sleep(5000)
