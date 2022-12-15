@@ -38,7 +38,7 @@ def travel2():
     gyro_straight(distance=50, speed=125, reset_angle=0)
     # forward_dist(speed=150,turn_rate=0,distance=50, t_prime=0)
 
-    robot.stop()
+    gyro_stop()
     smart_turn(left_wheel,right_colorsensor)
 
     # follow the line, then drop the energy harvester
