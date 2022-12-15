@@ -33,7 +33,7 @@ import pidlinefollow
 
 skip_truck = True
 old_oil=False
-simple_water=True
+simple_water=False
 
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
