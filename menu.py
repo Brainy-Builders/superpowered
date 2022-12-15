@@ -33,6 +33,8 @@ import pidlinefollow
 
 skip_truck = True
 old_oil=False
+simple_water=True
+
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
     "collect",
@@ -123,7 +125,10 @@ def functions(x):
     elif selected == 2:
         oil_supporter.oiltruck()
     elif selected == 3:
-        faucet.hang_water_units()
+        if simple_water==True:
+            faucet.get_to_there()
+        else:
+            faucet.hang_water_units()
     elif selected == 4:
         power.power_generator()
     elif selected == 5:
