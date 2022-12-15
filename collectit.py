@@ -46,7 +46,7 @@ def travel2():
     back_motor.run_time(speed=1000,time=800,then=Stop.HOLD,wait=True)
 
     # keep following the line, get ready to high five
-    linefollow.line_follow(length=240,speed=250,sensor="right",side="left")
+    linefollow.line_follow(length=240,speed=250,sensor="right",side="left", Ki=0.0000)
     gyro_stop()
     #TESTING CHANGE:
     # time.sleep(5000)
