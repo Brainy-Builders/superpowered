@@ -172,7 +172,7 @@ def hookcart_gohome():
     # forward_dist(-500, 0, -350, t_prime=1)
     gyro_straight(distance=150, speed=-100, t_prime=1)
     robot.drive(-300, 25)
-    time.sleep(1.7)
+    time.sleep(2)
     robot.stop()
 
 def oiltruck():
