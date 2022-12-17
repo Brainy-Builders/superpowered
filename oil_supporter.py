@@ -191,3 +191,84 @@ def oiltruck():
     #robot.drive(speed=-450, turn_rate=0)
     #time.sleep(0.7)
     robot.stop()
+
+def old_oil():
+    def newstart():
+        forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
+        forward_angle(speed=300, turn_rate=30, angle=25)
+        ev3.speaker.beep()
+        forward_angle(speed=300, turn_rate=-30, angle=-25)
+        forward_dist(speed=200, turn_rate=0, distance=60)
+        gyro_stop()
+
+    def dump_energy():
+        main_motor.run_time(speed=1500,time=1500, wait=True) #up
+        # main_motor.run_time(speed=-300,time=1000, wait=False) #down
+
+    def backup_from_energy():
+        turn_left=False
+        max_distance = robot.distance()
+        while turn_left == False:
+            if Button.CENTER == ev3.buttons.pressed:
+                raise Exception
+            robot.drive(-100,0)
+            if (get_color(right_colorsensor) == Color.WHITE):
+                turn_left = True
+                gyro_stop()
+                main_motor.run_time(speed=-1500,time=2000, wait=True)
+                forward_dist(speed=100, turn_rate=0, distance=30, t_prime=0)
+            if robot.distance() < max_distance-80:
+                turn_left = True
+                gyro_stop()
+                main_motor.run_time(speed=-1500,time=2000, wait=True)
+                forward_dist(speed=100, turn_rate=0, distance=60, t_prime=0)
+    def pump_oil():
+        # ev3.speaker.beep()
+        # move_motor(250, -570, mustWait=False) # down
+        gyroturno(-95)
+        robot.drive(110, 0)
+        time.sleep(1.2)
+        forward_dist(speed=-40, turn_rate=0, distance=-10)
+        robot.stop()
+        for _ in range(2):
+            main_motor.run_time(speed=1000,time=1100, wait=True)  # up
+            main_motor.run_time(speed=-1000,time=1100, wait=True) # down
+        main_motor.run_time(speed=1000,time=1100, wait=True) # up
+        main_motor.run_time(speed=-1000,time=1100, wait=False) # down
+    def align_to_cart():
+        turn_right = False
+        max_distance = robot.distance()
+        while turn_right == False:
+            robot.drive(-60,0)
+            if (get_color(right_colorsensor) == Color.BLACK):
+                turn_right = True
+                forward_dist(speed=-60, turn_rate=0, distance=-20, t_prime=0)
+            if robot.distance() < max_distance-150:
+                turn_right = True
+        main_motor.run_angle(speed=500, rotation_angle=540, wait=False) # up
+        gyro_stop()
+        gyroturno(0)
+        robot.drive(70, 0)
+        time.sleep(1)
+        robot.stop()
+        # robot.straight(55)
+
+    def hookcart_gohome():
+        main_motor.run_time(speed=-2000,time=700, wait=True) #down
+        robot.drive(-500, 27)
+        time.sleep(1.7)
+        robot.stop()
+    gyro.reset_angle(angle=0)
+    move_motor(speed=1000, angle=-500, mustWait=False) # down
+    # go
+    newstart()
+    #followline_findcross()
+    dump_energy()
+    try:
+        backup_from_energy()
+    except:
+        ev3.speaker.beep()
+        return 0
+    pump_oil()
+    align_to_cart()
+    hookcart_gohome()

@@ -33,7 +33,7 @@ import pidlinefollow
 
 skip_truck = True
 old_oil=False
-simple_water=False
+simple_water=True
 
 data = {"time": 150, "started": False, "values": load_data()}
 lis = [
@@ -120,8 +120,10 @@ def functions(x):
     if selected == 0:
         collectit.main()
     elif selected == 1:
-        print("oil rocks")
-        oil_supporter.main()
+        if old_oil==True:
+            oil_supporter.old_oil()
+        else:    
+            oil_supporter.main()
     elif selected == 2:
         oil_supporter.oiltruck()
     elif selected == 3:
