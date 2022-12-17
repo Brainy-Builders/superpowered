@@ -43,12 +43,12 @@ def travel2():
 
     # follow the line, then drop the energy harvester
     gyro_stop()
-    linefollow.line_follow(length=170,speed=100,sensor="right",side="left")
+    linefollow.line_follow(length=170-30,speed=100,sensor="right",side="left")
     gyro_stop()
     back_motor.run_time(speed=1000,time=800,then=Stop.HOLD,wait=True)
 
     # keep following the line, get ready to high five
-    linefollow.line_follow(length=240,speed=200,sensor="right",side="left", Ki=0.0000)
+    linefollow.line_follow(length=240+30,speed=200,sensor="right",side="left", Ki=0.0000)
     gyro_stop()
     #TESTING CHANGE:
     # time.sleep(5000)
