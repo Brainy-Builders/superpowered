@@ -200,7 +200,7 @@ def forward_dist(speed, turn_rate, distance,t_prime=0):
     cur_time=time.time()
     while eval(str(cur_distance+distance)+sign+ str(robot.distance())):
         if time.time() < t_prime:
-            speed=(speed_calc)/t*(time.time()-cur_time)
+            speed=cur_speed+(speed_calc/t*(time.time()-cur_time))
         robot.drive(speed, turn_rate)
     
 forward_distance = forward_dist

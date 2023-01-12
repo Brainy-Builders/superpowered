@@ -50,8 +50,8 @@ def gotothere():
     forward_angle(speed=200, turn_rate=20, angle=20)
     forward_angle(speed=200, turn_rate=-20, angle=-20)
 
-    linefollow.line_follow(length=150,speed=150,sensor="right",side="right", Ki=0.0000)
-
+    linefollow.line_follow(length=150,speed=125,sensor="right",side="right", Ki=0.0000,thresh=65)
+    
     # make a course correction if needed
     # turn=None
     # if get_color(right_colorsensor)==Color.BLACK:
@@ -64,17 +64,20 @@ def gotothere():
     #     ev3.light.on(Color.GREEN)
     # gyro_straight(distance=100, speed=200, t_prime=0.0,reset_angle=turn)
     ev3.speaker.beep()
-    robot.drive(200, 5)
-    time.sleep(1.0)
+    gyro_straight(100, 200, 10)
+    robot.drive(200, 0)
+    time.sleep(0.7)
     # forward_dist(speed=200, turn_rate=0, distance=150)
     robot.stop()
     ev3.speaker.beep()
-    for _ in range(3):
-        forward_dist(speed=-100, turn_rate=0, distance=-40)
+    for _ in range(4):
+        forward_dist(speed=-100, turn_rate=0, distance=-30)
         robot.stop()
         time.sleep(0.2)
-        robot.drive(300, 0)
+        gyro_stop()
+        robot.drive(400, 3)
         time.sleep(0.55)
+        gyro_stop()
     ev3.light.off()
 def gototheregyro():
     gyro.reset_angle(0)

@@ -82,12 +82,12 @@ def halftesla2():
     ev3.speaker.beep()
     # time.sleep(3)
     # Let car down
-    forward_dist(speed=200, turn_rate=0, distance=140)
+    forward_dist(speed=250, turn_rate=0, distance=120)
     # gyro_stop()
     back_motor.run_time(speed = 250, time = 900, wait=False) # up
-    forward_dist(200, 0, 100)
+    forward_dist(250, 0, 60)
     # push the car away, then run into Toy Factory
-    forward_angle(speed=-100, turn_rate=90, angle=90)
+    forward_angle(speed=-120, turn_rate=90, angle=90)
     gyro_stop()
     # time.sleep(3)
     forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.5)
@@ -95,9 +95,9 @@ def halftesla2():
     time.sleep(0.5)
     gyro_stop()
     # backup, turn, go home
-    forward_dist(speed=-100, turn_rate=0, distance=-25)
+    forward_dist(speed=-100, turn_rate=10, distance=-25)
     # gyroturno(angle=-225, rate_control=1.0, speed=50)
-    gyroturno(angle=-225, rate_control=0.75, speed=0)
+    gyroturno(angle=-225, rate_control=0.75, speed=30)
     forward_dist(speed=600, turn_rate=5, distance=500, t_prime=1.0)
     robot.drive(speed=800, turn_rate=0)
     time.sleep(0.75)

@@ -23,7 +23,7 @@ from common import *
 # line_follow(followlength=200, followspeed=100, "left")
 # followlength=0 goes until an intersection
 
-def line_follow(length, speed, sensor, side, find_cross = False, Kp=0.15, Ki=0.0032, Kd=0.512):
+def line_follow(length, speed, sensor, side, find_cross = False, Kp=0.15, Ki=0.0032, Kd=0.512,thresh=50):
   """length in mm, speed in mm/sec, sensor is which sensor is following, side is which side of the line your on, and find cross is weather to continue until cross is found"""
   # Kp, Ki, Kd = 0.2, 0.0006, 0.256  # original from Sophia
   # Tp = speed * 35/250 # Target power - percentage of max power of motor (power is also known as 'duty cycle' ) 
@@ -46,7 +46,7 @@ def line_follow(length, speed, sensor, side, find_cross = False, Kp=0.15, Ki=0.0
   robot.stop()  # deactivate DriveBase before powering wheels individually 
   stop = False 
   while (stop == False):
-    error = follow_sensor.reflection()-50 # proportional
+    error = follow_sensor.reflection()-thresh # proportional
     if (abs(error) < 10):
       integral = 0
     else:
