@@ -45,10 +45,10 @@ lis = [
     "tv flip",
     "toy factory",
     "black_x", 
-    "color viewer"
+    "color viewer",
     "color collect",
-    "xxx",
-    "gyro path "
+    "turning",
+    "gyro path"
     ]
 
 def thread():
@@ -76,7 +76,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 0
+selected = 10
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -117,45 +117,43 @@ def functions(x):
     if not data["started"]:
         data["stated"] = True
         qw.start()
-    if selected == 0:
+    if selected == 0:     # collect
         collectit.main()
-    elif selected == 1:
+    elif selected == 1:   # oil supporter
         if old_oil==True:
             oil_supporter.old_oil()
         else:    
             oil_supporter.main()
-    elif selected == 2:
+    elif selected == 2:   # truck
         oil_supporter.oiltruck()
-    elif selected == 3:
+    elif selected == 3:   # waterfall
         if simple_water==True:
             faucet.get_to_there()
         else:
             faucet.hang_water_units()
-    elif selected == 4:
+    elif selected == 4:   # power
         power.power_generator()
-    elif selected == 5:
+    elif selected == 5:   # tv flip
         tv.flip_tv()
-    elif selected == 6:
+    elif selected == 6:   # toy factory
         toy_factory.toy()
-    elif selected == 7:
+    elif selected == 7:   # black_x
         epic_x.main()
-    elif selected == 8:
+    elif selected == 8:   # color viewer
         lib.view_color()
-    elif selected == 9:
+    elif selected == 9:   # color collect
         lib.cs_data("WHITE")
-    elif selected == 10:
+    elif selected == 10:  # xxx
         # gyropath.run() 
-        lib.pidtest()
+        lib.turntest()
+    elif selected == 11:  # xxx
+        gyropath.run() 
     
-    
-    # elif selected == 3:
-    #     oil_supporter.oiltruck()
-
 while True: 
     time.sleep(.2)
     ev3.screen.clear()
     ev3.screen.set_font(big_font)
-    ev3.screen.print("\n->"+lis[selected])
+    ev3.screen.print("\n->"+lis[selected] + ":"+str(selected))
     ev3.screen.set_font(med_font)
     printscrn()
     # print(selected)
@@ -177,7 +175,7 @@ while True:
         if selected==1:
             main_motor.stop()
         # Back up against the wall, reset gyro angle
-        skip_backup = [3, 4, 6,7]
+        skip_backup = [3, 4, 6, 7,10,11]
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)

@@ -33,18 +33,10 @@ def cs_data(truth):
         my_line = ",".join(my_line)
         cs_data.write(my_line)
     cs_data.close()
-def callum():
-    print(robot.settings(600,300,100,100))
-    #while True:
-        #robot.straight(500)
-        #forward_dist(speed = 300, turn_rate = 0, distance = 500)
-        #gyro_stop()
-        #time.sleep(5)
-    #line_follow(0, 100, "left", "right", find_cross=True)
-    #gyro_stop()
-    line_a_line(speed=50, speed_approach = 200)
+
 def turntest():
-    robot.settings(turn_rate = 100)
+    robot.stop()
+    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
     x = 0
     while True:
         robot.turn(-90)
