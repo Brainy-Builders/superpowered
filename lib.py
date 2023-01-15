@@ -37,12 +37,28 @@ def cs_data(truth):
 def turntest():
     robot.stop()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
+    robot.settings(turn_rate = 100)
+    gyro.reset_angle(0)
     x = 0
-    while True:
-        robot.turn(-90)
-        x += 1
-        if x == 4:
-            break
+    start_time = time.time()
+    for x in range(4):
+        gyroturno(-(90*(x + 1)), .5)
+        gyro_stop()
+        time.sleep(.5)
+    end_time = time.time()
+    final_time = (end_time - start_time)
+    ev3.speaker.say(str(final_time - 2)[0:4])
+    #ev3.speaker.say("gyro"+str(gyro.angle()))
+    time.sleep(.5)
+    x = 0
+    start_time = time.time()
+    for x in range(4):
+        gyroturno(-360 + 90*(x + 1), .5)
+        gyro_stop()
+        time.sleep(.5)
+    end_time = time.time()
+    final_time = (end_time - start_time)
+    ev3.speaker.say(str(final_time - 2)[0:4])
 
 def pidtest():
     # pidline(sensor='left', distance=1000, speed=30, Kp=0.45, Ki=0.9, Kd=1.1)
