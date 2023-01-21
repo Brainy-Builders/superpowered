@@ -35,11 +35,8 @@ def gyro_stop():
     # Again since sometimes one motor keeps running!
     left_wheel.brake()
     right_wheel.brake()
-    # robot.stop() 
 
 def gyroturno(angle, rate_control=1.2, speed=0, stop=True): 
-    # robot.stop()
-
     gyromod_360 = (1 * gyro.angle()) % 360
     right_angle = (angle - gyromod_360) % 360 #0.24965278
     left_angle = (gyromod_360 - angle) % 360    
@@ -59,15 +56,14 @@ def gyroturno(angle, rate_control=1.2, speed=0, stop=True):
         #left turn
         #t_angle is the target angle
         t_angle = gyro.angle() - left_angle
-        # print("left turn: left angle = ", left_angle," right angle = ", right_angle, " gyro angle ", gyro.angle(), " angle = ", t_angle)
+        # print("left turn: left angle = ", left_angle," right angle = ", right_angle, " gyro angle ", gyro.angle(), " t_angle = ", t_angle)
         while gyro.angle() >= t_angle:
             difference=min(abs(3*(t_angle - gyro.angle())* rate_control), previous_speed)
             previous_speed += 1
             robot.drive(speed, (-1 * max(difference, 9)))
-    if stop == True:
+    if stop:
         gyro_stop()
-    return angle
-
+    return gyro.angle()
 
 def gyroturno2(angle, rate_control=1, speed=0):
     previous_speed = 10
