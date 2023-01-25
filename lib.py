@@ -35,32 +35,61 @@ def cs_data(truth):
     cs_data.close()
 
 def coach():
-    fid = open("coach.txt", "w")    
-    a_track = []
-    my_speed = 200
-    robot.drive(0,my_speed)
-    for _ in range(50):
-        a_track.append((time.time(),gyro.angle()))
-        time.sleep(0.025)
-    robot.drive(0,-my_speed)
-    for _ in range(50):
-        a_track.append((time.time(),gyro.angle()))
-        time.sleep(0.025)
-    robot.drive(0,my_speed)
-    for _ in range(50):
-        a_track.append((time.time(),gyro.angle()))
-        time.sleep(0.025)
-    robot.drive(0,-my_speed)
-    for _ in range(50):
-        a_track.append((time.time(),gyro.angle()))
-        time.sleep(0.025)
-    gyro_stop()
-    for _ in range(len(a_track)):
-        print(_,"\t", a_track[_], file=fid)
-        print(_,"\t", a_track[_])
-    print("****************************")
+    print("left motor limits:", left_wheel.control.limits())
+    print("right motor limits:", right_wheel.control.limits())
+    print("left motor pid:", left_wheel.control.pid())
+    print("right motor pid:", right_wheel.control.pid())
+    print("robot.heading_control.limits:", robot.heading_control.limits())
+    print("robot.distance_control.limits:", robot.distance_control.limits())
+ 
+    for _ in [100, 50, 25, 10, 5]:
+        ev3.speaker.say(str(_)+"%")
+        # left_wheel.control.limits(800, 16*_,100)
+        # right_wheel.control.limits(800, 16*_,100)
+        # robot = DriveBase(left_wheel, right_wheel, cwd, cat)
+        robot.distance_control.limits(603,24*_,100)
+        robot.heading_control.limits(571,23*_,100)
+
+        # Drive forward 300
+        forward_distance(speed=400, turn_rate=0, distance=300)
+        ev3.speaker.beep()
+        forward_distance(speed=100, turn_rate=0, distance=100)
+        gyro_stop()
+        ev3.speaker.beep()
+        time.sleep(1)
+
+        # Turn around
+        robot.turn(360)
+        gyro_stop()
+        robot.turn(-360)
+        gyro_stop()
+
+        forward_distance(speed=-400, turn_rate=0, distance=-300)
+        ev3.speaker.beep()
+        forward_distance(speed=-100, turn_rate=0, distance=-100)
+        gyro_stop()
+        ev3.speaker.beep()
+  
     ev3.speaker.beep()
+    return 0
+    fid = open("coach.txt", "w")    
+    track_stuff = []
+    speed_list = [50,100,150,200,250,300,350,400]
+    direction = 1
+    for my_speed in speed_list:
+        for turn in range(4):
+            robot.drive(0,my_speed * direction)
+            for _ in range(50):
+                track_stuff.append((my_speed, turn, time.time(),gyro.speed()))
+                time.sleep(0.025)
+            direction = -direction 
+    gyro_stop()
+    for row in track_stuff:
+        for thing in row: 
+            print(thing,end=",", file=fid)
+        print("",file=fid)
     fid.close()
+    ev3.speaker.beep()
 
 def easyturn(sequence):
     x = 0
