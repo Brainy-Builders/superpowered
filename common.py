@@ -33,7 +33,6 @@ ev3 = EV3Brick()
 # Configure settings for this robot
 left_wheel = Motor(Port.A)
 right_wheel = Motor(Port.D)
-wheel_diameter = 56
 main_motor = Motor(Port.C)
 
 try:
@@ -51,9 +50,9 @@ else:
 axle_track = 96  # Chloe's robot for 2020, '21, '22 seasons
 
 gyro.reset_angle(0)
-cwd = 90
-cat = 134 
-robot = DriveBase(left_wheel, right_wheel, cwd, cat)
+wheel_diameter = 87
+axle_track = 122
+robot = DriveBase(left_wheel, right_wheel, wheel_diameter, axle_track)
 def panic_alarm():
     ev3.light.on(Color.RED)
     ev3.screen.print("ERROR: COLOR_SENSORS NOT ENTERED ¯\_(ツ)_/¯")
