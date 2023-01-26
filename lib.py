@@ -96,8 +96,8 @@ def easyturn(sequence):
     sleeptime = .5
     start_time = time.time()
     for x in sequence:
-        final_gyro_angle = gyroturno(x, 2, stop=True)
-        # robot.turn(x)
+        # final_gyro_angle = gyroturno(x, 2, stop=True)
+        robot.turn(x)
         ev3.screen.clear()
         ev3.screen.set_font(big_font)
         ev3.screen.print("Gyro:",str(gyro.angle()))
@@ -133,12 +133,22 @@ def turntest2():
 
 def turntest():
     robot.stop()
-    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=50,  turn_acceleration=90)
+    print(robot.distance_control.limits())
+    print(robot.heading_control.limits())
+    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=200,  turn_acceleration=200)
     gyro.reset_angle(0)
+    robot.distance_control.limits(607,243,100)
+    forward_distance(400, 0, 400)
+    forward_distance(50, 0, 400)
+    robot.stop()
+    time.sleep(5)
+    easyturn([90, 90, 90, 90])
+    time.sleep(2)
+    easyturn([-90, -90, -90, -90])
     # robot.straight(250)
-    easyturn([90, 180, 270, 360])
-    # time.sleep(2)
-    easyturn([270, 180, 90, 0])
+    # easyturn([90, 180, 270, 360])
+    # # time.sleep(2)
+    # easyturn([270, 180, 90, 0])
     # robot.drive(-100,0)
     # for _ in range(3):
     #     ev3.speaker.beep()

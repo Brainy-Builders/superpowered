@@ -76,7 +76,7 @@ def printn(text, end="\n"):
     print(text, end=end)
 
 printused = ev3.screen.print
-selected = 10
+selected = 1
 screen = ev3.screen
 if len(lis)%2 != 0:
     lis.append("NONE")
@@ -175,7 +175,7 @@ while True:
         if selected==1:
             main_motor.stop()
         # Back up against the wall, reset gyro angle
-        skip_backup = [3, 4, 6, 7,10,11]
+        skip_backup = [1, 3, 4, 6, 7,10,11]
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)
