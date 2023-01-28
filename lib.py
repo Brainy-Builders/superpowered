@@ -34,6 +34,26 @@ def cs_data(truth):
         cs_data.write(my_line)
     cs_data.close()
 
+def acceltest():
+    # acceleration("distance", )
+    for _ in [39, 38, 37, 36, 35, 34, 33, 32, 31, 30]:
+        ev3.speaker.say(str(_)+"%")
+        acceleration("distance", _)
+        acceleration("heading", _)
+        # left_wheel.control.limits(800, 16*_,100)
+        # right_wheel.control.limits(800, 16*_,100)
+        # robot = DriveBase(left_wheel, right_wheel, cwd, cat)
+        # robot.distance_control.limits(603,24*_,100)
+        # robot.heading_control.limits(571,23*_,100)
+
+        # Drive forward 300
+        forward_distance(speed=400, turn_rate=0, distance=300)
+        ev3.speaker.beep()
+        forward_distance(speed=100, turn_rate=0, distance=100)
+        gyro_stop()
+        ev3.speaker.beep()
+        time.sleep(5)
+
 def coach():
     print("left motor limits:", left_wheel.control.limits())
     print("right motor limits:", right_wheel.control.limits())
@@ -137,7 +157,7 @@ def turntest():
     print(robot.heading_control.limits())
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=200,  turn_acceleration=200)
     gyro.reset_angle(0)
-    robot.distance_control.limits(607,243,100)
+    robot.distance_control.limits(607,2430,100)
     forward_distance(400, 0, 400)
     forward_distance(50, 0, 400)
     robot.stop()

@@ -283,3 +283,12 @@ def get_color(sensor, raw=False):
                     color = Color.WHITE
     #return color guess
     return color
+
+def acceleration(type, percent):
+    percentage = percent/100
+    accel_speed1 = int(percentage*2282)
+    accel_speed2 = int(percentage*2429)
+    if type == "heading":
+        robot.heading_control.limits(speed=571,acceleration=accel_speed1, actuation=100)
+    elif type == "distance":
+        robot.distance_control.limits (speed=607,acceleration=accel_speed2, actuation=100)
