@@ -34,6 +34,27 @@ def cs_data(truth):
         cs_data.write(my_line)
     cs_data.close()
 
+
+def turn_test_2():
+    fid = open("coach.txt", "w")    
+    track_stuff = []
+    speed_list = [50,100,150,200,250,300,350,400]
+    direction = 1
+    for my_speed in speed_list:
+        for turn in range(4):
+            robot.drive(0,my_speed * direction)
+            for _ in range(50):
+                track_stuff.append((my_speed, turn, time.time(),gyro.angle()))
+                time.sleep(0.025)
+            direction = -direction 
+    gyro_stop()
+    for row in track_stuff:
+        for thing in row: 
+            print(thing,end=",", file=fid)
+        print("",file=fid)
+    fid.close()
+    ev3.speaker.beep()
+
 def coach():
     print("left motor limits:", left_wheel.control.limits())
     print("right motor limits:", right_wheel.control.limits())
@@ -96,8 +117,10 @@ def easyturn(sequence):
     sleeptime = .5
     start_time = time.time()
     for x in sequence:
+        print(x)
         # final_gyro_angle = gyroturno(x, 2, stop=True)
         robot.turn(x)
+        print("after robot_turn()")
         ev3.screen.clear()
         ev3.screen.set_font(big_font)
         ev3.screen.print("Gyro:",str(gyro.angle()))
@@ -131,17 +154,20 @@ def turntest2():
     my_file.close()
     ev3.speaker.beep()
 
+#def accelerationtest():
+
+
 def turntest():
     robot.stop()
     print(robot.distance_control.limits())
     print(robot.heading_control.limits())
-    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=200,  turn_acceleration=200)
+    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=200,  turn_acceleration=760)
     gyro.reset_angle(0)
-    robot.distance_control.limits(607,243,100)
-    forward_distance(400, 0, 400)
-    forward_distance(50, 0, 400)
-    robot.stop()
-    time.sleep(5)
+    #robot.distance_control.limits(607,243,100)
+    #forward_distance(400, 0, 400)
+    #forward_distance(50, 0, 400)
+    #robot.stop()
+    #time.sleep(5)
     easyturn([90, 90, 90, 90])
     time.sleep(2)
     easyturn([-90, -90, -90, -90])
