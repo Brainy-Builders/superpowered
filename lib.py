@@ -109,23 +109,6 @@ def acceltest():
         gyro_stop()
         time.sleep(4)
 
-def coach():
-    print("left motor limits:", left_wheel.control.limits())
-    print("right motor limits:", right_wheel.control.limits())
-    print("left motor pid:", left_wheel.control.pid())
-    print("right motor pid:", right_wheel.control.pid())
-    print("robot.heading_control.limits:", robot.heading_control.limits())
-    print("robot.distance_control.limits:", robot.distance_control.limits())
-    gyro.reset_angle(0)
-    gyroturno3(+135,rate_control=2.4,speed=0,stop=True)
-    time.sleep(1)
-    print("after +135, angle=", gyro.angle())
-    gyroturno3(0,rate_control=2.4,speed=0,stop=True)
-    time.sleep(1)
-    print("after 0, angle=", gyro.angle())
-    return 0
-
-
 
     for _ in [100, 50, 25, 10, 5]:
         ev3.speaker.say(str(_)+"%")
@@ -156,25 +139,6 @@ def coach():
         ev3.speaker.beep()
   
     ev3.speaker.beep()
-    return 0
-    fid = open("coach.txt", "w")    
-    track_stuff = []
-    speed_list = [50,100,150,200,250,300,350,400]
-    direction = 1
-    for my_speed in speed_list:
-        for turn in range(4):
-            robot.drive(0,my_speed * direction)
-            for _ in range(50):
-                track_stuff.append((my_speed, turn, time.time(),gyro.speed()))
-                time.sleep(0.025)
-            direction = -direction 
-    gyro_stop()
-    for row in track_stuff:
-        for thing in row: 
-            print(thing,end=",", file=fid)
-        print("",file=fid)
-    fid.close()
-    ev3.speaker.beep()
 
 def easyturn(sequence):
     x = 0
@@ -196,30 +160,6 @@ def easyturn(sequence):
     ev3.speaker.set_volume(100)
     ev3.screen.print(str(final_time - (sleeptime * len(sequence)))[0:4])
     ev3.speaker.say(str(final_time - (sleeptime * len(sequence)))[0:4])
-
-def turntest2():
-    my_vals = []
-
-    def log_it(): 
-        for _ in range(40):
-            my_vals.append((time.time(), gyro.angle()))
-            time.sleep(0.05)
-
-    my_speed = 90
-    for turn_number in range(6):
-        direction = (-1)**turn_number
-        robot.drive(0,direction*my_speed)
-        log_it()
-    robot.stop()
-
-    my_file = open("trey.txt", "w")
-    for _ in my_vals:
-        print(_,file=my_file)
-    my_file.close()
-    ev3.speaker.beep()
-
-#def accelerationtest():
-
 
 def turntest():
     robot.stop()
