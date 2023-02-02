@@ -33,7 +33,6 @@ def toy():
     time.sleep(.25)
     # get home
     forward_distance(-400, 0, -150, 0)
-    robot.drive(-400, 0)
-    time.sleep(1)
-    robot.stop()
+    forward_angle(-400, -90, -45)
+    gyro_stop()
 

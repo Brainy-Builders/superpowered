@@ -97,12 +97,17 @@ def acceltest():
         # robot.heading_control.limits(571,23*_,100)
 
         # Drive forward 300
-        forward_distance(speed=400, turn_rate=0, distance=300)
-        ev3.speaker.beep()
-        forward_distance(speed=100, turn_rate=0, distance=100)
+        forward_angle(0, 300, 200)
+        # ev3.speaker.beep()
+        forward_angle(0, 100, 160)
         gyro_stop()
         ev3.speaker.beep()
-        time.sleep(5)
+        time.sleep(1)
+        forward_angle(0, -300, -200)
+        # ev3.speaker.beep()
+        forward_angle(0, -100, -160)
+        gyro_stop()
+        time.sleep(4)
 
 def coach():
     print("left motor limits:", left_wheel.control.limits())
