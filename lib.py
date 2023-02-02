@@ -1,6 +1,7 @@
 import time 
 import math 
 from common import *
+from pybricks.iodevices import Ev3devSensor
 from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
@@ -34,19 +35,22 @@ def cs_data(truth):
         cs_data.write(my_line)
     cs_data.close()
 
-
-def turn_test_2():
-    fid = open("coach.txt", "w")    
+def trey_test():
+    gyro.reset_angle(90)
+    tyro = Ev3devSensor(Port.S2)
+    print("first tyro: ", tyro.read('GYRO-G&A'))
+    fid = open("trey.txt", "w")    
     track_stuff = []
-    speed_list = [50,100,150,200,250,300,350,400]
+    acceleration("heading", 100)
+    speed_list = [400]
     direction = 1
-    for my_speed in speed_list:
-        for turn in range(4):
-            robot.drive(0,my_speed * direction)
-            for _ in range(50):
-                track_stuff.append((my_speed, turn, time.time(),gyro.angle()))
-                time.sleep(0.025)
-            direction = -direction 
+    for max_speed in speed_list:
+        for _ in range(400):
+            calc_speed = int(max_speed * math.sin(2*math.pi*_/200))
+            robot.drive(0,calc_speed)
+            track_stuff.append((calc_speed,0, time.time(),tyro.read('GYRO-G&A')))
+            # track_stuff.append((my_speed, turn, time.time(),gyro.angle(), gyro.speed()))
+            time.sleep(0.04)
     gyro_stop()
     for row in track_stuff:
         for thing in row: 
@@ -54,6 +58,32 @@ def turn_test_2():
         print("",file=fid)
     fid.close()
     ev3.speaker.beep()
+
+
+def turn_test_2():
+    fid = open("coach.txt", "w")    
+    track_stuff = []
+    accel_list = [50]
+    for accel_val in accel_list:
+        ev3.speaker.say("acceleration"+str(accel_val))
+        acceleration("heading", accel_val)
+        speed_list = [50,100,150,200,300,400]
+        direction = 1
+        for my_speed in speed_list:
+            for turn in range(4):
+                robot.drive(0,my_speed * direction)
+                for _ in range(50):
+                    track_stuff.append((my_speed, turn, time.time(),gyro.angle()))
+                    time.sleep(0.04)
+                direction = -direction 
+        gyro_stop()
+    for row in track_stuff:
+        for thing in row: 
+            print(thing,end=",", file=fid)
+        print("",file=fid)
+    fid.close()
+    ev3.speaker.beep()
+
 def acceltest():
     # acceleration("distance", )
     for _ in [39, 38, 37, 36, 35, 34, 33, 32, 31, 30]:
@@ -81,7 +111,17 @@ def coach():
     print("right motor pid:", right_wheel.control.pid())
     print("robot.heading_control.limits:", robot.heading_control.limits())
     print("robot.distance_control.limits:", robot.distance_control.limits())
- 
+    gyro.reset_angle(0)
+    gyroturno3(+135,rate_control=2.4,speed=0,stop=True)
+    time.sleep(1)
+    print("after +135, angle=", gyro.angle())
+    gyroturno3(0,rate_control=2.4,speed=0,stop=True)
+    time.sleep(1)
+    print("after 0, angle=", gyro.angle())
+    return 0
+
+
+
     for _ in [100, 50, 25, 10, 5]:
         ev3.speaker.say(str(_)+"%")
         # left_wheel.control.limits(800, 16*_,100)
