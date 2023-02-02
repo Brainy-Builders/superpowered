@@ -181,7 +181,8 @@ while True:
             time.sleep(0.25)
         gyro_stop()
         gyro.reset_angle(0)
-
+        acceleration("distance", 37)
+        acceleration("heading", 30)
         functions(selected)
         selected += 1
         if skip_truck and selected == 2:
