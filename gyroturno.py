@@ -93,3 +93,29 @@ def gyroturno2(angle, rate_control=1, speed=0):
             previous_speed += 1
             robot.drive(speed, (-1 * max(difference, 9)))  
     return gyro.angle()
+
+
+def gyroturn(angle, rate_control=1.2, speed=0, stop=True, accel=30):
+    acceleration("heading", accel)
+    gyromod_360 = (1 * gyro.angle()) % 360
+    right_angle = (angle - gyromod_360) % 360 
+    left_angle = (gyromod_360 - angle) % 360    
+
+    if left_angle > right_angle:
+        #right turn
+        t_angle = gyro.angle() + right_angle 
+        while gyro.angle() <= t_angle:      
+            difference=abs(3*(t_angle - gyro.angle())* rate_control)
+            robot.drive(speed, (max(difference, 9)))
+            current time = time.time()
+            time_diff = current_time - old_time
+            angle = old_angle + time_diff*speed
+
+    elif right_angle > left_angle:
+        #left turn
+        t_angle = gyro.angle() - left_angle
+        while gyro.angle() >= t_angle:
+            difference=abs(3*(t_angle - gyro.angle())* rate_control)
+            robot.drive(speed, (-1 * max(difference, 9)))
+    if stop:
+        gyro_stop()
