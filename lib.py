@@ -84,6 +84,72 @@ def turn_test_2():
     fid.close()
     ev3.speaker.beep()
 
+def coach():
+    gyro.reset_angle(0)
+    robot.stop()
+    acceleration("distance", 25)
+    acceleration("heading", 25)
+    print("heading pid", robot.heading_control.pid())
+    print("distance pid", robot.distance_control.pid())
+    # robot.heading_control.pid(400,0,0,0,0,0)
+    # robot.distance_control.pid(400,0,0,0,0,0)
+    fid = open("coach.csv", "w")
+    log_stuff = []
+
+    start_time = time.time()
+    robot.drive(0,360)
+    new_time = 0
+    while(new_time < (start_time + 1)):
+        new_time = time.time()
+        robot_state = robot.state()
+        gyro_angle = gyro.angle()
+        log_stuff.append(("acc",new_time-start_time, gyro_angle, robot_state[0], robot_state[1], robot_state[2], robot_state[3]))
+    gyro_stop()
+    while(new_time < (start_time + 2)):
+        new_time = time.time()
+        robot_state = robot.state()
+        gyro_angle = gyro.angle()
+        log_stuff.append(("dec",new_time-start_time, gyro_angle, robot_state[0], robot_state[1], robot_state[2], robot_state[3]))
+    gyro_stop()
+    ev3.speaker.beep()
+    print("heading_limits:,",robot.heading_control.limits(), file=fid)
+    print("heading_pid:,", robot.heading_control.pid(), file=fid)
+    print("type,time, gyro_angle, dist, speed, angle, turn_rate", file=fid)    
+    for row in log_stuff:
+        for thing in row: 
+            print(thing,end=",", file=fid)
+        print("",file=fid)
+    fid.close()
+    ev3.speaker.beep()
+    return 0
+
+    # forward_dist(speed=300, turn_rate=0, distance=300)
+    # forward_dist(speed=100, turn_rate=0, distance=100)
+    gyro_stop()
+
+    for _ in [90,90,90,90,-90,-90,-90,-90]:
+        robot.turn(_)
+        gyro_stop()
+        time.sleep(0.5)
+        ev3.speaker.beep()
+
+    for _ in [90,90,90,90,-90,-90,-90,-90]:
+        forward_angle(speed=0,turn_rate=math.copysign(180,_), angle=_)
+        gyro_stop()
+        time.sleep(0.5)
+        ev3.speaker.beep()
+
+    for _ in [0, 90, 180,270,360,270,180,90,0]:
+        gyroturno(angle=_, stop=True)
+        time.sleep(0.5)
+        ev3.speaker.beep()
+
+    forward_dist(speed=-300, turn_rate=0, distance=-300)
+    forward_dist(speed=-100, turn_rate=0, distance=-75)
+    robot.drive(-100,0)
+    time.sleep(2.5)
+    gyro_stop()
+
 def acceltest():
     # acceleration("distance", )
     for _ in [39, 38, 37, 36, 35, 34, 33, 32, 31, 30]:
@@ -108,7 +174,10 @@ def acceltest():
         forward_angle(0, -100, -160)
         gyro_stop()
         time.sleep(4)
-
+def gyroturntest():
+    gyro.reset_angle(0)
+    gyroturn(-90, stop=True)
+    return
 
     for _ in [100, 50, 25, 10, 5]:
         ev3.speaker.say(str(_)+"%")
@@ -141,17 +210,18 @@ def acceltest():
     ev3.speaker.beep()
 
 def easyturn(sequence):
-    x = 0
+    x = 1
     sleeptime = .5
     start_time = time.time()
     for x in sequence:
-        print(x)
+        print(x*180)
         # final_gyro_angle = gyroturno(x, 2, stop=True)
-        robot.turn(x)
-        print("after robot_turn()")
         ev3.screen.clear()
-        ev3.screen.set_font(big_font)
-        ev3.screen.print("Gyro:",str(gyro.angle()))
+        gyroturn(x, rate_control=1, stop=True)
+        # print("after robot_turn()")
+        # ev3.screen.clear()
+        # ev3.screen.set_font(big_font)
+        # ev3.screen.print("Gyro:",str(gyro.angle()))
         time.sleep(sleeptime)
     end_time = time.time()
     final_time = (end_time - start_time)
@@ -162,19 +232,20 @@ def easyturn(sequence):
     ev3.speaker.say(str(final_time - (sleeptime * len(sequence)))[0:4])
 
 def turntest():
-    robot.stop()
-    print(robot.distance_control.limits())
-    print(robot.heading_control.limits())
-    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=200,  turn_acceleration=760)
-    gyro.reset_angle(0)
+    # robot.stop()
+    # print(robot.distance_control.limits())
+    # print(robot.heading_control.limits())
+    # robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=200,  turn_acceleration=760)
+    # gyro.reset_angle(0)
     #robot.distance_control.limits(607,243,100)
     #forward_distance(400, 0, 400)
     #forward_distance(50, 0, 400)
     #robot.stop()
     #time.sleep(5)
-    easyturn([90, 90, 90, 90])
-    time.sleep(2)
-    easyturn([-90, -90, -90, -90])
+    gyro.reset_angle(0)
+    easyturn([90])
+    # time.sleep(2)
+    # easyturn([-90, -90, -90, -90])
     # robot.straight(250)
     # easyturn([90, 180, 270, 360])
     # # time.sleep(2)

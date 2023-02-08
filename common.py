@@ -214,7 +214,6 @@ def forward_angle(speed, turn_rate, angle):
     while(robot.angle() < end_angle):
         robot.drive(speed,turn_rate)
 
-
 def load_avg(): 
     try:
         f = open("color.json", 'r')
@@ -286,6 +285,7 @@ def get_color(sensor, raw=False):
     return color
 
 def acceleration(type, percent):
+    robot.stop()
     percentage = percent/100
     accel_speed1 = int(percentage*2282)
     accel_speed2 = int(percentage*2429)
