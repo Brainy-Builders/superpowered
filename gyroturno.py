@@ -97,12 +97,13 @@ def gyroturno2(angle, rate_control=1, speed=0):
 
 def gyroturn(angle, rate_control=1.2, speed=0, stop=True, accel=30):
     acceleration("heading", accel)
-    LOG_STUFF=True    
+    LOG_STUFF=False    
 
     if(LOG_STUFF):
         f=open("gyro.csv","w")
         x=[]
-    loop_start_time = time.time()
+        loop_start_time = time.time()
+
     gyromod_360 = (1 * gyro.angle()) % 360
     right_angle = (angle - gyromod_360) % 360 
     left_angle = (gyromod_360 - angle) % 360    
@@ -110,53 +111,36 @@ def gyroturn(angle, rate_control=1.2, speed=0, stop=True, accel=30):
     old_angle = gyro.angle()
     old_time = time.time()
     old_speed = 0
+
     if left_angle > right_angle:
-        #right turn
-
+        turn_direction = 'right'
         t_angle = gyro.angle() + right_angle 
+        direction_multiplier = 1
 
-        while old_angle <= (t_angle):
-
-            new_speed = gyro.speed()
-            current_time = time.time()
-            time_diff = current_time - old_time
-            angel = old_angle + time_diff*((new_speed+old_speed)/2)
-
-            difference=abs(3*(t_angle - angel)* rate_control)
-            target_rate = (min(300,max(difference, 9)))
-            robot.drive(speed, target_rate)
-            
-            old_angle = angel
-            old_time = current_time
-            old_speed = new_speed
-            
-            if(LOG_STUFF):
-                robot_state = robot.state()
-                x.append(("right",old_time-loop_start_time,old_angle,old_speed, target_rate, robot_state[2], robot_state[3]))
-
-    elif right_angle > (left_angle):
-        #left turn
-
+    else:
+        turn_direction = 'left'  
+        direction_multiplier = -1  
         t_angle = gyro.angle() - left_angle
 
-        while old_angle >= t_angle:
+    while (turn_direction == 'right' and old_angle <= (t_angle)) or (turn_direction == "left" and old_angle >= (t_angle)):
+        new_speed = gyro.speed()
+        current_time = time.time()
+        time_diff = current_time - old_time
+        angel = old_angle + time_diff*((new_speed+old_speed)/2)
 
-            new_speed = gyro.speed()
-            current_time = time.time()
-            time_diff = current_time - old_time
-            angel = old_angle + time_diff*((new_speed+old_speed)/2)
+        difference=abs(3*(t_angle - angel)* rate_control)
+        target_rate = (direction_multiplier * min(300,max(difference, 20)))
+        robot.drive(speed, target_rate)
+            
+        old_angle = angel
+        old_time = current_time
+        old_speed = new_speed
+            
+        if(LOG_STUFF):
+            robot_state = robot.state()
+            x.append((turn_direction,old_time-loop_start_time,old_angle,old_speed, target_rate, robot_state[2], robot_state[3]))
 
-            difference=abs(3*(t_angle - old_angle)* rate_control)
-            target_rate = (-1 * min(300,max(difference, 9)))
-            robot.drive(speed, target_rate)
-        
-            old_angle = angel
-            old_time = current_time
-            old_speed = new_speed
-            if(LOG_STUFF):
-                robot_state = robot.state()
-                x.append(("left",old_time-loop_start_time,old_angle,old_speed, target_rate, robot_state[2], robot_state[3]))
-
+    gyro.reset_angle(old_angle)
     if stop:
         gyro_stop()
 
