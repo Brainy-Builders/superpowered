@@ -65,62 +65,29 @@ def gyroturno(angle, rate_control=1.2, speed=0, stop=True):
         gyro_stop()
     return gyro.angle()
 
-def gyroturno2(angle, rate_control=1, speed=0):
-    previous_speed = 10
-    gyroangle = gyro.angle()
-    
-    if gyroangle >= 180:
-        while gyroangle >= 180:
-            gyroangle -= 360
-
-    elif gyroangle <= -180:
-        while gyroangle <= -180:
-            gyroangle += 360
-
-    gyro.reset_angle(gyroangle)
-
-    if gyroangle < angle:
-        #right turn
-        while gyro.angle() < angle:
-            difference = min(abs(3*(angle - gyro.angle())* rate_control), previous_speed)
-            previous_speed += 1
-            robot.drive(speed, (max(difference, 9)))
-    
-    elif gyroangle > angle:
-        #left turn
-        while gyro.angle() > angle:
-            difference=min(abs(3*(angle - gyro.angle())* rate_control), previous_speed)
-            previous_speed += 1
-            robot.drive(speed, (-1 * max(difference, 9)))  
-    return gyro.angle()
-
-
-def gyroturn(angle, rate_control=1.2, speed=0, stop=True, accel=30):
-    acceleration("heading", accel)
-    LOG_STUFF=False    
-
-    if(LOG_STUFF):
-        f=open("gyro.csv","w")
-        x=[]
-        loop_start_time = time.time()
+def gyroturn(angle, rate_control=1.2, speed=0, stop=True):
+    DEBUG = False
 
     gyromod_360 = (1 * gyro.angle()) % 360
     right_angle = (angle - gyromod_360) % 360 
     left_angle = (gyromod_360 - angle) % 360    
 
+    # Quickly return if already pointed in the right direction
+    if(min(right_angle, left_angle) <=1):
+        return 
+
     old_angle = gyro.angle()
     old_time = time.time()
-    old_speed = 0
+    old_speed = gyro.speed()
 
     if left_angle > right_angle:
         turn_direction = 'right'
-        t_angle = gyro.angle() + right_angle 
+        t_angle = old_angle + right_angle 
         direction_multiplier = 1
-
     else:
         turn_direction = 'left'  
         direction_multiplier = -1  
-        t_angle = gyro.angle() - left_angle
+        t_angle = old_angle - left_angle
 
     while (turn_direction == 'right' and old_angle <= (t_angle)) or (turn_direction == "left" and old_angle >= (t_angle)):
         new_speed = gyro.speed()
@@ -129,37 +96,27 @@ def gyroturn(angle, rate_control=1.2, speed=0, stop=True, accel=30):
         angel = old_angle + time_diff*((new_speed+old_speed)/2)
 
         difference=abs(3*(t_angle - angel)* rate_control)
-        target_rate = (direction_multiplier * min(300,max(difference, 20)))
+        target_rate = (direction_multiplier * min(300,max(difference, 25)))
         robot.drive(speed, target_rate)
             
         old_angle = angel
         old_time = current_time
         old_speed = new_speed
             
-        if(LOG_STUFF):
-            robot_state = robot.state()
-            x.append((turn_direction,old_time-loop_start_time,old_angle,old_speed, target_rate, robot_state[2], robot_state[3]))
-
-    gyro.reset_angle(old_angle)
     if stop:
         gyro_stop()
 
-    if(LOG_STUFF):
-        for _ in range(250):
-            my_time = time.time()
-            new_speed = gyro.speed()
-            current_time = time.time()
-            time_diff = current_time - old_time
-            angel = old_angle + time_diff*((new_speed+old_speed)/2)
-            old_angle = angel
-            old_time = current_time
-            old_speed = new_speed
-            robot_state = robot.state()
-            x.append(("stop",(old_time-loop_start_time),old_angle,old_speed, 0, robot_state[2], robot_state[3]))
-        print("direction, time, angle, speed, target, robot_angle, robot_speed", file=f)    
-        for row in x:
-            for thing in row: 
-                print(thing,end=",", file=f)
-            print("",file=f)
-        f.close()
-        ev3.speaker.beep()
+    # For some reason, two rest_angle() calls are needed! Please keep!
+    gyro.reset_angle(old_angle)  # keep
+    time.sleep(0.001)            # also keep
+    gyro.reset_angle(old_angle)  # keep me too!
+
+    if(DEBUG):
+        for point in range(10):
+            print("  (tail of gyro)",point,"gyro_angle:", gyro.angle())
+            time.sleep(0.01)
+        gyro.reset_angle(old_angle)
+        for point in range(10):
+            print("   2 (tail of gyro)",point,"gyro_angle:", gyro.angle())
+            time.sleep(0.01)
+    return
