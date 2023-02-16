@@ -293,3 +293,4 @@ def acceleration(type, percent):
         robot.heading_control.limits(speed=571,acceleration=accel_speed1, actuation=100)
     elif type == "distance":
         robot.distance_control.limits (speed=607,acceleration=accel_speed2, actuation=100)
+    robot.settings(straight_speed=607, straight_acceleration=accel_speed1, turn_rate=571, turn_acceleration=accel_speed2)

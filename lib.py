@@ -158,7 +158,8 @@ def easyturn(sequence):
     for x in sequence:
         # final_gyro_angle = gyroturno(x, 2, stop=True)
         ev3.screen.clear()
-        gyroturno(x, rate_control=1.2, stop=True)
+        print("about to run gyroturno")
+        gyroturn(x, rate_control=1.2, stop=True)
         # print("after robot_turn()")
         # ev3.screen.clear()
         # ev3.screen.set_font(big_font)
@@ -171,6 +172,7 @@ def easyturn(sequence):
     ev3.speaker.set_volume(100)
     ev3.screen.print(str(final_time - (sleeptime * len(sequence)))[0:4])
     ev3.speaker.say(str(final_time - (sleeptime * len(sequence)))[0:4])
+    # ev3.speaker.say(str(gyro.angle()))
 
 def turntest():
     # robot.stop()
