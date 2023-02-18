@@ -59,6 +59,58 @@ def trey_test():
     fid.close()
     ev3.speaker.beep()
 
+
+def gyro_track():
+    gyro.reset_angle(0)
+    giant_font = Font(size=200, bold=True)
+    ev3.screen.set_font(giant_font)
+    while(True):
+        ev3.screen.clear()
+        ev3.screen.print(gyro.angle())
+        time.sleep(0.1)
+
+def dance():
+    # gyro_track()
+
+    def show_angle():
+        ev3.screen.clear()
+        ev3.screen.print(gyro.angle()) 
+        time.sleep(1)    
+
+    ev3.screen.set_font(huge_font)
+    ev3.screen.clear()
+    gyro.reset_angle(0)
+    acceleration("heading", 25)
+    forward_distance(speed=200, turn_rate=0, distance=200)
+    robot.drive(0,0)
+    time.sleep(0.5)
+    robot.stop()
+    show_angle()
+    ev3.speaker.beep()
+    while(gyro.angle() <= 90):
+        left_wheel.run(200)
+    gyro_stop()
+    ev3.speaker.beep()
+    show_angle()
+    while(gyro.angle() >= 0):
+        right_wheel.run(200)
+    gyro_stop()
+    ev3.speaker.beep()
+    show_angle()
+    robot.turn(360)
+    gyro_stop()
+    show_angle()
+    robot.turn(-360)
+    gyro_stop()
+    show_angle()
+    ev3.speaker.say("cha cha cha")
+    gyro_straight(distance=400, speed=-200, reset_angle=0)
+    gyro_stop()
+    ev3.speaker.beep()
+    show_angle()
+    time.sleep(5)
+    gyro_track()
+
 def coach():
     fid = open("chloe.txt", "w")    
     robot.stop()
