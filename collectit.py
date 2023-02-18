@@ -4,6 +4,23 @@ from gyroturno import *
 from gyrostraight import *
 from pidlinefollow import *
 import os
+
+
+def gyro_test():
+    
+    robot.heading_control.limits(speed=570010,acceleration=10000000, actuation=100000)
+    robot.distance_control.limits(speed=570010,acceleration=10000000, actuation=100000)
+    for slay in range(1,30):
+        gyro.reset_angle(0)
+        old_angle = gyro.angle()
+        old_time = time.time()
+        right_wheel.run_angle(speed=slay*1000, rotation_angle=90, then=Stop.HOLD, wait=True)
+        angle_diff = gyro.angle()-old_angle
+        time_diff = time.time()-old_time
+        print('speed =', slay*100, 'ANGLE =', angle_diff, 'time =', time_diff)
+        right_wheel.run_angle(speed=slay*1000, rotation_angle=-90, then=Stop.HOLD, wait=True)
+        
+
 def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
