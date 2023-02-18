@@ -15,6 +15,7 @@ from pybricks.ev3devices import (
     UltrasonicSensor,
     GyroSensor,
 )
+from pybricks.iodevices import Ev3devSensor
 from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
@@ -213,7 +214,6 @@ def forward_angle(speed, turn_rate, angle):
     while(robot.angle() < end_angle):
         robot.drive(speed,turn_rate)
 
-
 def load_avg(): 
     try:
         f = open("color.json", 'r')
@@ -285,6 +285,7 @@ def get_color(sensor, raw=False):
     return color
 
 def acceleration(type, percent):
+    robot.stop()
     percentage = percent/100
     accel_speed1 = int(percentage*2282)
     accel_speed2 = int(percentage*2429)
@@ -292,3 +293,4 @@ def acceleration(type, percent):
         robot.heading_control.limits(speed=571,acceleration=accel_speed1, actuation=100)
     elif type == "distance":
         robot.distance_control.limits (speed=607,acceleration=accel_speed2, actuation=100)
+    robot.settings(straight_speed=607, straight_acceleration=accel_speed1, turn_rate=571, turn_acceleration=accel_speed2)
