@@ -67,7 +67,7 @@ def windthing(): #go to wind#
 
 def halftesla2():
     # backup into car
-    forward_dist(speed=-225, turn_rate=30, distance=-150, t_prime = 0.5)
+    forward_dist(speed=-225, turn_rate=30, distance=-150 + 30, t_prime = 0.5)
     gyroturno(130)
     # ev3.speaker.beep()f
     # time.sleep(3)

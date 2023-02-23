@@ -118,7 +118,7 @@ def functions(x):
         data["stated"] = True
         qw.start()
     if selected == 0:     # collect
-        collectit.gyro_test()
+        collectit.main()
     elif selected == 1:   # oil supporter
         if old_oil==True:
             oil_supporter.old_oil()

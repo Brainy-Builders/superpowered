@@ -21,8 +21,8 @@ def get_there_and_dispense():
     time.sleep(.8)
     gyro_stop()
     #dispense units
-    main_motor.run_time(speed=-60*16, time=1350)
-    main_motor.run_time(speed=90*16, time=1350)
+    main_motor.run_time(speed=60*16, time=1350)
+    main_motor.run_time(speed=-90*16, time=1350)
 
 def get_off_wall():
     gyroturno(angle=35, rate_control=.8, speed=-200)
