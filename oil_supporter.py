@@ -54,10 +54,10 @@ def gotothere():
     # gyro_stop()
     # time.sleep(5)
 
-    # gyro_straight(distance=100, speed=200, reset_angle=10)
+    gyro_straight(speed=300, reset_angle=7, target_time = 1.5)
  
-    robot.drive(400, 5)
-    time.sleep(1.5)
+    # robot.drive(400, 5)
+    # time.sleep(1.5)
     # forward_dist(speed=200, turn_rate=0, distance=150)
     gyro_stop()
     

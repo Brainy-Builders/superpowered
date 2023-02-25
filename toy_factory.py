@@ -23,11 +23,12 @@ from gyroturno import *
 
 def toy():
     #Get to toy factory and allign
-    gyro_straight(distance=290, speed=400, reset_angle=None, t_prime = 1)
-    robot.drive(300, 0)
-    time.sleep(.7)
-    robot.drive(200,0)
-    time.sleep(0.3)
+    gyro_straight(distance=1000000, speed=200, reset_angle=None, GCV=2.5, t_prime = 0, target_time=2.000001023745)
+    #gyro_straight(distance=290, speed=400, reset_angle=None, t_prime = 1)
+    #robot.drive(300, 0)
+    #time.sleep(.7)
+    #robot.drive(200,0)
+    #time.sleep(0.3)
     gyro_stop()
     # wait for units to drop into factory
     time.sleep(.25)

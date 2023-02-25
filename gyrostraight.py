@@ -2,10 +2,11 @@ from common import * # includes gyro
 from gyroturno import *
 import time 
 
-def gyro_straight(distance, speed, reset_angle=None, GCV=2.5, t_prime = 0):
+def gyro_straight(distance=1000000, speed=200, reset_angle=None, GCV=2.5, t_prime = 0, target_time=3600):
   # If no "reset_angle" is given, continue in the same direction
   # heading is the direction the robot will go
   backwards = speed <= 0
+  gyro_time = target_time + time.time()
   if(reset_angle is None):
     heading = gyro.angle()
   else:
@@ -20,15 +21,15 @@ def gyro_straight(distance, speed, reset_angle=None, GCV=2.5, t_prime = 0):
     end_distance = robot.distance()-distance
   else:
     end_distance = robot.distance()+distance
-  
+  print(robot.distance(), end_distance, gyro_time, time.time())
   if backwards:
-    while robot.distance() > end_distance:
+    while robot.distance() > end_distance and gyro_time > time.time():
       correction = (heading-gyro.angle()) * GCV
       if time.time() < t_prime:
         speed=(speed_calc)/t*(time.time()-cur_time)
       robot.drive(speed, correction)
   else: #forward
-    while robot.distance() < end_distance:
+    while robot.distance() < end_distance and gyro_time > time.time():
       correction = (heading-gyro.angle()) * GCV
       if time.time() < t_prime:
         speed=(speed_calc)/t*(time.time()-cur_time)

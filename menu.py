@@ -145,7 +145,7 @@ def functions(x):
         lib.cs_data("WHITE")
     elif selected == 10:  # xxx
         # gyropath.run() 
-        lib.turntest()
+        lib.gyrotimetest()
     elif selected == 11:  # xxx
         gyropath.run() 
     

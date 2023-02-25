@@ -343,3 +343,17 @@ def motor_test():
     left_wheel.hold()
     time.sleep(.5)
     ev3.speaker.beep(1000,900)
+    
+def gyrotimetest():
+    gyro_straight(target_time = 5)
+    gyro_stop()
+    time.sleep(2)
+    gyro_straight(speed = -200, target_time = 5)
+    gyro_stop()
+    time.sleep(2)
+    gyro_straight(distance = 200)
+    gyro_stop()
+    time.sleep(2)
+    gyro_straight(distance = 200, speed = -200)
+    gyro_stop()
+    ev3.speaker.beep()
