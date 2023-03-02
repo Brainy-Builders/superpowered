@@ -22,12 +22,15 @@ def flip_tv():
     # time.sleep(3)
 
     windthing()
+    # return
     halftesla2()
     
 def windthing(): #go to wind#
-    gyro_straight(125, -100)
-    gyroturno(-45+5-2)
+    gyro_straight(45, -100)
+    gyroturno(-43)
     forward_dist(speed = 400, turn_rate = 1, distance = 300, t_prime=1) # slight turn right to not miss white line
+    # gyro_stop()
+    # return
     # ev3.speaker.beep(25)
     foundblack = False
     turn_right = False
@@ -37,7 +40,7 @@ def windthing(): #go to wind#
       if right_colorsensor.reflection() < 15:
         turn_right = True
         foundblack = True
-      if robot.distance() > max_distance+125:
+      if robot.distance() > max_distance+85:
         turn_right = True
     # while get_color(right_colorsensor) != Color.WHITE:  
     #     robot.drive(50, 0)                              
@@ -48,7 +51,7 @@ def windthing(): #go to wind#
     # robot.stop()
     # ev3.speaker.beep(25) 
     if foundblack:
-        forward_dist(speed = 50, turn_rate = 0, distance = 50) # go slightly past white
+        forward_dist(speed = 50, turn_rate = 0, distance = 20) # go slightly past white
     gyroturno(45)
     forward_dist(speed = 250, turn_rate = 0, distance = 85)
     
@@ -67,8 +70,8 @@ def windthing(): #go to wind#
 
 def halftesla2():
     # backup into car
-    forward_dist(speed=-225, turn_rate=30, distance=-150 + 30, t_prime = 0.5)
-    gyroturno(130)
+    # forward_dist(speed=-225, turn_rate=30, distance=-150 + 30, t_prime = 0.5)
+    gyroturno(100)
     # ev3.speaker.beep()f
     # time.sleep(3)
     robot.drive(speed=-125,turn_rate=0) 
@@ -86,6 +89,7 @@ def halftesla2():
     # gyro_stop()
     back_motor.run_time(speed = 250, time = 900, wait=False) # up
     forward_dist(250, 0, 60)
+    return
     # push the car away, then run into Toy Factory
     forward_angle(speed=-120, turn_rate=90, angle=90)
     gyro_stop()
