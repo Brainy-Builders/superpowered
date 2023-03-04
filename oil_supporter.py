@@ -47,8 +47,8 @@ def gotothere():
     gyro.reset_angle(0)
     gyro_straight(distance=125, speed=200, t_prime=1.0)
     # forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
-    forward_angle(speed=200, turn_rate=20, angle=20)
-    forward_angle(speed=200, turn_rate=-20, angle=-20)
+    forward_angle(speed=200, turn_rate=25, angle=25)
+    forward_angle(speed=200, turn_rate=-23, angle=-23)
 
     linefollow.line_follow(length=150-25,speed=125,sensor="right",side="right", Ki=0.0000,thresh=65)
     # gyro_stop()
