@@ -27,13 +27,14 @@ def main():
     back_motor.run_time(speed=-500, time=800, wait=False) # put down
     main_motor.run_time(speed=-600, time=2200,wait=False) # retract
     get_to_cross()
+    return
     travel2()
 
 
 def get_to_cross():
     gyro.reset_angle(angle=0)
     # move forward and find the line
-    gyro_straight(distance=180, speed=250, t_prime=.6) # use gyro at beginning 
+    gyro_straight(distance=180, speed=250) # use gyro at beginning 
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(100,0)
 
@@ -43,11 +44,18 @@ def get_to_cross():
     linefollow.line_follow(440-30-dist, speed=130, sensor="left", side="right")
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
     dist=robot.distance()
-    linefollow.line_follow(length=650+25-dist,speed=100,sensor="left",side="right")
+    # linefollow.line_follow(length=550-dist,speed=100,sensor="left",side="right")
     # get to the cross
     # ev3.speaker.beep(duration=25) # duration units [ms]
+    gyro_straight(distance=140, speed=200, reset_angle=35)
+    ev3.speaker.beep()
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(75,0)
+    ev3.speaker.beep()
+    while(get_color(right_colorsensor) != Color.WHITE):
+        robot.drive(75,0)
+    ev3.speaker.beep()
+    gyro_stop()
     back_motor.run_angle(600,-80,then=Stop.HOLD,wait=False) # miss oil
 
 def travel2():
