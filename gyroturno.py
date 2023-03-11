@@ -68,7 +68,7 @@ def gyroturno(angle, rate_control=1.2, speed=0, stop=True):
 
 def gyroturn(angle, rate_control=1.2, speed=0, stop=True):
     DEBUG = False
-
+    _ = gyro.angle() # leave to regulate gyro input
     gyromod_360 = (1 * gyro.angle()) % 360
     right_angle = (angle - gyromod_360) % 360 
     left_angle = (gyromod_360 - angle) % 360    

@@ -27,7 +27,6 @@ def main():
     back_motor.run_time(speed=-500, time=800, wait=False) # put down
     main_motor.run_time(speed=-600, time=2200,wait=False) # retract
     get_to_cross()
-    return
     travel2()
 
 
@@ -47,7 +46,7 @@ def get_to_cross():
     # linefollow.line_follow(length=550-dist,speed=100,sensor="left",side="right")
     # get to the cross
     # ev3.speaker.beep(duration=25) # duration units [ms]
-    gyro_straight(distance=140, speed=200, reset_angle=35)
+    gyro_straight(distance=200, speed=130, reset_angle=35)
     ev3.speaker.beep()
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(75,0)
@@ -60,16 +59,16 @@ def get_to_cross():
 
 def travel2():
     # go a little past the cross and turn
-    gyro_straight(distance=50, speed=125, reset_angle=0)
+    gyro_straight(distance=50, speed=125)
     # forward_dist(speed=150,turn_rate=0,distance=50, t_prime=0)
-
-    gyro_stop()
-    smart_turn(left_wheel,right_colorsensor)
+    gyroturn(90)
+    
+    #smart_turn(left_wheel,right_colorsensor)
 
     # follow the line, then drop the energy harvester
     gyro_stop()
-    linefollow.line_follow(length=170+30,speed=60,sensor="right",side="left")
-    gyro_stop()
+    # linefollow.line_follow(length=170+30,speed=60,sensor="right",side="left")
+    # gyro_stop()
     back_motor.run_time(speed=1000,time=800,then=Stop.HOLD,wait=True)
 
     # keep following the line, get ready to high five
@@ -82,7 +81,9 @@ def travel2():
     gyro_straight(distance=100,speed=-200, t_prime=0.5) # MAYBE BACKUP MORE THAN 100?
     gyro_stop()
     main_motor.run_time(speed=-600,time=2000,wait=False) # retract
-    gyroturno(143+5)
+    
+    gyroturn(143+5)
+    
     gyro_straight(distance=350,speed=300, t_prime=1)
     # time.sleep(3)
     # main_motor.run_time(speed=-200,time=700,then=Stop.HOLD,wait=False)
