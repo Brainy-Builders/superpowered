@@ -16,7 +16,13 @@ from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 import time
 import math
 from common import *
-
+def gyro_adjust(func):
+    def wrap(*args, **kwargs):
+        _=gyro.angle()
+        result = func(*args, **kwargs)
+        _=gyro.angle()
+        return result
+    return wrap
 # when making a Right turn, input angle should be positive
 # when making a left turn, input angle should be negative
 def gyrotest(loop, gyro1):
@@ -65,7 +71,7 @@ def gyroturno(angle, rate_control=1.2, speed=0, stop=True):
     if stop:
         gyro_stop()
     return gyro.angle()
-
+@gyro_adjust
 def gyroturn(angle, rate_control=1.2, speed=0, stop=True):
     DEBUG = False
     _ = gyro.angle() # leave to regulate gyro input
@@ -109,7 +115,7 @@ def gyroturn(angle, rate_control=1.2, speed=0, stop=True):
 
     # For some reason, two rest_angle() calls are needed! Please keep!
     gyro.reset_angle(old_angle)  # keep
-    time.sleep(0.001)            # also keep
+    time.sleep(0.01)            # also keep
     gyro.reset_angle(old_angle)  # keep me too!
 
     if(DEBUG):
@@ -120,4 +126,4 @@ def gyroturn(angle, rate_control=1.2, speed=0, stop=True):
         for point in range(10):
             print("   2 (tail of gyro)",point,"gyro_angle:", gyro.angle())
             time.sleep(0.01)
-    return
+    return old_angle
