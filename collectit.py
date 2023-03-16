@@ -40,13 +40,13 @@ def get_to_cross():
     # follow the line SMART distance
     dist=robot.distance()
     forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
-    linefollow.line_follow(440-30-dist, speed=130, sensor="left", side="right")
+    linefollow.line_follow(440-30-10-dist, speed=130, sensor="left", side="right")
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
     dist=robot.distance()
     # linefollow.line_follow(length=550-dist,speed=100,sensor="left",side="right")
     # get to the cross
     # ev3.speaker.beep(duration=25) # duration units [ms]
-    gyro_straight(distance=200, speed=130, reset_angle=35)
+    gyro_straight(distance=200+10, speed=130, reset_angle=35 - 2.5)
     ev3.speaker.beep()
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(75,0)
@@ -72,26 +72,28 @@ def travel2():
     back_motor.run_time(speed=1000,time=800,then=Stop.HOLD,wait=True)
 
     # keep following the line, get ready to high five
-    linefollow.line_follow(length=240-30,speed=200,sensor="right",side="left", Ki=0.0000)
+    linefollow.line_follow(length=240-30+20,speed=200,sensor="right",side="left", Ki=0.0000)
     gyro_stop()
     #TESTING CHANGE:
     # time.sleep(5000)
     #------------------
-    main_motor.run_time(speed=1600,time=1500,then=Stop.HOLD,wait=True) # put hand out
+    main_motor.run_time(speed=1600,time=2000,then=Stop.HOLD,wait=True) # put hand out
     gyro_straight(distance=100,speed=-200, t_prime=0.5) # MAYBE BACKUP MORE THAN 100?
     gyro_stop()
     main_motor.run_time(speed=-600,time=2000,wait=False) # retract
     
     gyroturn(143+5)
-    
-    gyro_straight(distance=350,speed=300, t_prime=1)
+    #CHANGE:
+    gyro_straight(distance=350 - 100,speed=300, t_prime=1)
     # time.sleep(3)
     # main_motor.run_time(speed=-200,time=700,then=Stop.HOLD,wait=False)
     ev3.speaker.beep()
-    forward_angle(speed=300,turn_rate=100,angle=105-10)
-    #forward_angle(speed=200, turn_rate=60, angle = -15)
+    forward_angle(speed=300,turn_rate=100,angle=77)
+    #forward_angle(speed=200, turn_rate=60, angle = -15)0
     ev3.speaker.beep()
-    gyro_straight(350, 400)
+    gyro_straight(350 - 150, 400)
+    gyroturn(270, 1.2, 350, False)
+    #forward_angle(300, 100, 45)
     robot.drive(400, 0)
     time.sleep(1.00)
     gyro_stop()
