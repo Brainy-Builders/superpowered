@@ -25,6 +25,7 @@ def get_there_and_dispense():
     main_motor.run_time(speed=-90*16, time=1350)
 
 def get_off_wall():
+    forward_distance(-250, 0, -70)
     gyroturn(angle=35, rate_control=.8, speed=-250)
     robot.reset()
     # time.sleep(.1)
