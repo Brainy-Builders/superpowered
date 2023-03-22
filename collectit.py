@@ -48,18 +48,28 @@ def get_to_cross():
     # ev3.speaker.beep(duration=25) # duration units [ms]
     gyro_straight(distance=200+10, speed=130, reset_angle=35 - 2.5)
     ev3.speaker.beep()
-    while(get_color(right_colorsensor) != Color.BLACK):
+    dist = robot.distance()
+    pastdistance = False 
+    maxdistance = int(dist+120)
+    while pastdistance==False:
         robot.drive(75,0)
-    ev3.speaker.beep()
-    while(get_color(right_colorsensor) != Color.WHITE):
-        robot.drive(75,0)
-    ev3.speaker.beep()
+        if (get_color(right_colorsensor) == Color.BLACK):
+            ev3.speaker.beep()
+            forward_distance(75, 0, 75)
+            pastdistance = True
+        if robot.distance() >= maxdistance:
+            pastdistance = True
+
+    # while(get_color(right_colorsensor) != Color.WHITE):
+    #     ev3.speaker.beep()
     gyro_stop()
+    
+    #ev3.speaker.say(str(robot.distance()-dist))
     back_motor.run_angle(600,-80,then=Stop.HOLD,wait=False) # miss oil
 
 def travel2():
     # go a little past the cross and turn
-    gyro_straight(distance=50, speed=125)
+    # gyro_straight(distance=50, speed=125)
     # forward_dist(speed=150,turn_rate=0,distance=50, t_prime=0)
     gyroturn(90)
     
@@ -81,8 +91,9 @@ def travel2():
     gyro_straight(distance=100,speed=-200, t_prime=0.5) # MAYBE BACKUP MORE THAN 100?
     gyro_stop()
     main_motor.run_time(speed=-600,time=2000,wait=False) # retract
-    
+    acceleration("heading", 20)
     gyroturn(143+5)
+    acceleration("heading", 30)
     #CHANGE:
     gyro_straight(distance=350 - 100,speed=300, t_prime=1)
     # time.sleep(3)

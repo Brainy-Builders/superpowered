@@ -39,6 +39,7 @@ def hang_water_units():
     robot.drive(300, 0)
     time.sleep(1)
     gyro_stop()
+    main_motor.run_time(-600, 500, then=Stop.COAST)
     main_motor.run_until_stalled(-600, then=Stop.COAST, duty_limit=30)
     robot.drive(-100, 0)
     time.sleep(1.5)

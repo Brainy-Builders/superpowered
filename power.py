@@ -16,7 +16,7 @@ def power_generator():
     get_home()
 
 def get_there_and_dispense():
-    forward_distance(400, 5, 450, 1)
+    forward_distance(400, 2, 450, 1)
     robot.drive(speed = 400, turn_rate = 5)
     time.sleep(.8)
     gyro_stop()
@@ -25,14 +25,14 @@ def get_there_and_dispense():
     main_motor.run_time(speed=-90*16, time=1350)
 
 def get_off_wall():
-    gyroturno(angle=35, rate_control=.8, speed=-200)
+    gyroturn(angle=35, rate_control=.8, speed=-250)
     robot.reset()
     # time.sleep(.1)
-    gyroturno(angle=-30, rate_control=1, speed=350, stop=False)
+    gyroturn(angle=-30, rate_control=1, speed=350, stop=False)
 
 def get_home():
     dist = robot.distance()
-    forward_dist(speed=300, turn_rate=0, distance=500-dist)
+    forward_dist(speed=300, turn_rate=0, distance=470-dist)
     gyroturno(angle=30, rate_control=1, speed=300, stop=False)
     ev3.speaker.beep(duration=25)
     gyroturno(angle=0, rate_control=0.35, speed=350, stop=False)
@@ -43,5 +43,5 @@ def get_home():
     # ev3.speaker.beep()
     # forward_distance(speed=500, turn_rate=-5, distance=300)
     robot.drive(speed=350, turn_rate=-5)
-    time.sleep(1)
+    time.sleep(0.75)
     gyro_stop()
