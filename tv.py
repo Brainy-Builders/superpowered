@@ -11,6 +11,8 @@ from gyrostraight import *
 from lib import *
 
 def flip_tv():
+    #test_departure()
+    #delay(1000)
     gyro.reset_angle(0)
     # ev3.speaker.beep()
     main_motor.run_time(speed=200, time=200, wait=False)
@@ -98,10 +100,12 @@ def halftesla2():
     ev3.speaker.beep()
     # time.sleep(3)
     # Let car down
-    forward_dist(speed=250, turn_rate=0, distance=120)
+    acceleration("distance", 50)
+    forward_dist(speed=250 + 50, turn_rate=0, distance=120)
     # gyro_stop()
     back_motor.run_time(speed = 250, time = 900, wait=False) # up
-    forward_dist(250, 10, 60)
+    forward_dist(250 - 50, 10, 60)
+
     # robot.stop()
     # push the car away, then run into Toy Factory
     # forward_angle(speed=-120, turn_rate=90, angle=90)
@@ -117,7 +121,7 @@ def halftesla2():
     # gyroturn(angle=-225, rate_control=0.75, speed=30)
     # forward_dist(speed=600, turn_rate=5, distance=500, t_prime=1.0)
     robot.drive(speed=800, turn_rate=5)
-    time.sleep(3)
+    time.sleep(2)
     gyro_stop()
 
 def find_colors(color, sensor, speed=60):
@@ -141,6 +145,7 @@ def find_colors(color, sensor, speed=60):
 
 def test_departure():
     #from hybrid car
+    acceleration("distance", 50)
     for myspeed in [200, 250, 300, 350, 400, 450, 500]:
         back_motor.run_time(speed = -200, time=1000, wait=True)
         ev3.speaker.say(str(myspeed))

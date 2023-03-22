@@ -21,7 +21,6 @@ def gyro_straight(distance=1000000, speed=200, reset_angle=None, GCV=2.5, t_prim
     end_distance = robot.distance()-distance
   else:
     end_distance = robot.distance()+distance
-  print(robot.distance(), end_distance, gyro_time, time.time())
   if backwards:
     while robot.distance() > end_distance and gyro_time > time.time():
       correction = (heading-gyro.angle()) * GCV
