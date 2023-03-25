@@ -31,7 +31,7 @@ import os
 #     gyro_stop()
 def gototherewline():
     gyro.reset_angle(angle=0)
-    gyro_straight(distance=180, speed=250, t_prime=.6)
+    gyro_straight(distance=140, speed=250, t_prime=.6)
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(100,0)
     dist=robot.distance()
@@ -45,12 +45,16 @@ def gototherewline():
 
 def gotothere():
     gyro.reset_angle(0)
-    gyro_straight(distance=125, speed=200, t_prime=1.0)
+    gyro_straight(distance=85, speed=200, GCV=2.5/2)
     # forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
     forward_angle(speed=200, turn_rate=25, angle=25)
     forward_angle(speed=200, turn_rate=-23, angle=-23)
 
-    linefollow.line_follow(length=150-25,speed=125,sensor="right",side="right", Ki=0.0000,thresh=65)
+    # gyro_stop()
+    # ev3.speaker.beep()
+    # time.sleep(7)
+
+    linefollow.line_follow(length=150+15,speed=125,sensor="right",side="right", Ki=0.0000,thresh=65)
     # gyro_stop()
     # time.sleep(5)
 

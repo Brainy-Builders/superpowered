@@ -21,8 +21,8 @@ def get_there_and_dispense():
     time.sleep(.8)
     gyro_stop()
     #dispense units
-    main_motor.run_time(speed=60*16, time=1350)
-    main_motor.run_time(speed=-90*16, time=1350)
+    main_motor.run_time(speed=60*16, time=1500)
+    main_motor.run_time(speed=-90*16, time=1500)
 
 def get_off_wall():
     forward_distance(-250, 0, -70)
@@ -44,5 +44,5 @@ def get_home():
     # ev3.speaker.beep()
     # forward_distance(speed=500, turn_rate=-5, distance=300)
     robot.drive(speed=350, turn_rate=-5)
-    time.sleep(0.75)
+    time.sleep(0.5)
     gyro_stop()
