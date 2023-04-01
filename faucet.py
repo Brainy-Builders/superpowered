@@ -41,6 +41,7 @@ def hang_water_units():
     gyro_stop()
     main_motor.run_time(-600, 500, then=Stop.COAST)
     main_motor.run_until_stalled(-600, then=Stop.COAST, duty_limit=30)
+    main_motor.reset_angle(0)
     robot.drive(-100, 0)
     time.sleep(1.5)
     main_motor.run_target(400, 360, then=Stop.HOLD, wait=False)

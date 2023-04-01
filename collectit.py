@@ -102,7 +102,7 @@ def travel2():
     forward_angle(speed=300,turn_rate=100,angle=77)
     #forward_angle(speed=200, turn_rate=60, angle = -15)0
     ev3.speaker.beep()
-    gyro_straight(350 - 150, 400)
+    gyro_straight(350 - 250, 400)
     gyroturn(270, 1.2, 350, False)
     #forward_angle(300, 100, 45)
     robot.drive(400, 0)
