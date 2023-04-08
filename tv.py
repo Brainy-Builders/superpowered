@@ -93,7 +93,7 @@ def halftesla2():
     # forward_dist(70, 0, 15)p
     # gyro_stop()
     # ev3.speaker.beep()
-    main_motor.run_time(speed = -300, time = 2000, wait=False)
+    main_motor.run_time(speed = -300, time = 1000, wait=False)
     back_motor.run_time(speed = -200, time=1000, wait=False)  # down
     time.sleep(0.75)
     gyro_stop()
