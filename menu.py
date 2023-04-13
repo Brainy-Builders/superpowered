@@ -192,3 +192,5 @@ while True:
             main_motor.run(-25)
         elif selected == 5:
             back_motor.run(25)
+            main_motor.run(25)
+        
