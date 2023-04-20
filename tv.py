@@ -85,7 +85,7 @@ def windthing(): #go to wind#
 def halftesla2():
     # backup into car
     forward_dist(speed=-100, turn_rate=30, distance=-70)
-    gyroturn(123)
+    gyroturn(128)
     # ev3.speaker.beep()f
     # time.sleep(3)
     robot.drive(speed=-125,turn_rate=0) 
