@@ -40,7 +40,7 @@ def get_to_cross():
     # follow the line SMART distance
     dist=robot.distance()
     forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
-    linefollow.line_follow(440-30-10-dist, speed=130, sensor="left", side="right")
+    linefollow.line_follow(440-30-30-dist, speed=130, sensor="left", side="right")
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
     dist=robot.distance()
     # linefollow.line_follow(length=550-dist,speed=100,sensor="left",side="right")
