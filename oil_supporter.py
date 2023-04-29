@@ -58,7 +58,7 @@ def gotothere():
     # ev3.speaker.beep()
     # time.sleep(7)
 
-    linefollow.line_follow(length=150+15,speed=100,sensor="right",side="right", Ki=0.0000,thresh=65)
+    linefollow.line_follow(length=150+15,speed=125,sensor="right",side="right", Ki=0.0000,thresh=65)
     # gyro_stop()
     # time.sleep(5)
 
@@ -73,7 +73,7 @@ def gotothere():
     acceleration("heading", 70)
     for _ in range(3):
         # forward_dist(speed=-100, turn_rate=0, distance=-30)
-        gyro_straight(35, -100)
+        gyro_straight(45, -100)
         # robot.stop()
         # time.sleep(0.2)
         gyro_stop()
@@ -82,9 +82,8 @@ def gotothere():
         gyro_stop()
     acceleration("distance", 37)
     acceleration("heading", 30)
+
 def hookcart_gohome():
-    #main_motor.run_time(speed=-2000,time=700, wait=True) #down
-    # forward_dist(-500, 0, -350, t_prime=1)
     gyro_straight(distance=200, speed=-200)
     robot.drive(-300, 25)
     time.sleep(2)
@@ -94,7 +93,6 @@ def main():
     gyro.reset_angle(angle=0)
     gotothere()
     hookcart_gohome()
-
 
 def pumping_oil():
     # forward_dist(300, 0, 30)
