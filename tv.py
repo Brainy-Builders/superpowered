@@ -120,7 +120,7 @@ def halftesla2():
     # # gyroturno(angle=-225, rate_control=1.0, speed=50)
     # gyroturn(angle=-225, rate_control=0.75, speed=30)
     # forward_dist(speed=600, turn_rate=5, distance=500, t_prime=1.0)
-    robot.drive(speed=800, turn_rate=5)
+    robot.drive(speed=800, turn_rate=40)
     time.sleep(2)
     gyro_stop()
 

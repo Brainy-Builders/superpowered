@@ -88,7 +88,7 @@ def travel2():
     # time.sleep(5000)
     #------------------
     main_motor.run_time(speed=1600,time=2000,then=Stop.HOLD,wait=True) # put hand out
-    gyro_straight(distance=100,speed=-200, t_prime=0.5) # MAYBE BACKUP MORE THAN 100?
+    gyro_straight(distance=83,speed=-200) # MAYBE BACKUP MORE THAN 100?
     gyro_stop()
     main_motor.run_time(speed=-600,time=2000,wait=False) # retract
     acceleration("heading", 20)
