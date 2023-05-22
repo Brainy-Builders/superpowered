@@ -20,7 +20,6 @@ def gyro_test():
         print('speed =', slay*100, 'ANGLE =', angle_diff, 'time =', time_diff)
         right_wheel.run_angle(speed=slay*1000, rotation_angle=-90, then=Stop.HOLD, wait=True)
         
-
 def main():
     robot.reset()
     robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
@@ -28,7 +27,6 @@ def main():
     main_motor.run_time(speed=-600, time=2200,wait=False) # retract
     get_to_cross()
     travel2()
-
 
 def get_to_cross():
     gyro.reset_angle(angle=0)

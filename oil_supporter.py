@@ -36,20 +36,49 @@ def gototherewline():
         robot.drive(100,0)
     dist=robot.distance()
     forward_angle(speed=150, turn_rate=90, angle=30)
-    linefollow.line_follow(440-30-dist, speed=175-50, sensor="left", side="right")
+    linefollow.line_follow(440-30-dist, speed=175-50-25, sensor="left", side="right")
     dist=robot.distance()
-    linefollow.line_follow(length=650-dist,speed=150,sensor="left",side="right")
+    linefollow.line_follow(length=650-dist,speed=150-25,sensor="left",side="right")
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(75,0)
     gyro_straight(distance=100, speed=200)
+
+def gotothere_trey():
+    acceleration("distance", 20)
+    acceleration("heading", 20)
+    gyro.reset_angle(0)
+
+    # for _ in range(7):
+    #     back_motor.run_time(speed=-500, time=1000)
+    #     back_motor.run_time(speed=+500, time=1000)
+    #     ev3.speaker.beep()
+    # return 0
+
+    gyro_straight(distance=200, reset_angle=30, speed=200, GCV=2.5/2)
+    gyro_straight(distance=300, reset_angle=0, speed=200, GCV=2.5/2)
+    gyro_straight(speed=300, reset_angle=0, target_time = 2.0)
+     
+    acceleration("distance", 70)
+    acceleration("heading", 70)
+    for _ in range(3):
+        # forward_dist(speed=-100, turn_rate=0, distance=-30)
+        gyro_straight(distance=45, speed=-100)
+        # robot.stop()
+        # time.sleep(0.2)
+        gyro_stop()
+        robot.drive(400, 0)
+        time.sleep(0.75)
+        gyro_stop()
+    acceleration("distance", 37)
+    acceleration("heading", 30)
 
 def gotothere():
     gyro.reset_angle(0)
     gyro_straight(distance=85, speed=200, GCV=2.5/2)
     # forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.75)
     forward_angle(speed=200, turn_rate=19, angle=18)
-    gyro_straight(200, 200)
-    gyroturn(3, stop=False)
+    gyro_straight(distance=200, speed=200)
+    # gyroturn(3, stop=False)
     # gyro_stop()
     # time.sleep(5)
     # forward_angle(speed=200, turn_rate=-20, angle=-20)
@@ -58,9 +87,10 @@ def gotothere():
     # ev3.speaker.beep()
     # time.sleep(7)
 
-    linefollow.line_follow(length=150+15,speed=125,sensor="right",side="right", Ki=0.0000,thresh=65)
+    linefollow.line_follow(length=150+15,speed=125-25,sensor="right",side="right", Ki=0.0000,thresh=65)
+
     # gyro_stop()
-    # time.sleep(5)
+    #time.sleep(5)
 
     gyro_straight(speed=300, reset_angle=7, target_time = 1.5)
  
@@ -77,7 +107,7 @@ def gotothere():
         # robot.stop()
         # time.sleep(0.2)
         gyro_stop()
-        robot.drive(400, 5)
+        robot.drive(400, 0)
         time.sleep(0.75)
         gyro_stop()
     acceleration("distance", 37)
@@ -91,7 +121,7 @@ def hookcart_gohome():
 
 def main():
     gyro.reset_angle(angle=0)
-    gotothere()
+    gotothere_trey()
     hookcart_gohome()
 
 def pumping_oil():
