@@ -62,7 +62,7 @@ def gotothere_trey():
     acceleration("heading", 70)
     for _ in range(3):
         # forward_dist(speed=-100, turn_rate=0, distance=-30)
-        gyro_straight(distance=45, speed=-100)
+        gyro_straight(distance=45, reset_angle=0, speed=-100)
         # robot.stop()
         # time.sleep(0.2)
         gyro_stop()
