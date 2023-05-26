@@ -48,7 +48,8 @@ lis = [
     "color viewer",
     "color collect",
     "acceleration",
-    "gyro path"
+    "gyro path",
+    "self_test"
     ]
 
 def thread():
@@ -148,6 +149,8 @@ def functions(x):
         lib.gyrotimetest()
     elif selected == 11:  # xxx
         gyropath.run() 
+    if selected == 12:
+        lib.self_test()
     
 while True: 
     time.sleep(.2)
@@ -175,7 +178,7 @@ while True:
         if selected==1:
             main_motor.stop()
         # Back up against the wall, reset gyro angle
-        skip_backup = [1, 3, 4, 6, 7,10,11]
+        skip_backup = [1, 3, 4, 6, 7,10,11,12]
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)
