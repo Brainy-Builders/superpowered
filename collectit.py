@@ -42,7 +42,7 @@ def get_to_cross():
     forward_angle(speed=150, turn_rate=90, angle=30) # turn but keep moving forward
     linefollow.line_follow(440-30-30-dist, speed=130, sensor="left", side="right")
     back_motor.run_angle(600,240,then=Stop.HOLD,wait=False) # moving back motor up
-    dist=robot.distance()
+    dist=robot.distance() 
     # get to the cross
     gyro_straight(distance=200+10, speed=130, reset_angle=35 - 2.5)
     ev3.speaker.beep()
