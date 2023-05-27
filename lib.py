@@ -13,7 +13,7 @@ from linefollow import *
 from line_a_line import *
 import threading
 import logging
-
+import random
 def cs_data(truth):
     i = 0
     cs_data = open(r"cs_data_trey", "w")
@@ -373,3 +373,49 @@ def gyro_test():
         print('speed =', slay*100, 'ANGLE =', angle_diff, 'time =', time_diff)
         right_wheel.run_angle(speed=slay*1000, rotation_angle=-90, then=Stop.HOLD, wait=True)
         
+def self_test():
+    tune = list(range(250,600,20))
+    random.shuffle(tune)
+    [ev3.speaker.beep(i,100) for i in tune]
+    ev3.screen.clear()
+    ev3.screen.set_font(med_font)
+    # Check for unplugged devices
+    erroring = []
+    if left_colorsensor == "None":
+        erroring.append("L-COLOR")
+    if right_colorsensor == "None":
+        erroring.append("R-COLOR")
+
+    if False: pass
+
+    if erroring != []:
+        ev3.screen.set_font(big_font)
+        ev3.screen.print("ERROR\n {}".format("\n".join(erroring)))
+        ev3.speaker.beep(700,1000)
+        time.sleep(0.1)
+        ev3.speaker.beep(600,500)
+        time.sleep(5)
+        return 0
+    gyro.reset_angle(0)
+    g0 = gyro.angle()
+    back_motor.run(500)
+    main_motor.run(500)
+    time.sleep(2)
+    back_motor.stop()
+    main_motor.stop()
+    g1=gyro.angle()
+    ev3.screen.print("Gyro-drift: {} deg".format(g1-g0))
+    ev3.screen.print("L: {} R: {}".format(left_colorsensor.color(),right_colorsensor.color()).replace("Color.",""))
+    robot.straight(100)
+    robot.drive(-100,0)
+    time.sleep(1)
+    robot.stop()
+    left_wheel.run(100)
+    time.sleep(1)
+    left_wheel.brake()
+    right_wheel.run(100)
+    time.sleep(1)
+    right_wheel.stop()
+    time.sleep(5)
+
+

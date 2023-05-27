@@ -27,8 +27,8 @@ from gyroturno import *
 # Define some useful things
 min_font = Font(size=6)
 tiny_font = Font(size=6)
-med_font = Font(size=12)
-big_font = Font(size=24, bold=True)
+med_font = Font(size=11)
+big_font = Font(size=22, bold=True)
 # Create your objects here.
 ev3 = EV3Brick()
 # Configure settings for this robot
