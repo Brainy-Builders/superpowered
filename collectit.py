@@ -81,10 +81,10 @@ def travel2():
     # Turning around water and heading home
     gyro_straight(distance=350 - 100,speed=300, t_prime=1)
     ev3.speaker.beep()
-    forward_angle(speed=300,turn_rate=100,angle=77)
+    forward_angle(speed=300,turn_rate=90,angle=77)
     ev3.speaker.beep()
-    gyro_straight(350 - 250, 400)
-    gyroturn(270, 1.2, 350, False)
+    gyro_straight(distance=350 - 250, speed=400)
+    gyroturn(angle=270, rate_control=1.2, speed=350, stop=False)
     robot.drive(400, 0)
     time.sleep(1.00)
     gyro_stop()
