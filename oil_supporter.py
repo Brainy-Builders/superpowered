@@ -66,7 +66,7 @@ def gotothere_trey():
         # robot.stop()
         # time.sleep(0.2)
         gyro_stop()
-        robot.turn(10)
+        robot.turn(5)
         robot.drive(400, 0)
         time.sleep(0.75)
         gyro_stop()
