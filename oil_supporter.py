@@ -1,26 +1,22 @@
 #!/usr/bin/env pybricks-micropython
-from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (
-    Motor,
-    TouchSensor,
-    ColorSensor,
-    InfraredSensor,
-    UltrasonicSensor,
-    GyroSensor,
-)
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog
-from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile, Font
-import time
 import math
 import os
-from common import *
+import time
+
+from pybricks.ev3devices import (ColorSensor, GyroSensor, InfraredSensor,
+                                 Motor, TouchSensor, UltrasonicSensor)
+from pybricks.hubs import EV3Brick
+from pybricks.media.ev3dev import Font, ImageFile, SoundFile
+from pybricks.parameters import Button, Color, Direction, Port, Stop
+from pybricks.robotics import DriveBase
+from pybricks.tools import DataLog, StopWatch, wait
+
 import linefollow
-from gyroturno import *
+from common import *
 from gyrostraight import *
+from gyroturno import *
 from pidlinefollow import *
-import os
+
 
 # def newstart():
 #     forward_dist(speed=300, turn_rate=0, distance=200, t_prime=0.75)
@@ -58,8 +54,8 @@ def gotothere_trey():
     gyro_straight(distance=300, reset_angle=0, speed=200, GCV=2.5/2)
     gyro_straight(speed=300, reset_angle=0, target_time = 2.0)
      
-    acceleration("distance", 70)
-    acceleration("heading", 70)
+    acceleration("distance", 100)
+    acceleration("heading", 100)
     for _ in range(3):
         # forward_dist(speed=-100, turn_rate=0, distance=-30)
         gyro_straight(distance=45, reset_angle=0, speed=-100)
