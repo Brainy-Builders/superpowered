@@ -1,128 +1,111 @@
-from common import *
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog
+# Mission Goals
+# - Flip Tv
+# - Pump Windmill
+# - Launch Hybrid Car
+# - Collect Rechargable Unit
+
+from pybricks.media.ev3dev import Font, ImageFile, SoundFile
+from pybricks.parameters import Button, Color, Direction, Port, Stop
 from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile, Font
-from gyroturno import *
-from pidlinefollow import *
-from linefollow import *
-from line_a_line import *
+from pybricks.tools import DataLog, StopWatch, wait
+
+from common import *
 from gyrostraight import *
+from gyroturno import *
 from lib import *
+from line_a_line import *
+from linefollow import *
+from pidlinefollow import *
+
 
 def flip_tv():
-    #test_departure()
-    #delay(1000)
-    gyro.reset_angle(0)
-    # ev3.speaker.beep()
+    gyro.reset_angle(angle = 0) # reset angle to zero to validate home
     main_motor.run_time(speed=200, time=200, wait=False)
     back_motor.run_time(speed = 200, time=200, wait=False) # make sure UP
     gyro_straight(distance=300, speed=250) # add acceleration
-    robot.drive(170, 0)
-    time.sleep(1.2)
+    robot.drive(speed = 170, turn_rate = 0)
+    time.sleep(secs = 1.2)
     gyro_stop()
-    # ev3.speaker.beep()
-    # time.sleep(3)
-
-    windthing()
-    # return
-    halftesla2()
+    tv_windmill()
+    halftesla2_and_rechargable()
     
-def windthing(): #go to wind#
+def tv_windmill(): #go to wind#
     ev3.screen.clear()
-    gyro_straight(35, -100)
+    gyro_straight(distance = 35, speed =  -100)
     
-    ev3.screen.print(gyroturn(-43))
-
-
-
+    ev3.screen.print(gyroturn(angle = -43))  # gyroturn returns a angle that can be printed to the screen to debug
+    
     forward_dist(speed = 400, turn_rate = 1, distance = 300, t_prime=1) # slight turn right to not miss white line
 
-    # gyro_stop()
-    # return
-    # ev3.speaker.beep(25)
     foundblack = False
     turn_right = False
     max_distance = robot.distance()
-    while turn_right == False:
-      robot.drive(100,0)
+    while turn_right == False: # little loop to look for when to turn right
+      robot.drive(speed = 100,turn_rate = 0)
       if right_colorsensor.reflection() < 15:
         turn_right = True
         foundblack = True
-      if robot.distance()  > max_distance+85:
+      if robot.distance()  > max_distance + 85:
         turn_right = True
-
-    # while get_color(right_colorsensor) != Color.WHITE:  
-    #     robot.drive(50, 0)                              
+                           
     robot.stop()
-    # ev3.speaker.beep(25) 
-    # while get_color(right_colorsensor) != Color.WHITE:
-    #     robot.drive(50, 0)
-    # robot.stop()
-    # ev3.speaker.beep(25) 
+
     if foundblack:
         forward_dist(speed = 50, turn_rate = 0, distance = 20) # go slightly past white
     ev3.screen.print(gyro.angle())
-    ev3.screen.print(gyroturn(45))
+    ev3.screen.print(gyroturn(angle = 45))
     gyro_stop()
     ev3.screen.print(gyro.angle())
 
     forward_dist(speed = 250, turn_rate = 0, distance = 85)
     
-    #collecting the energy units#
+    #collecting the energy units
 
-    for _ in range(3):
-        robot.drive(300, 0)
-        time.sleep(0.85)
+    for _ in range(3): # repeat to pump 3 times
+        robot.drive(speed = 300, turn_rate = 0)
+        time.sleep(secs = 0.85)
         robot.stop()
-        time.sleep(0.2)
-        robot.drive(-70, 0)
-        time.sleep(0.7)
+        time.sleep(secs = 0.2)
+        robot.drive(speed = -70, turn_rate = 0)
+        time.sleep(secs = 0.7)
         robot.stop()
-        time.sleep(0.1)
+        time.sleep(secs = 0.1)
     robot.stop()
 
-def halftesla2():
+def halftesla2_and_rechargable(): #I mean a hybrid car is half a tesla
     # backup into car
     forward_dist(speed=-100, turn_rate=30, distance=-70)
-    gyroturn(128)
-    # ev3.speaker.beep()f
-    # time.sleep(3)
+    gyroturn(angle = 128)
     robot.drive(speed=-125,turn_rate=0) 
-    time.sleep(1)
-    # forward_dist(70, 0, 15)p
-    # gyro_stop()
-    # ev3.speaker.beep()
+    time.sleep(secs = 1)
     main_motor.run_time(speed = -300, time = 1000, wait=False)
     back_motor.run_time(speed = -200, time=1000, wait=False)  # down
-    time.sleep(0.75)
+    time.sleep(secs = 0.75)
     gyro_stop()
     ev3.speaker.beep()
-    # time.sleep(3)
-    # Let car down
     acceleration("distance", 50)
     forward_dist(speed=250 + 50, turn_rate=0, distance=120)
-    # gyro_stop()
     back_motor.run_time(speed = 250, time = 900, wait=False) # up
     forward_dist(250 - 50, 10, 60)
-
-    # robot.stop()
-    # push the car away, then run into Toy Factory
-    # forward_angle(speed=-120, turn_rate=90, angle=90)
-    # gyro_stop()
-    # # time.sleep(3)
-    # forward_dist(speed=200, turn_rate=0, distance=200, t_prime=0.5)
-    # robot.drive(speed=200, turn_rate=0)
-    # time.sleep(0.5)
-    # gyro_stop()
-    # # backup, turn, go home
-    # forward_dist(speed=-100, turn_rate=10, distance=-25)
-    # # gyroturno(angle=-225, rate_control=1.0, speed=50)
-    # gyroturn(angle=-225, rate_control=0.75, speed=30)
-    # forward_dist(speed=600, turn_rate=5, distance=500, t_prime=1.0)
     robot.drive(speed=800, turn_rate=40)
-    time.sleep(2)
+    time.sleep(secs = 2)
     gyro_stop()
+
+ # _____  ______ ____  _    _  _____     
+ #|  __ \|  ____|  _ \| |  | |/ ____|    
+ #| |  | | |__  | |_) | |  | | |  __     
+ #| |  | |  __| |  _ <| |  | | | |_ |    
+ #| |__| | |____| |_) | |__| | |__| |    
+ #|_____/|______|____/ \____/ \_____|  __
+ #|  _ \|  ____| |    / __ \ \        / /
+ #| |_) | |__  | |   | |  | \ \  /\  / / 
+ #|  _ <|  __| | |   | |  | |\ \/  \/ /  
+ #| |_) | |____| |___| |__| | \  /\  /   
+ #|____/|______|______\____/   \/  \/    
+                                        
+
+
+
 
 def find_colors(color, sensor, speed=60):
     if sensor == "right":
@@ -132,16 +115,12 @@ def find_colors(color, sensor, speed=60):
 
     if color == "white" or "WHITE":
         while get_color(csensor) != Color.WHITE:  
-            robot.drive(speed, 0)                              
+            robot.drive(speed = speed, turn_rate = 0)                              
         robot.stop()
     elif color == "black" or "BLACK":
         while get_color(csensor) != Color.BLACK:  
-            robot.drive(speed, 0)                              
+            robot.drive(speed = speed, turn_rate = 0)                              
         robot.stop()
-    # else:
-    #     while get_color(right_colorsensor) != Color.WHITE:  
-    #         robot.drive(speed, 0)                              
-    #     robot.stop()
 
 def test_departure():
     #from hybrid car
@@ -152,6 +131,6 @@ def test_departure():
         forward_dist(speed=myspeed, turn_rate=0, distance=200)
         gyro_stop()
         back_motor.run_time(speed = 500, time = 900, wait=False)
-        forward_dist(200, 0, 60)
+        forward_dist(speed = 200, turn_rate = 0, distance = 60)
         robot.stop()
-        time.sleep(5)
+        time.sleep(secs = 5)
