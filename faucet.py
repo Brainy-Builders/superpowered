@@ -1,90 +1,70 @@
  #!/usr/bin/env pybricks-micropython
-from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (
-    Motor,
-    TouchSensor,
-    ColorSensor,
-    InfraredSensor,
-    UltrasonicSensor,
-    GyroSensor,
-)
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog
-from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile, Font
-import time
 import math
-from linefollow import line_follow
-from common import *
-from pidlinefollow import *
-from gyrostraight import *
+import time
 
-# Chloe - please also try the "get_there()" routine below to compare.
-def get_to_there():
-    # forward_angle(300, 90, 45)
+from pybricks.ev3devices import (ColorSensor, GyroSensor, InfraredSensor,
+                                 Motor, TouchSensor, UltrasonicSensor)
+from pybricks.hubs import EV3Brick
+from pybricks.media.ev3dev import Font, ImageFile, SoundFile
+from pybricks.parameters import Button, Color, Direction, Port, Stop
+from pybricks.robotics import DriveBase
+from pybricks.tools import DataLog, StopWatch, wait
+
+from common import *
+from gyrostraight import *
+from linefollow import line_follow
+from pidlinefollow import *
+
+#
+# Mission goals:
+#   -> Drop one water unit into the water reservoir
+#   -> Hang two units on the red hooks above the water reservoir
+#   -> Collect energy unit from the hydroelectric dam
+#
+
+#
+# This is the simple version if hanging the units becomes unreliable or something goes wrong:
+# Drops three water units in the reservoir
+# Grabs energy unit
+#
+def simple_water():
     gyro.reset_angle(0)
-    # gyroturno(50, speed=150) 
-    # gyro_stop()
-    # time.sleep(2.5)
+    # Drives into the hydroelctric dam triggering the attachment to drop three units into the reservoir
     gyro_straight(250, 450, t_prime=0.5)
     robot.drive(300, 0)
     time.sleep(1)
+    # Drives back home and grabs the energy unit with rubber bands
     robot.drive(-300, 0)
     time.sleep(2)
     robot.stop()
 
-def hang_water_units():
+#
+# This is the advanced version to hang the units to get the maximum amount of points:
+# Hangs two water units on red hooks
+# Drop one water unit in the reservoir
+# Grabs energy unit
+#
+def advance_water():
     gyro.reset_angle(0)
+    # Drives into the hydro electric dam triggering the attachment to drop one unit into the reservoir
     gyro_straight(250, 450, t_prime=0.5)
     robot.drive(300, 0)
     time.sleep(1)
     gyro_stop()
+
+    # Lowers the water units and positions them to be hanged
     main_motor.run_time(-600, 500, then=Stop.COAST, wait=True)
     main_motor.run_until_stalled(-600, then=Stop.COAST, duty_limit=30)
     main_motor.reset_angle(0)
+
+    # Drives back a bit to hang the water units
     robot.drive(-100, 0)
     time.sleep(1.5)
+
+    # Lifts the attachment back up and out of the way
     main_motor.run_target(400, 360, then=Stop.HOLD, wait=False)
+
+    # Drives home and grabs the energy unit with rubber bands
     robot.drive(-400, 0)
     time.sleep(1.2)
     robot.stop()
-
-
-
-
-
-# def waterfall():
-#     gyro.reset_angle(0)
-#     print("gyro: ", gyro.angle())
-#     ev3.screen.print(gyro.angle())
-#     drive(.23)
-#     gyroturno(45)
-#     drive(2)
-
-# def get_there(): # Get there without stopping until at the mission model
-#     forward_dist(speed = 100, turn_rate = 0, distance = 19)
-#     # forward_dist(speed = 100, turn_rate = 45, distance = 100)
-#     forward_angle(100, 45, 45)
-#     robot.drive(200,0)
-#     time.sleep(1.5)
-#     robot.stop()
-
-# def test_stuff():
-#     robot.stop()
-#     ev3.screen.clear()
-#     ev3.screen.print("LEFT  => UP")
-#     ev3.screen.print("RIGHT => DOWN")
-#     ev3.screen.print("DOWN  => drive back")
-#     ev3.screen.print("UP    => drive fwd")
-#     while(not Button.CENTER in ev3.buttons.pressed()):
-#         if(Button.LEFT in ev3.buttons.pressed()):
-#             main_motor.run(speed=4000)
-#         elif(Button.RIGHT in ev3.buttons.pressed()):
-#             main_motor.run(speed=-4000)
-#         elif(Button.UP in ev3.buttons.pressed()):
-#             robot.drive(speed=100, turn_rate=0)
-#         elif(Button.DOWN in ev3.buttons.pressed()):
-#             robot.drive(speed=-100, turn_rate=0)
-#         else:
-#             robot.stop()
-#             main_motor.stop()

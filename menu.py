@@ -129,9 +129,9 @@ def functions(x):
         oil_supporter.oiltruck()
     elif selected == 3:   # waterfall
         if simple_water==True:
-            faucet.get_to_there()
+            faucet.simple_water()
         else:
-            faucet.hang_water_units()
+            faucet.advance_water()
     elif selected == 4:   # power
         power.power_generator()
     elif selected == 5:   # tv flip
