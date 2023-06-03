@@ -9,6 +9,10 @@ from linefollow import *
 from line_a_line import *
 from gyrostraight import *
 from lib import *
+# mission goals
+#   collect 3 energy units from the powerplant
+#   deliver 5 energy units (3 from powerplant + 2 from left home) to the right home
+#   deliver oil truck to the right home
 
 def power_generator():
     get_there_and_dispense()
@@ -16,35 +20,41 @@ def power_generator():
     get_home()
 
 def get_there_and_dispense():
-    forward_distance(400, 2, 450, 1)
+    # go to powerplant
+
+    forward_distance(speed=400, turn_rate=2, distance=450, t_prime=1) #turn rate to keep on the wall
     robot.drive(speed = 400, turn_rate = 5)
-    time.sleep(.8)
+    time.sleep(secs=.8)
     gyro_stop()
-    #dispense units
-    main_motor.run_time(speed=60*16, time=1700)
-    main_motor.run_time(speed=-90*16, time=1800)
+
+    # dispense units
+
+    main_motor.run_time(speed=60*16, time=1700) #motor up
+    main_motor.run_time(speed=-90*16, time=1800) #motor down
 
 def get_off_wall():
-    forward_distance(-250, 0, -70)
+    # back up and turn off the wall
+
+    forward_distance(speed=-250, turnrate=0, distance=-70)
     gyroturn(angle=35, rate_control=.8, speed=-250)
-    robot.reset()
+    robot.reset() #reset to measure distance
     # time.sleep(.1)
     gyroturn(angle=-30, rate_control=1, speed=400, stop=False)
 
 def get_home():
+
+    # go to right home
+
     dist = robot.distance()
     #forward_dist(speed=300, turn_rate=0, distance=470-dist) old code, saved in case of emergency
+
+    #go around the power plant
     forward_dist(speed=500, turn_rate=0, distance=430-dist)
     gyroturno(angle=30, rate_control=1, speed=400, stop=False)
     ev3.speaker.beep(duration=25)
+    # go into home
     gyroturno(angle=0, rate_control=0.35, speed=400, stop=False)
     ev3.speaker.beep(duration=25)
-    # forward_angle(speed=500, turn_rate=70, angle= 50)
-    # ev3.speaker.beep()
-    # forward_angle(speed=500, turn_rate=-30, angle=-45)
-    # ev3.speaker.beep()
-    # forward_distance(speed=500, turn_rate=-5, distance=300)
-    #robot.drive(speed=350, turn_rate=-5) old code, saved in case of emergency
     robot.drive(speed=400, turn_rate=-15)
-    time.sleep(0.3)
+    time.sleep(secs=0.3)
     gyro_stop()
