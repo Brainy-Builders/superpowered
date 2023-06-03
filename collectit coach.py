@@ -76,7 +76,7 @@ def get_energy():
 # push hand (smart connect) out
 # backup hopefully straight
 # 
-def push_hand_go_back()
+def push_hand_go_back():
     main_motor.run_time(speed=1600,time=2000,then=Stop.HOLD,wait=True) # put hand out
     gyro_straight(distance=83,speed=-200)
     gyro_stop()
