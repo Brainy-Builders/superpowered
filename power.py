@@ -24,7 +24,7 @@ def get_there_and_dispense():
 
     forward_distance(speed=400, turn_rate=2, distance=450, t_prime=1) #turn rate to keep on the wall
     robot.drive(speed = 400, turn_rate = 5)
-    time.sleep(secs=.8)
+    time.sleep(.8)
     gyro_stop()
 
     # dispense units
@@ -35,7 +35,7 @@ def get_there_and_dispense():
 def get_off_wall():
     # back up and turn off the wall
 
-    forward_distance(speed=-250, turnrate=0, distance=-70)
+    forward_distance(speed=-250, turn_rate=0, distance=-70)
     gyroturn(angle=35, rate_control=.8, speed=-250)
     robot.reset() #reset to measure distance
     # time.sleep(.1)
@@ -56,5 +56,5 @@ def get_home():
     gyroturno(angle=0, rate_control=0.35, speed=400, stop=False)
     ev3.speaker.beep(duration=25)
     robot.drive(speed=400, turn_rate=-15)
-    time.sleep(secs=0.3)
+    time.sleep(0.3)
     gyro_stop()
