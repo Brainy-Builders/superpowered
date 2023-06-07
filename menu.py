@@ -126,7 +126,7 @@ def functions(x):
         else:    
             oil_supporter.main()
     elif selected == 2:   # truck
-        oil_supporter.oiltruck()
+        oil_supporter.main()
     elif selected == 3:   # waterfall
         if simple_water==True:
             faucet.simple_water()
