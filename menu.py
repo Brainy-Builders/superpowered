@@ -126,7 +126,7 @@ def functions(x):
         else:    
             oil_supporter.main()
     elif selected == 2:   # truck
-        oil_supporter.oiltruck()
+        oil_supporter.main()
     elif selected == 3:   # waterfall
         if simple_water==True:
             faucet.simple_water()
@@ -188,6 +188,7 @@ while True:
         acceleration("heading", 30)
         functions(selected)
         selected += 1
+
         if skip_truck and selected == 2:
             selected = 3
         data['values'] = load_data()
@@ -196,4 +197,4 @@ while True:
         elif selected == 5:
             back_motor.run(25)
             main_motor.run(25)
-        
+

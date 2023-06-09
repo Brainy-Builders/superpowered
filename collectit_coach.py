@@ -24,6 +24,7 @@ def main():
 #
 def position_attachments():
     robot.reset()
+    robot.settings(straight_speed=300, straight_acceleration=300, turn_rate=180,  turn_acceleration=180)
     back_motor.run_time(speed=-500, time=800, wait=False) # put down front
     main_motor.run_time(speed=-600, time=2200,wait=False) # put up back
 
