@@ -192,9 +192,9 @@ while True:
         if skip_truck and selected == 2:
             selected = 3
         data['values'] = load_data()
-        if selected==1:
-            main_motor.run(-25)
-        elif selected == 5:
+        # if selected==1:
+        #     main_motor.run(-25)
+        if selected == 5:
             back_motor.run(25)
             main_motor.run(25)
 
