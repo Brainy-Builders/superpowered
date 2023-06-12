@@ -1,3 +1,20 @@
+#  __  __ ______ _   _ _    _ 
+# |  \/  |  ____| \ | | |  | |
+# | \  / | |__  |  \| | |  | |
+# | |\/| |  __| |     | |  | |
+# | |  | | |____| |\  | |__| |
+# |_|  |_|______|_| \_|\____/ 
+
+################################
+#SELECTED -> Collect           #
+# 1:Collect 2:Oil Supporter    #
+# 3:Truck          4:Waterfall #
+# 5:Power            6:TV flip #
+# 7:Toy Factory      8:Black X #
+#9:Color Viewer10:Color Collect#
+# 11:Acceleration 12:Gyro Path #
+# 13:Self Test         14:None #
+################################
 from functools import wraps
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (
@@ -14,7 +31,6 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 import time
 import math
-#import newlinefollow
 import linefollow
 from common import *
 from gyroturno import *
@@ -31,12 +47,13 @@ import toy_factory
 import gyropath
 import pidlinefollow
 
-skip_truck = True
+skip_truck = True # truck used to be a seperate mission with it's own function
+# these 2 flags determine weather to use legacy versions of missions
 old_oil=False
-simple_water=False
+simple_water=False 
 
-data = {"time": 150, "started": False, "values": load_data()}
-lis = [
+data = {"time": 150, "started": False, "values": load_data()} # global_data for multithreading
+mission_list = [ # list of all missions
     "collect",
     "oil supporter",
     "truck",
@@ -52,48 +69,45 @@ lis = [
     "self_test"
     ]
 
-def thread():
+def thread(): # Background loop
     while data["time"] >= 0:
-        if Button.LEFT in ev3.buttons.pressed():
-            main_menu()
-        data["time"] -= 1
-        if data["time"] < 20:
-            ev3.light.on(Color.RED)
-        elif data["time"] > 50:
-            ev3.light.on(Color.GREEN)
-        if data["time"] >= 21 and data["time"] <= 50:
-            time.sleep(.5)
+        data["time"] -= 1 # countdown from timer
+
+        if data["time"] < 2.96 + 3: # 3 second warning for last mission
+            ev3.light.on(Color.RED) # Urgent, hurry up for the last mission
+        elif data["time"] > 50: 
+            ev3.light.on(Color.GREEN)# Relax you've got time
+        if data["time"] >= 6 and data["time"] <= 50:
+            # I'd start to hurry up if I were you
+            time.sleep(.5) # Oooh it flashes on and off
             ev3.light.on(Color.GREEN)
             time.sleep(.5)
             ev3.light.off()
         else:
-             time.sleep(1)
-qw = threading.Thread(target=thread)
-ev3.screen.set_font(med_font)
+             time.sleep(1) # When it doesn't flash wait 1 second to not overload the thread
+sw = threading.Thread(target=thread) # create a refrence to the service worker
+ev3.screen.set_font(med_font) # Set font to be actually readable
 
 def printn(text, end="\n"):
     if len(text) > 36:
         raise TypeError("more than nesecary")
     print(text, end=end)
 
-printused = ev3.screen.print
 selected = 0
 screen = ev3.screen
-if len(lis)%2 != 0:
-    lis.append("NONE")
+if len(mission_list)%2 != 0:
+    mission_list.append("NONE")
 
 def printscrn():
-    for _ in range(0, len(lis), 2):
-        object1 = str(str(_) + ":" + str(lis[_]))
+    for _ in range(0, len(mission_list), 2):
+        object1 = str(str(_) + ":" + str(mission_list[_]))
         try:
-            object2 = str(_ + 1) + ":" + lis[_ + 1]
+            object2 = str(_ + 1) + ":" + mission_list[_ + 1]
         except:
             object2 = ""
         screen.print(
             object1
-            + str("").center(
-                5
-            )
+            + "     "
             + object2
         )
         
@@ -101,23 +115,25 @@ def printscrn():
     tme = "Time: {}".format(data["time"])
     
     totals = fmt+len(tme)
-    # comment out the next line if it doesnt work
+    # comment out the next line if it doesn't work
     totals += len(data["values"])
     if totals % 2 != 0:
         totals -= 1
-    totals = 36 - totals
+    totals = 36 - totals # 36 chars is the screen width
+    # Calculate spacing in order to make sure all chars fit on screen
     try:
         screen.print("Gyro: {}".format(gyro.angle()))
     except Exception as e:
         print(e)
-        screen.print("Gyro: {}".format("Unplugged"))
+        screen.print("Gyro: {}".format("Unplugged")) # If getting the gyro angle fails, it's not plugged in. 
 
 def functions(x):
     global selected
     print("SELECTED: ",selected)
     if not data["started"]:
-        data["stated"] = True
-        qw.start()
+        data["stated"] = True # Enable so we don't continously execute the thread
+        sw.start() # start the service worker
+    # each index corresponds to a mission
     if selected == 0:     # collect
         collectit.main()
     elif selected == 1:   # oil supporter
@@ -153,46 +169,51 @@ def functions(x):
         lib.self_test()
     
 while True: 
-    time.sleep(.2)
+    time.sleep(.2) # our ev3 screen run at  whopping 5hz
+    # refresh screen
     ev3.screen.clear()
     ev3.screen.set_font(big_font)
-    ev3.screen.print("\n->"+lis[selected] + ":"+str(selected))
+    ev3.screen.print("\n->"+mission_list[selected] + ":"+str(selected)) # print selected mission and index
     ev3.screen.set_font(med_font)
+    # print all missions and time and gyro
     printscrn()
-    # print(selected)
+    # button presses move menu
     if Button.DOWN in ev3.buttons.pressed():
         if selected == 0:
-            selected = len(lis) - 1
+            selected = len(mission_list) - 1
             time.sleep(.01)
         else:
             selected -= 1
     elif Button.UP in ev3.buttons.pressed():
-        if selected == (len(lis) - 1):
+        if selected == (len(mission_list) - 1):
             selected = 0
             time.sleep(.01)
         else:
             selected += 1
+    # run mission
     elif Button.CENTER in ev3.buttons.pressed():
         print("center")
         ev3.speaker.beep()
         if selected==1:
             main_motor.stop()
         # Back up against the wall, reset gyro angle
-        skip_backup = [1, 3, 4, 6, 7,10,11,12]
+        # If the mission launch doesn't have a wall behind it, then we don't backup
+        skip_backup = [1, 3, 4, 6, 7,10,11,12] 
         if selected not in skip_backup:
             robot.drive(-100, 0)
             time.sleep(0.25)
         gyro_stop()
         gyro.reset_angle(0)
+        # Set baseline acceleration values
         acceleration("distance", 37)
         acceleration("heading", 30)
+        #find which function needs to be run
         functions(selected)
         selected += 1
 
         if skip_truck and selected == 2:
             selected = 3
-        data['values'] = load_data()
-        if selected==1:
+        if selected==1: # spin motors so attachments clip on easier
             main_motor.run(-25)
         elif selected == 5:
             back_motor.run(25)

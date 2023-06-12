@@ -49,7 +49,7 @@ def advance_water():
     # Drives into the hydro electric dam triggering the attachment to drop one unit into the reservoir
     gyro_straight(distance=250, speed=450, t_prime=0.5)
     robot.drive(speed=300, turn_rate=0)
-    time.sleep(seconds=1)
+    time.sleep(1)
     gyro_stop()
 
     # Lowers the water units and positions them to be hanged
@@ -59,12 +59,12 @@ def advance_water():
 
     # Drives back a bit to hang the water units
     robot.drive(speed=-100, turn_rate=0)
-    time.sleep(seconds=1.5)
+    time.sleep(1.5)
 
     # Lifts the attachment back up and out of the way
-    main_motor.run_target(speed=400, time=360, then=Stop.HOLD, wait=False)
+    main_motor.run_target(speed=400, target_angle=360, then=Stop.HOLD, wait=False)
 
     # Drives home and grabs the energy unit with rubber bands
     robot.drive(speed=-400, turn_rate=0)
-    time.sleep(seconds=1.2)
+    time.sleep(1.2)
     robot.stop()
