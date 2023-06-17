@@ -117,7 +117,7 @@ def printscrn():
         )
         
     fmt = len("Gyro: {}".format(gyro.angle()))
-    tme = "Time: {}".format(data["time"])
+    tme = "Time: {:.0f}".format(data["time"])
     
     totals = fmt+len(tme)
     # comment out the next line if it doesn't work
