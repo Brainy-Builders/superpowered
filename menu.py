@@ -52,7 +52,7 @@ skip_truck = True # truck used to be a seperate mission with it's own function
 old_oil=False
 simple_water=False 
 
-data = {"time": 150, "started": False, "values": load_data()} # global_data for multithreading
+data = {"time": 150, "started": False, "values": load_data(),"start":time.time()} # global_data for multithreading
 mission_list = [ # list of all missions
     "collect",
     "oil supporter",
@@ -71,9 +71,9 @@ mission_list = [ # list of all missions
 
 def thread(): # Background loop
     while data["time"] >= 0:
-        data["time"] -= 1 # countdown from timer
+        
 
-        if data["time"] < 2.96 + 3: # 3 second warning for last mission
+        if data["time"] < 3 + 3: # 3 second warning for last mission
             ev3.light.on(Color.RED) # Urgent, hurry up for the last mission
         elif data["time"] > 50: 
             ev3.light.on(Color.GREEN)# Relax you've got time
@@ -85,7 +85,12 @@ def thread(): # Background loop
             ev3.light.off()
         else:
              time.sleep(1) # When it doesn't flash wait 1 second to not overload the thread
+        data["time"] = 150 - (time.time() - data["start"])
+        print(data["time"])
+
+
 sw = threading.Thread(target=thread) # create a refrence to the service worker
+
 ev3.screen.set_font(med_font) # Set font to be actually readable
 
 def printn(text, end="\n"):
@@ -132,6 +137,7 @@ def functions(x):
     print("SELECTED: ",selected)
     if not data["started"]:
         data["stated"] = True # Enable so we don't continously execute the thread
+        data["start"]  = time.time()
         sw.start() # start the service worker
     # each index corresponds to a mission
     if selected == 0:     # collect
