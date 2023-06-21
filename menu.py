@@ -42,7 +42,7 @@ import oil_supporter
 import faucet
 import power
 import collectit
-import epic_x
+import final_mission
 import toy_factory
 import gyropath
 import pidlinefollow
@@ -73,18 +73,14 @@ def thread(): # Background loop
     while data["time"] >= 0:
         
 
-        if data["time"] < 3 + 3: # 3 second warning for last mission
+        if data["time"] < 6: # 3 second warning for last mission
             ev3.light.on(Color.RED) # Urgent, hurry up for the last mission
         elif data["time"] > 50: 
             ev3.light.on(Color.GREEN)# Relax you've got time
         if data["time"] >= 6 and data["time"] <= 50:
             # I'd start to hurry up if I were you
-            time.sleep(.5) # Oooh it flashes on and off
-            ev3.light.on(Color.GREEN)
-            time.sleep(.5)
-            ev3.light.off()
-        else:
-             time.sleep(1) # When it doesn't flash wait 1 second to not overload the thread
+            ev3.light.on(Color.YELLOW)
+        time.sleep(1) # When it doesn't flash wait 1 second to not overload the thread
         data["time"] = 150 - (time.time() - data["start"])
         print(data["time"])
 
@@ -161,7 +157,7 @@ def functions(x):
     elif selected == 6:   # toy factory
         toy_factory.toy()
     elif selected == 7:   # black_x
-        epic_x.main()
+        final_mission.main()
     elif selected == 8:   # color viewer
         lib.view_color()
     elif selected == 9:   # color collect

@@ -84,9 +84,9 @@ def halftesla2_and_rechargable(): #I mean a hybrid car is half a tesla
     acceleration("distance", 50)
     forward_dist(speed=250 + 50, turn_rate=0, distance=120)
     back_motor.run_time(speed = 250, time = 900, wait=False) # up
-    forward_dist(250 - 50, 10, 60)
-    robot.drive(speed=800, turn_rate=40)
-    time.sleep(2)
+    forward_dist(250, 10, 60+200)
+    robot.drive(speed=800, turn_rate=30)
+    time.sleep(2-1)
     gyro_stop()
 
  # _____  ______ ____  _    _  _____     
