@@ -14,6 +14,8 @@ from line_a_line import *
 import threading
 import logging
 import random
+
+
 def cs_data(truth):
     i = 0
     cs_data = open(r"cs_data_trey", "w")
@@ -112,36 +114,52 @@ def dance():
     gyro_track()
 
 def coach():
-    fid = open("chloe.txt", "w")    
+    my_dist = 500
     robot.stop()
     robot.reset()
-    robot.settings(450,300,240,180)
-    print("before reset:", robot.angle(), "gyro.angle", gyro.angle())
-    gyro.reset_angle(0)
-    turn_stats = []
-    acceleration("heading", 25)
 
-    print("before starting:", robot.angle(), "gyro.angle", gyro.angle())
-
-    for _ in range(17):
-        turn_angle = 10*(1+_)
-        gyroturn(0, stop=True)
-        time.sleep(0.25)
-
-        start_time = time.time()
-        gyroturn(angle=turn_angle, rate_control=1.2, stop=True)
-        turn_time = time.time() - start_time
-        print("finished turn to", turn_angle, "gyro=", gyro.angle())
-
-        turn_stats.append((turn_angle, turn_time, gyro.angle()-turn_angle))
+    ev3.speaker.say("using drive")
+    for _ in range(5):
+        my_speed = 100*(1+_)
+        ev3.speaker.say("speed="+str(my_speed))
         ev3.speaker.beep()
         time.sleep(1)
-    for row in turn_stats:
-        for thing in row: 
-            print(thing,end=",", file=fid)
-        print("",file=fid)
-    fid.close()
-    ev3.speaker.beep()
+        forward_dist(speed=my_speed, turn_rate=0, distance=my_dist)
+        gyro_stop()
+        time.sleep(1)
+        forward_dist(speed=-my_speed, turn_rate=0, distance=-my_dist)
+        gyro_stop()
+
+    ev3.speaker.say("Using acceleration")
+    for _ in range(5):
+        my_speed = 100*(1+_)
+        ev3.speaker.say("speed="+str(my_speed))
+        ev3.speaker.beep()
+        time.sleep(1)
+        robot.stop()
+        robot.settings(straight_speed=my_speed,
+                       straight_acceleration=0.75*my_speed,
+                       turn_rate=240,
+                       turn_acceleration=180)
+        robot.straight(my_dist)
+        gyro_stop()
+        time.sleep(1)
+        robot.straight(-my_dist)
+        gyro_stop()
+
+    ev3.speaker.say("Using gyro")
+    for _ in range(5):
+        my_speed = 100*(1+_)
+        ev3.speaker.say("speed="+str(my_speed))
+        ev3.speaker.beep()
+        gyro.reset_angle(angle=0)
+        time.sleep(1)
+        gyro_straight(distance=my_dist, speed=my_speed, reset_angle=0, t_prime=1)
+        gyro_stop()
+        time.sleep(1)
+        gyro_straight(distance=my_dist, speed=-my_speed, reset_angle=0, t_prime=1)
+        gyro_stop()
+    
     return 0
     
 

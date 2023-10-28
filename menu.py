@@ -54,19 +54,19 @@ simple_water=False
 
 data = {"time": 150, "started": False, "values": load_data(),"start":time.time()} # global_data for multithreading
 mission_list = [ # list of all missions
-    "collect",
-    "oil supporter",
-    "truck",
-    "waterfall",
-    "power",
-    "tv flip",
-    "toy factory",
-    "black_x", 
-    "color viewer",
-    "color collect",
-    "acceleration",
-    "gyro path",
-    "self_test"
+    "collect",       #  0
+    "oil supporter", #  1
+    "truck",         #  2
+    "waterfall",     #  3
+    "power",         #  4
+    "tv flip",       #  5
+    "toy factory",   #  6
+    "black_x",       #  7
+    "color viewer",  #  8
+    "color collect", #  9
+    "coach",         # 10
+    "gyro path",     # 11
+    "self_test"      # 12
     ]
 
 def thread(): # Background loop
@@ -94,7 +94,7 @@ def printn(text, end="\n"):
         raise TypeError("more than nesecary")
     print(text, end=end)
 
-selected = 0
+selected = 10
 screen = ev3.screen
 if len(mission_list)%2 != 0:
     mission_list.append("NONE")
@@ -164,7 +164,11 @@ def functions(x):
         lib.cs_data("WHITE")
     elif selected == 10:  # xxx
         # gyropath.run() 
-        lib.gyrotimetest()
+        # lib.gyrotimetest()
+        ev3.speaker.say("new mission to help dynamic and pythonic droids")
+        ev3.screen.draw_image(x = 0, y = 0, source = "splash.png", transparent=None)
+        lib.coach()
+        ev3.speaker.say("good luck dynamic and pythonic droids!")
     elif selected == 11:  # xxx
         gyropath.run() 
     if selected == 12:
