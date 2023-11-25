@@ -165,9 +165,9 @@ def functions(x):
     elif selected == 10:  # xxx
         # gyropath.run() 
         # lib.gyrotimetest()
-        ev3.speaker.say("new mission to help dynamic and pythonic droids")
         ev3.screen.draw_image(x = 0, y = 0, source = "splash.png", transparent=None)
-        lib.coach()
+        lib.loopzioni()
+        # lib.coach()
         ev3.speaker.say("good luck dynamic and pythonic droids!")
     elif selected == 11:  # xxx
         gyropath.run() 

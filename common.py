@@ -33,8 +33,8 @@ big_font = Font(size=22, bold=True)
 ev3 = EV3Brick()
 # Configure settings for this robot
 left_wheel = Motor(Port.A)
-right_wheel = Motor(Port.D)
-main_motor = Motor(Port.C)
+right_wheel = Motor(Port.C)  # Was D
+main_motor = Motor(Port.D)   # Was C
 
 try:
     open("back")
@@ -61,7 +61,7 @@ def panic_alarm():
         ev3.speaker.beep(750)
         time.sleep(.2)
         
-up = Motor(Port.C)
+# up = Motor(Port.C)
 side = Motor(Port.A)
 try:
     left_colorsensor = ColorSensor(Port.S1)
@@ -78,10 +78,7 @@ inf = 5000
 BLACK = 6
 #WHITE = 76
 WHITE = 90
-main_motor = Motor(Port.C)
 def move_motor(speed, angle, mustWait=True):
-      main_motor = Motor(Port.C)
-    #   main_motor.reset_angle(0)
       main_motor.run_target(speed, int(main_motor.angle()) + angle, wait=mustWait)
 
 def reset_motor():

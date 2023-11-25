@@ -9,8 +9,8 @@ from pybricks.media.ev3dev import SoundFile, ImageFile, Font
 from gyroturno import *
 from gyrostraight import *
 from pidlinefollow import *
-from linefollow import *
 from line_a_line import *
+import linefollow
 import threading
 import logging
 import random
@@ -113,14 +113,79 @@ def dance():
     time.sleep(5)
     gyro_track()
 
+def first_goto_waterfall():
+    robot.drive(speed=150,turn_rate=0)
+    time.sleep(3)
+    gyro_stop()
+    ev3.speaker.say("mechanically aligned")
+    gyro.reset_angle(45)
+
+def second_follow_lines():
+    forward_distance(speed=-150, turn_rate=0, distance=-150)
+    gyroturno(0)
+    gyro_stop()
+    ev3.speaker.say("find the line")
+    while(get_color(left_colorsensor) != Color.BLACK):
+        robot.drive(100,0)
+    forward_distance(speed=100, turn_rate=0, distance=50)
+    gyro_stop()
+    ev3.speaker.say("put left color sensor on line")
+    while(get_color(left_colorsensor) != Color.BLACK):
+        robot.drive(0,30)
+    forward_distance(speed=-100, turn_rate=0, distance=-75)
+    gyro_stop()
+    ev3.speaker.say("follow line")
+    linefollow.line_follow(length=275, speed=100, sensor="left", side="left", Kp=0.5, Ki=0, Kd=0)
+    ev3.speaker.beep()
+    while(get_color(right_colorsensor) != Color.BLACK):
+        robot.drive(100,0)
+    gyro_stop()
+    gyroturno(90)
+    linefollow.line_follow(length=400, speed=100, sensor="left", side="left",  Kp=0.5, Ki=0, Kd=0)
+    ev3.speaker.beep()
+    while(get_color(right_colorsensor) != Color.WHITE):
+        robot.drive(100,0)
+    forward_distance(speed=100, turn_rate=0, distance=50)
+    gyroturno(180)
+
+    gyro_stop()
+
+def loopzioni():
+    # first_goto_waterfall()
+    # second_follow_lines()
+    ev3.speaker.say("Point me towards the waterfall")
+
+    # Line align
+    while( (get_color(left_colorsensor) != Color.BLACK) and (get_color(right_colorsensor) != Color.BLACK)):
+        right_wheel.run(-75)
+        left_wheel.run(-75)
+    gyro_stop()
+    while(get_color(left_colorsensor) != Color.BLACK):
+        left_wheel.run(-75)
+    gyro_stop()
+    while(get_color(right_colorsensor) != Color.BLACK):
+        right_wheel.run(-75)
+    gyro_stop()
+    forward_distance(speed=-100, turn_rate=0, distance=-25, t_prime=0.2)
+    my_count = 0
+    robot.drive(75)
+    while(my_count < 100):
+        print("r,", right_colorsensor.reflection(), "l", left_colorsensor.reflection())
+        my_count+=1
+    gyro_stop()
+
+
 def coach():
-    my_dist = 500
+    my_dist = 700
+    wheel_diameter = 87
+    my_rotations = my_dist / (3.14*wheel_diameter)
+    my_rotation_angle = my_rotations * 360
     robot.stop()
     robot.reset()
 
-    ev3.speaker.say("using drive")
-    for _ in range(5):
-        my_speed = 100*(1+_)
+    ev3.speaker.say("using drive, similar to wheel angle")
+    for _ in range(4):
+        my_speed = 100*(1+2*_)
         ev3.speaker.say("speed="+str(my_speed))
         ev3.speaker.beep()
         time.sleep(1)
@@ -130,9 +195,13 @@ def coach():
         forward_dist(speed=-my_speed, turn_rate=0, distance=-my_dist)
         gyro_stop()
 
-    ev3.speaker.say("Using acceleration")
-    for _ in range(5):
-        my_speed = 100*(1+_)
+    while(not Button.CENTER in ev3.buttons.pressed()):
+        robot.stop()
+    ev3.speaker.beep()        
+
+    ev3.speaker.say("Using acceleration to gradually start and stop")
+    for _ in range(4):
+        my_speed = 100*(1+2*_)
         ev3.speaker.say("speed="+str(my_speed))
         ev3.speaker.beep()
         time.sleep(1)
@@ -147,12 +216,17 @@ def coach():
         robot.straight(-my_dist)
         gyro_stop()
 
-    ev3.speaker.say("Using gyro")
-    for _ in range(5):
-        my_speed = 100*(1+_)
+    while(not Button.CENTER in ev3.buttons.pressed()):
+        robot.stop()
+    ev3.speaker.beep()        
+
+    ev3.speaker.say("Using gyro to go in the right direction")
+    gyro.reset_angle(angle=0)
+
+    for _ in range(4):
+        my_speed = 100*(1+2*_)
         ev3.speaker.say("speed="+str(my_speed))
         ev3.speaker.beep()
-        gyro.reset_angle(angle=0)
         time.sleep(1)
         gyro_straight(distance=my_dist, speed=my_speed, reset_angle=0, t_prime=1)
         gyro_stop()
@@ -161,7 +235,6 @@ def coach():
         gyro_stop()
     
     return 0
-    
 
 def acceltest():
     # acceleration("distance", )
