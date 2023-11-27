@@ -15,7 +15,6 @@ import threading
 import logging
 import random
 
-
 def cs_data(truth):
     i = 0
     cs_data = open(r"cs_data_trey", "w")
@@ -113,7 +112,7 @@ def dance():
     time.sleep(5)
     gyro_track()
 
-def first_goto_waterfall():
+def goto_waterfall():
     robot.drive(speed=150,turn_rate=0)
     time.sleep(3)
     gyro_stop()
@@ -121,59 +120,106 @@ def first_goto_waterfall():
     gyro.reset_angle(45)
 
 def second_follow_lines():
-    forward_distance(speed=-150, turn_rate=0, distance=-150)
+    robot.settings(straight_speed=150, straight_acceleration=100, turn_rate=180,  turn_acceleration=180)
+    robot.straight(-150)
     gyroturno(0)
     gyro_stop()
     ev3.speaker.say("find the line")
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(100,0)
-    forward_distance(speed=100, turn_rate=0, distance=50)
+    robot.straight(50)
     gyro_stop()
-    ev3.speaker.say("put left color sensor on line")
+    ev3.speaker.say("put left color sensor black")
     while(get_color(left_colorsensor) != Color.BLACK):
         robot.drive(0,30)
-    forward_distance(speed=-100, turn_rate=0, distance=-75)
+    robot.straight(-75)    
     gyro_stop()
     ev3.speaker.say("follow line")
-    linefollow.line_follow(length=275, speed=100, sensor="left", side="left", Kp=0.5, Ki=0, Kd=0)
+    linefollow.line_follow(length=250, speed=100, sensor="left", side="left", Kp=0.7, Ki=0, Kd=0)
+    gyro_stop()
+    ev3.speaker.say("put right colorsensor on black")
+    while(get_color(right_colorsensor) != Color.WHITE):
+        robot.drive(100,0)
     ev3.speaker.beep()
     while(get_color(right_colorsensor) != Color.BLACK):
         robot.drive(100,0)
     gyro_stop()
+    ev3.speaker.say("gyroturno")
     gyroturno(90)
-    linefollow.line_follow(length=400, speed=100, sensor="left", side="left",  Kp=0.5, Ki=0, Kd=0)
     ev3.speaker.beep()
+    # put left CS on white
+    while(left_colorsensor.reflection() < 70):
+        right_wheel.run(50)
+    gyro_stop()
+    ev3.speaker.say("follow the line")
+    linefollow.line_follow(length=420, speed=100, sensor="left", side="left", Kp=0.4, Ki=0, Kd=0)
+    gyro_stop()
+    ev3.speaker.say("find black then backup")
     while(get_color(right_colorsensor) != Color.WHITE):
-        robot.drive(100,0)
-    forward_distance(speed=100, turn_rate=0, distance=50)
+        robot.drive(50,0)
+    while(get_color(right_colorsensor) != Color.BLACK):
+        robot.drive(50,0)
+    robot.straight(-50)
+    gyro_stop()
     gyroturno(180)
-
     gyro_stop()
 
-def loopzioni():
-    # first_goto_waterfall()
-    # second_follow_lines()
-    ev3.speaker.say("Point me towards the waterfall")
-
-    # Line align
+def align_tricks():
+    # Rough line align
+    ev3.speaker.say("align to the line")
     while( (get_color(left_colorsensor) != Color.BLACK) and (get_color(right_colorsensor) != Color.BLACK)):
         right_wheel.run(-75)
         left_wheel.run(-75)
     gyro_stop()
-    while(get_color(left_colorsensor) != Color.BLACK):
+    forward_distance(speed=75, turn_rate=0, distance=25, t_prime=0.2)
+    gyro_stop()
+    while(left_colorsensor.reflection() > 15):
         left_wheel.run(-75)
     gyro_stop()
-    while(get_color(right_colorsensor) != Color.BLACK):
+    while(right_colorsensor.reflection() > 15):
         right_wheel.run(-75)
     gyro_stop()
-    forward_distance(speed=-100, turn_rate=0, distance=-25, t_prime=0.2)
-    my_count = 0
-    robot.drive(75)
-    while(my_count < 100):
-        print("r,", right_colorsensor.reflection(), "l", left_colorsensor.reflection())
-        my_count+=1
+    
+    # backup, forward to black
+    robot.straight(-25)
+    gyro_stop()
+    while(left_colorsensor.reflection() > 15):
+        left_wheel.run(50)
+    gyro_stop()
+    while(right_colorsensor.reflection() > 15):
+        right_wheel.run(50)
+
+    # forward, back  to black
+    robot.straight(25)
+    gyro_stop()
+    while(left_colorsensor.reflection() > 20):
+        left_wheel.run(-50)
+    gyro_stop()
+    while(right_colorsensor.reflection() > 20):
+        right_wheel.run(-50)
     gyro_stop()
 
+def drivebase_showoff():
+    ev3.speaker.say("go back using drivebase")
+    robot.settings(straight_speed=250, straight_acceleration=100, turn_rate=180,  turn_acceleration=180)
+    robot.straight(600)
+    robot.turn(90)
+    robot.straight(680-75)
+    robot.turn(135)
+
+def loopzioni():
+    ev3.speaker.say("Point me towards the waterfall")
+     
+    for _ in range(7):
+        goto_waterfall()
+        second_follow_lines()
+        align_tricks()
+        drivebase_showoff()
+        ev3.speaker.say(str(_+1))
+        ev3.speaker.say("loop done")
+        ev3.speaker.say("robot made by the Brainy Builders")
+        ev3.speaker.say("lets go again")
+    ev3.speaker.say("done!")
 
 def coach():
     my_dist = 700
